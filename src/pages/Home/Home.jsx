@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Categories from '../../components/categories/Categories';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         Home
       </Typography>
       <Button variant="outlined">Contained</Button>
+      <Categories />
     </div>
   )
 }

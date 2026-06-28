@@ -1,14 +1,11 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query';
+import axiosInstance from "../api/axiosInstance";
 import axios from 'axios';
 
 export default function UseCategories() {
   const getCategories = async () => {
-    const response = await axios.get(`${import.meta.env.VITE_BURL}/categories`, {
-      headers:{
-        "Accept-language": "en"
-      }
-    });
+    const response = await axiosInstance.get(`/categories`);
     return response.data;
   };
 

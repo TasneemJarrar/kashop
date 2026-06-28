@@ -19,7 +19,6 @@ export default function Categories() {
 
   return (
     <div>
-      {console.log(data.response.data)}
       {data.response.data.map((category) => {
         return(
           <Typography>

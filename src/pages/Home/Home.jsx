@@ -9,7 +9,6 @@ export default function Home() {
       <Typography variant="h1" component="h2">
         Home
       </Typography>
-      <Button variant="outlined">Contained</Button>
       <Categories />
     </div>
   )

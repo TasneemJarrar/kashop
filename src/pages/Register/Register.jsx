@@ -14,6 +14,7 @@ export default function Register() {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/register`, data);
       console.log(response.data);
+      setServerErrors({});
     } catch (error) {
       console.error('Error', error.response.data.errors);
       setServerErrors(error.response.data.errors);

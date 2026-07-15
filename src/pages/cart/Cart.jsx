@@ -10,6 +10,7 @@ export default function Cart() {
   const getItems = async () => {
     try {
       const response = await authAxiosInstance.get(`/Carts`);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }

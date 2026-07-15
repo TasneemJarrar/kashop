@@ -17,7 +17,7 @@ export default function Products() {
     <Typography variant="h4" component="h2">Products</Typography>
     <Grid container spacing={{ xs: 2, md: 3 }} sx={{ textAlign: 'center', justifyContent: 'center' }}>
       {data.response.data.map((product) => (
-        <Grid item size={{ xs: 12, sm: 6, md: 4 }}>
+        <Grid  size={{ xs: 12, sm: 6, md: 4 }}>
           <Link to={`/product/${product.id}`}>
             <Card className='product'>
               <CardMedia
@@ -30,6 +30,7 @@ export default function Products() {
               <CardContent>
                 <Typography variant="h6" component="h3">{product.name}</Typography>
               </CardContent>
+
 
 
             </Card>

@@ -12,8 +12,7 @@ export default function Products() {
   if (isError) {
     return <div>Error: {error.message}</div>
   }
-  console.log(data.response.data);
-
+ 
   return <Box className="products" components="section">
     <Typography variant="h4" component="h2">Products</Typography>
     <Grid container spacing={{ xs: 2, md: 3 }} sx={{ textAlign: 'center', justifyContent: 'center' }}>
@@ -23,7 +22,7 @@ export default function Products() {
             <Card className='product'>
               <CardMedia
                 component="img"
-                image={product.image}
+              image={product.image}
                 title={product.name}
                 sx={{ height: 200, objectFit: 'contain' }}
               />

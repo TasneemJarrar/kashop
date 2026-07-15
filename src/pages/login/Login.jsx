@@ -4,17 +4,21 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../validation/LoginSchema';
+import useAuthStore from '../../store/useAuthStore';
+import { useNavigate } from 'react-router';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [serverError, setServerError] = useState("");
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: yupResolver(loginSchema) });
+  const setToken = useAuthStore((state) => state.setToken);
 
   const LoginForm = async (data) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/login`, data);
-      console.log(response.data.accessToken);
-      localStorage.setItem('accessToken', response.data.accessToken);
+      setToken(response.data.accessToken);
       setServerError("");
+      navigate('/');
     } catch (error) {
       setServerError(error.response.data.message);
     }

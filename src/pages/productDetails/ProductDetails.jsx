@@ -11,7 +11,6 @@ export default function ProductDetails() {
   if (isLoading) { return <CircularProgress /> }
   if (isError) { return <div>Error: {error.message}</div> }
 
-  console.log(data);
   return (
     <Box>
       <Typography variant="h4" component="h2">{data.response.name}</Typography>

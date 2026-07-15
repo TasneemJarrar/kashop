@@ -5,45 +5,47 @@ import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, Tab
 
 export default function Cart() {
 
-  const { data, isLoading, isError, error} = useCart();
+  const { data, isLoading, isError, error } = useCart();
   const token = useAuthStore((state) => state.token);
 
   console.log('data', data);
-  if(isLoading) { return <CircularProgress /> }
-  if(isError) { return <Box color='red'>Error: {error.message}</Box> }
+  if (isLoading) { return <CircularProgress /> }
+  if (isError) { return <Box color='red'>Error: {error.message}</Box> }
 
   return <>
-  <Box component="section">
+    <Box component="section">
 
-  <Typography component="h2" variant="h4">Cart</Typography>
-  <TableContainer>
-    <Table>
-      <TableHead>
-        <TableCell>Product</TableCell>
-        <TableCell>Price</TableCell>
-        <TableCell>Quantity</TableCell>
-        <TableCell>Total</TableCell>
-        <TableCell>Action</TableCell>
-      </TableHead>
+      <Typography component="h2" variant="h4">Cart</Typography>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Quantity</TableCell>
+              <TableCell>Total</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
 
-    <TableBody>
+          <TableBody>
 
-    {data.items.map((item) => (
-    <TableRow key={item.productId}>
-      <TableCell>{item.productName}</TableCell>
-      <TableCell>{item.price}$</TableCell>
-      <TableCell>{item.count}</TableCell>
-      <TableCell>{item.totalPrice}$</TableCell>
-    </TableRow>
-    ))}
+            {data.items.map((item) => (
+              <TableRow key={item.productId}>
+                <TableCell>{item.productName}</TableCell>
+                <TableCell>{item.price}$</TableCell>
+                <TableCell>{item.count}</TableCell>
+                <TableCell>{item.totalPrice}$</TableCell>
+              </TableRow>
+            ))}
 
-    </TableBody>
-    
-    </Table>
+          </TableBody>
 
-  </TableContainer>
-    
-  </Box>
+        </Table>
+
+      </TableContainer>
+
+    </Box>
   </>
-  
+
 }

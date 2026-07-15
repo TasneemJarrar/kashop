@@ -16,24 +16,25 @@ export default function Products() {
 
   return <Box className="products" components="section">
     <Typography variant="h4" component="h2">Products</Typography>
-    <Grid container spacing={{ xs: 2, md: 3 }} sx={{textAlign: 'center', justifyContent: 'center'}}>
+    <Grid container spacing={{ xs: 2, md: 3 }} sx={{ textAlign: 'center', justifyContent: 'center' }}>
       {data.response.data.map((product) => (
         <Grid item size={{ xs: 12, sm: 6, md: 4 }}>
-          <Card className='product'>
-            <CardMedia
-              component="img"
-              image={product.image}
-              title={product.name}
-            />
+          <Link to={`/product/${product.id}`}>
+            <Card className='product'>
+              <CardMedia
+                component="img"
+                image={product.image}
+                title={product.name}
+                sx={{ height: 200, objectFit: 'contain' }}
+              />
 
-            <CardContent>
-              <Typography variant="h6" component="h3">{product.name}</Typography>
-            </CardContent>
+              <CardContent>
+                <Typography variant="h6" component="h3">{product.name}</Typography>
+              </CardContent>
 
-            <Link to={`/product/${product.id}`}>
-              <Button size="small">Details</Button>
-            </Link>
-          </Card>
+
+            </Card>
+          </Link>
         </Grid>
       ))}
     </Grid>

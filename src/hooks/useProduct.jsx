@@ -9,7 +9,7 @@ export default function useProduct(id) {
     return response.data;
   }
   const query = useQuery({
-    queryKey: ['product'],
+    queryKey: ['product', 'en', id],
     queryFn: getProduct,
     staleTime: 1000 * 60 * 5,
   })

@@ -8,7 +8,6 @@ export default function ProductDetails() {
   const {mutate: addToCart} = useAddToCart();
   const {id} = useParams();
   const { data, isLoading, isError, error } = useProduct(id);
-  console.log(data);
 
   if (isLoading) { return <CircularProgress /> }
   if (isError) { return <div>Error: {error.message}</div> }
@@ -20,6 +19,6 @@ export default function ProductDetails() {
       <Button onClick={() => {addToCart({ productId: data.response.id, count: 1 })}}>
         Add to Cart
       </Button>
-    </Box>
+    </Box> 
   )
 }

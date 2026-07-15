@@ -1,9 +1,14 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import authAxiosInstance from '../../api/authAxiosInstance';
+import useCounterStore from '../../store/useCounterStore';
 
 
 export default function Cart() {
+
+  const counter= useCounterStore( (state) => state.counter);
+  const Increment= useCounterStore( (state) => state.Increment);
+
   const getItems = async () => {
     try {
       const response = await authAxiosInstance.get(`/Carts`);
@@ -15,7 +20,9 @@ export default function Cart() {
   useEffect(() => {
     getItems();
   }, [])
-  return (
-    <div>Cart</div>
-  )
+  return <>
+    <button onClick={Increment}>+</button>
+    <div>Cart - {counter}</div>
+  </>
+  
 }

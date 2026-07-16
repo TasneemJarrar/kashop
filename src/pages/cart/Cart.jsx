@@ -6,10 +6,12 @@ import useUpdateCartItem from '../../hooks/useUpdateCartItem';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import useClearCart from '../../hooks/useClearCart';
 
 export default function Cart() {
   const {mutate:RemoveItem, isPending} = useDeleteFromCart();
   const {mutate:UpdateItem, isPending: updateItemPending} = useUpdateCartItem();
+  const {mutate:clearCart} = useClearCart();
 
   const { data, isLoading, isError, error } = useCart();
   const token = useAuthStore((state) => state.token);
@@ -81,6 +83,10 @@ export default function Cart() {
         </Table>
 
       </TableContainer>
+
+      <Box>
+        <Button variant="outlined"  color='secondary' onClick={clearCart}>Clear Cart</Button>
+      </Box>
 
     </Box>
   </>

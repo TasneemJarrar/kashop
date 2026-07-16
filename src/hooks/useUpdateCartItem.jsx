@@ -8,7 +8,7 @@ export default function useUpdateCartItem() {
     mutationFn: async({productId,count})=>
       await authAxiosInstance.patch(`Carts/${productId}`, {count}),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart', 'en'] });
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
     }
 
   })

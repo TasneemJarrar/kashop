@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../validation/LoginSchema';
 import useAuthStore from '../../store/useAuthStore';
 import { useNavigate } from 'react-router';
+import authAxiosInstance from '../../api/authAxiosInstance';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function Login() {
 
   const LoginForm = async (data) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/login`, data);
+      const response = await authAxiosInstance.post(`/auth/Account/login`, data);
       setToken(response.data.accessToken);
       setServerError("");
       navigate('/');

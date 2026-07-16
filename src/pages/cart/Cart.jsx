@@ -1,9 +1,11 @@
 import useAuthStore from '../../store/useAuthStore';
 import useCart from '../../hooks/useCart';
-import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import useDeleteFromCart from '../../hooks/useRemoveFromCart';
 
 
 export default function Cart() {
+  const {mutate:RemoveItem, isPending} = useDeleteFromCart();
 
   const { data, isLoading, isError, error } = useCart();
   const token = useAuthStore((state) => state.token);
@@ -36,6 +38,13 @@ export default function Cart() {
                 <TableCell>{item.price}$</TableCell>
                 <TableCell>{item.count}</TableCell>
                 <TableCell>{item.totalPrice}$</TableCell>
+                <TableCell>
+                  <Button variant="contained" color="error" 
+                  disabled={isPending}
+                  onClick={()=> RemoveItem(item.productId )} >
+                    Remove
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
 

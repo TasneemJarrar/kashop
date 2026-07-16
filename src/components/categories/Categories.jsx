@@ -19,7 +19,7 @@ export default function Categories() {
 
   return (
     <div>
-      {data.response.data.map((category) => {
+      {data?.response?.data?.map((category) => {
         return(
           <Typography>
             {category.name}

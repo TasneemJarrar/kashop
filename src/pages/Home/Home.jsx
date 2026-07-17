@@ -7,9 +7,6 @@ import Products from '../../components/products/Products';
 export default function Home() {
   return (
     <div>
-      <Typography variant="h1" component="h2">
-        Home
-      </Typography>
       <Categories />
       <Products />
     </div>

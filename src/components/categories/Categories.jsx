@@ -21,13 +21,13 @@ export default function Categories() {
   }
 
   return (
-    <Container sx={{paddingTop:5}}>
+    <Container>
       <Box>
         <Typography variant='h2' sx={{ mb: 2 }}>{t('Categories')}</Typography>
         <Box sx={{ display: 'flex', gap: 2, flexGrow: 1 }}>
           {data?.response?.data?.map((category) => {
             return (
-              <Button key={category.id} variant="text" sx={{ padding: 4, display: "flex", justifyContent: "center", alignItems: "center",boxShadow:3 }}>
+              <Button key={category.id} variant="text" sx={{  display: "flex", justifyContent: "center", alignItems: "center",boxShadow:3 }}>
                 {category.name}
               </Button>
             )

@@ -18,7 +18,11 @@ i18n
           Cart: "Cart",
           Categories: "Categories",
           Logout:"Logout",
-          Products: "Products"
+          Products: "Products",
+          Shop: "Shop",
+          Contact_Us: "Contact Us",
+          About:"About",
+          Edit_Profile:"Edit Profile"
         },
       },
       ar: {
@@ -29,7 +33,11 @@ i18n
           Cart: "السلة",
           Categories: "التصنيفات",
           Logout: 'تسجيل الخروج',
-          Products:"المنتجات"
+          Products:"المنتجات",
+          Shop: "تسوق",
+          Contact_Us: "تواصل معنا",
+          About:"عنّا",
+          Edit_Profile:"تعديل الملف الشخصي"
         },
       },
     },

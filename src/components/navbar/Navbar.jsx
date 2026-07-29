@@ -5,8 +5,7 @@ import useCart from '../../hooks/useCart';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Badge, { badgeClasses } from '@mui/material/Badge';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'; import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'; import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -14,11 +13,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useTranslation } from 'react-i18next';
 import Link from "@mui/material/Link";
 import i18n from '../../i18next';
-import { Avatar, Container, Grid } from '@mui/material';
+import { AppBar, Avatar, Container, Grid } from '@mui/material';
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useActionState, useState } from 'react';
+import { useState } from 'react';
 import useThemeStore from '../../hooks/useThemeStore';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LanguageIcon from '@mui/icons-material/Language';
+
+
 
 export default function Navbar() {
   const { data } = useCart();
@@ -28,10 +32,20 @@ export default function Navbar() {
 
 
   const { t } = useTranslation();
-  const changeLanguage = () => {
-    const newLng = i18n.language == "ar" ? "en" : "ar";
-    i18n.changeLanguage(newLng);
-  }
+  const [anchorElLang, setAnchorElLang] = useState(null);
+  const handleOpenLangMenu = (event) => {
+    setAnchorElLang(event.currentTarget);
+  };
+
+  const handleCloseLangMenu = () => {
+    setAnchorElLang(null);
+  };
+
+  const handleChangeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    handleCloseLangMenu();
+  };
+
 
   const { mode, toggleMode } = useThemeStore();
 
@@ -49,7 +63,7 @@ export default function Navbar() {
   }
 `;
 
-  const [anchorElNav, setAnchorElNav] = useActionState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -69,7 +83,20 @@ export default function Navbar() {
     setAnchorElUser(null);
   };
 
+  const navbarIconStyles = {
+    minWidth: 0,
+    borderRadius: 2,
+    transition: "all 0.25s ease",
 
+    "&:hover": {
+      bgcolor: "action.hover",
+      transform: "translateY(-2px)",
+    },
+
+    "&:active": {
+      transform: "translateY(0)",
+    },
+  };
 
   return <>
     <Box sx={{ flexGrow: 1 }}>
@@ -83,19 +110,15 @@ export default function Navbar() {
             <Grid container spacing={1} sx={{ display: 'flex', flexGrow: 1 }}>
 
               <Grid size={{ xs: 6, md: 4 }} sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  color="inherit"
-                  onClick={handleOpenNavMenu}
-                  sx={{ display: { xs: 'flex', md: 'none' } }}>
+                <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" 
+                  color="inherit" onClick={handleOpenNavMenu} sx={{ display: { xs: 'flex', md: 'none' } }}>
                   <MenuIcon />
                 </IconButton>
-                <Menu anchorElNav={anchorElNav}
+                <Menu
+                  anchorEl={anchorElNav}
                   open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}>
+                  onClose={handleCloseNavMenu}
+                >
                   <MenuItem component={NavLink}
                     to="/"
                     onClick={handleCloseNavMenu}>
@@ -137,26 +160,37 @@ export default function Navbar() {
                 {token ?
                   <>
                     <Link component={NavLink} color="inherit" underline='none' to="/cart">
-                      <IconButton aria-label={`View cart with ${cartCount} items`} color="inherit">
-                        <ShoppingBagOutlinedIcon color="inherit" fontSize="medium" />
+                      <IconButton aria-label={`View cart with ${cartCount} items`}
+                        sx={navbarIconStyles}
+                        color="inherit">
+                        <ShoppingCartOutlinedIcon color="inherit" fontSize="medium" />
                         <CartBadge badgeContent={cartCount} color="primary" overlap="circular" />
                       </IconButton>
                     </Link>
-                    <Button variant='text' color='inherit' sx={{ minWidth: 0 }} onClick={toggleMode}>
-                      {mode === 'light' ? 'dark' : 'light'}
+
+                    <Button variant='text' color='inherit'
+                      sx={navbarIconStyles}
+                      onClick={toggleMode}>
+                      {mode === 'light' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
                     </Button>
 
-                    <Button variant='text' color='inherit' sx={{ minWidth: 0 }} onClick={changeLanguage}>
-                      {i18n.language === 'ar' ? 'EN' : 'AR'}
-                    </Button>
+                    <IconButton color="inherit" sx={navbarIconStyles} onClick={handleOpenLangMenu}>
+                      <LanguageIcon />
+                    </IconButton>
+                    <Menu anchorEl={anchorElLang} open={Boolean(anchorElLang)} onClose={handleCloseLangMenu}
+                      slotProps={{ paper: { sx: { mt: 1, borderRadius: 2, minWidth: 160 } } }}>
+                      <MenuItem selected={i18n.language === "en"} onClick={() => handleChangeLanguage("en")}>
+                        English
+                      </MenuItem>
+                      <MenuItem selected={i18n.language === "ar"} onClick={() => handleChangeLanguage("ar")} >
+                        العربية
+                      </MenuItem>
+                    </Menu>
 
                     <Button color="inherit" underline='none' onClick={handleOpenUserMenu}>
                       <Avatar sx={{ width: 32, height: 32 }} />
                     </Button>
-                    <Menu
-                      sx={{ mt: '45px' }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
+                    <Menu sx={{ mt: '45px' }} id="menu-appbar" anchorEl={anchorElUser}
                       anchorOrigin={{
                         vertical: 'top',
                         horizontal: 'right',
@@ -166,9 +200,7 @@ export default function Navbar() {
                         vertical: 'top',
                         horizontal: 'right',
                       }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
+                      open={Boolean(anchorElUser)} onClose={handleCloseUserMenu}>
                       <MenuItem onClick={handleCloseUserMenu}>
                         <Link to="/login" color="inherit" underline='none' component="button" onClick={handleLogout}>
                           {t('Logout')}
@@ -184,9 +216,20 @@ export default function Navbar() {
                     </Menu>
                   </> :
                   <>
-                    <Button variant='text' color='inherit' onClick={changeLanguage}>
-                      {i18n.language === 'ar' ? 'EN' : 'AR'}
-                    </Button>
+                    <IconButton color="inherit" sx={navbarIconStyles} onClick={handleOpenLangMenu}>
+                      <LanguageIcon />
+                    </IconButton>
+                    <Menu anchorEl={anchorElLang} open={Boolean(anchorElLang)} onClose={handleCloseLangMenu}
+                      slotProps={{ paper: { sx: { mt: 1, borderRadius: 2, minWidth: 160 } } }}>
+                      <MenuItem selected={i18n.language === "en"} onClick={() => handleChangeLanguage("en")}>
+                        English
+                      </MenuItem>
+
+                      <MenuItem selected={i18n.language === "ar"} onClick={() => handleChangeLanguage("ar")} >
+                        العربية
+                      </MenuItem>
+                    </Menu>
+
                     <Link component={NavLink} color="inherit" underline='none' to="/login">{t('Login')}</Link>
                     <Link component={NavLink} color="inherit" underline='none' to="/register">{t('Register')}</Link>
                   </>
@@ -197,7 +240,7 @@ export default function Navbar() {
           </Toolbar>
         </Container>
       </AppBar>
-    </Box>
+    </Box >
 
   </>
 }

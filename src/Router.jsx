@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";import Home from "./pages/Home/Home";
 import Cart from "./pages/cart/Cart";
 import Login from "./pages/login/Login";
 import Register from "./pages/Register/Register";
@@ -11,6 +10,7 @@ import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import Profile from "./pages/profile/Profile";
 import Checkout from "./pages/checkout/Checkout";
+import Home from "./pages/Home/Home";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
          index: true,
-          element: <Home/>
+          element: <Home />
       },
       {
         path: "product/:id",
@@ -57,11 +57,11 @@ const router = createBrowserRouter([
       {
         path: "shop",
         element: <Shop />  
-      },,
+      },
       {
         path: "about",
         element: <About />  
-      },,
+      },
       {
         path: "contact",
         element: <Contact />  

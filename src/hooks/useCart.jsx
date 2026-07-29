@@ -1,4 +1,3 @@
-import React from 'react'
 import authAxiosInstance from '../api/authAxiosInstance';
 import { useQuery } from '@tanstack/react-query';
 

@@ -68,6 +68,7 @@ export default function Cart() {
             {t('Shopping_Bag')}
           </Typography>
         </Stack>
+        
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 8 }}>
             {data?.items?.map((item) => (

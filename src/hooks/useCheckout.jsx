@@ -1,0 +1,18 @@
+import { useMutation } from "@tanstack/react-query"
+import authAxiosInstance from "../api/authAxiosInstance";
+
+export default function useCheckout() {
+
+  return useMutation({
+    mutationFn: async ({ paymentMethod }) => {
+      console.log(paymentMethod)
+      return await authAxiosInstance.post('Checkouts', { paymentMethod })
+    }, onSuccess: (response) => {
+      if (response?.data?.url) {
+        location.href= response.data.url;
+
+      }
+
+    }
+  })
+}

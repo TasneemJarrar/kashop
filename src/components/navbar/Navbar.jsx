@@ -85,14 +85,17 @@ export default function Navbar() {
 
   const navbarIconStyles = {
     minWidth: 0,
-    borderRadius: 2,
     transition: "all 0.25s ease",
+    borderRadius: 1,
 
     "&:hover": {
-      bgcolor: "action.hover",
-      transform: "translateY(-2px)",
+      "& svg": {
+        transform: "scale(1.1)",
+      },
     },
-
+    "& svg": {
+      transition: "transform .2s ease",
+    },
     "&:active": {
       transform: "translateY(0)",
     },
@@ -102,16 +105,16 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static"
         sx={(theme) => ({
-          bgcolor: theme.palette.custom.navbar,
-          color: theme.palette.custom.navcolor
+          bgcolor: theme.palette.custom.navbar.background,
+          color: theme.palette.custom.navbar.text,
         })}>
         <Container maxWidth="lg">
           <Toolbar disableGutters>
             <Grid container spacing={1} sx={{ display: 'flex', flexGrow: 1 }}>
 
               <Grid size={{ xs: 6, md: 4 }} sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" 
-                  color="inherit" onClick={handleOpenNavMenu} sx={{ display: { xs: 'flex', md: 'none' } }}>
+                <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true"
+                  color="inherit" onClick={handleOpenNavMenu} sx={{ display: { xs: 'flex', md: 'none' }, ...navbarIconStyles}}>
                   <MenuIcon />
                 </IconButton>
                 <Menu
@@ -178,7 +181,7 @@ export default function Navbar() {
                       <LanguageIcon />
                     </IconButton>
                     <Menu anchorEl={anchorElLang} open={Boolean(anchorElLang)} onClose={handleCloseLangMenu}
-                      slotProps={{ paper: { sx: { mt: 1, borderRadius: 2, minWidth: 160 } } }}>
+                      slotProps={{ paper: { sx: { mt: 1, minWidth: 160 } } }}>
                       <MenuItem selected={i18n.language === "en"} onClick={() => handleChangeLanguage("en")}>
                         English
                       </MenuItem>
@@ -220,7 +223,7 @@ export default function Navbar() {
                       <LanguageIcon />
                     </IconButton>
                     <Menu anchorEl={anchorElLang} open={Boolean(anchorElLang)} onClose={handleCloseLangMenu}
-                      slotProps={{ paper: { sx: { mt: 1, borderRadius: 2, minWidth: 160 } } }}>
+                      slotProps={{ paper: { sx: { mt: 1, minWidth: 160 } } }}>
                       <MenuItem selected={i18n.language === "en"} onClick={() => handleChangeLanguage("en")}>
                         English
                       </MenuItem>

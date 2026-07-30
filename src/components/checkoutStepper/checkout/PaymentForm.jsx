@@ -31,7 +31,7 @@ export default function PaymentForm({ onBack }) {
       <Button variant="contained" disabled={isPending} onClick={() => checkout({ paymentMethod })}>
         Pay
       </Button>
-      <Button variant="contained" onClick={() => onBack}>
+      <Button variant="contained" onClick={onBack}>
         back to review
       </Button>
 

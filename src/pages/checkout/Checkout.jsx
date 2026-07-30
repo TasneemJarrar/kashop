@@ -84,7 +84,6 @@ export default function Checkout() {
                     mb: 2,
                     border: "1px solid",
                     borderColor: "divider",
-                    borderRadius: 3,
                   }}
                 >
                   <CardContent sx={{ p: "0 !important" }}>

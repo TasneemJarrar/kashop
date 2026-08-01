@@ -155,7 +155,7 @@ export default function Cart() {
                         <Stack
                           direction="row"
                           spacing={1}
-                          sx={{ alignItems: "center", width: "fit-content", border: "1px solid #CBC4D2", borderRadius: 10, px: 1, py: 0.5 }}>
+                          sx={{ alignItems: "center", width: "fit-content",justifyContent: "between", border: "1px solid #CBC4D2", borderRadius: 10, px: 1, py: 0.5 }}>
 
                           <IconButton
                             size="small"

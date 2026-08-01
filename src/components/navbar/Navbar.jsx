@@ -31,7 +31,6 @@ const CartBadge = styled(Badge)`
   }
 `;
 
-// Pill container that groups action icons together instead of floating loose
 const ActionCluster = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -223,9 +222,16 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <IconButton sx={{ ...navbarIconStyles, display: { xs: 'none', md: 'inline-flex' } }} onClick={handleOpenLangMenu} color="inherit">
-                    <LanguageIcon fontSize="small" />
-                  </IconButton>
+                  <ActionCluster sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <IconButton sx={navbarIconStyles} onClick={toggleMode} color="inherit">
+                      {mode === 'light' ? <DarkModeOutlinedIcon fontSize="small" /> : <LightModeOutlinedIcon fontSize="small" />}
+                    </IconButton>
+                    <Divider orientation="vertical" flexItem sx={{ my: 0.75 }} />
+                    <IconButton sx={navbarIconStyles} onClick={handleOpenLangMenu} color="inherit">
+                      <LanguageIcon fontSize="small" />
+                    </IconButton>
+                  </ActionCluster>
+
                   <Menu anchorEl={anchorElLang} open={Boolean(anchorElLang)} onClose={handleCloseLangMenu}
                     slotProps={{ paper: { sx: { mt: 1, minWidth: 160, borderRadius: 2 } } }}>
                     <MenuItem selected={i18n.language === 'en'} onClick={() => handleChangeLanguage('en')}>English</MenuItem>

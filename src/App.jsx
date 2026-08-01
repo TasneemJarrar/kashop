@@ -11,6 +11,7 @@ import { CssBaseline } from '@mui/material'
 import useThemeStore from './hooks/useThemeStore'
 
 
+const queryClient = new QueryClient();
 
 export default function App() {
 
@@ -23,11 +24,9 @@ export default function App() {
   },
     [i18n.language]);
 
-     const mode =  useThemeStore((state)=> state.mode);
+  const mode = useThemeStore((state) => state.mode);
 
-
-  const queryClient = new QueryClient();
-  return ( 
+  return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={getTheme(mode, i18n.language)}>
         <CssBaseline />

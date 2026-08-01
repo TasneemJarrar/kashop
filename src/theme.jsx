@@ -7,6 +7,7 @@ const getTheme = (mode, language) => {
   const isArabic = language === "ar";
 
   return createTheme({
+    direction: isArabic ? 'rtl' : 'ltr',
     palette:
     {
       mode: mode,

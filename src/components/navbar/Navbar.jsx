@@ -198,8 +198,7 @@ export default function Navbar() {
                     onClick={handleOpenUserMenu}
                     sx={{ borderRadius: 4, px: 0.5, py: 0.5, minWidth: 0, textTransform: 'none' }}
                     color="inherit"
-                    endIcon={<KeyboardArrowDownIcon sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />}
-                  >
+                    endIcon={<KeyboardArrowDownIcon sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />}>
                     <Avatar sx={{ width: 32, height: 32 }} />
                   </Button>
 
@@ -212,11 +211,16 @@ export default function Navbar() {
                     onClose={handleCloseUserMenu}
                     slotProps={{ paper: { sx: { borderRadius: 2, minWidth: 180 } } }}
                   >
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Link to="/profile" color="inherit" underline="none" component={NavLink}>{t('Edit_Profile')}</Link>
+                    <MenuItem component={NavLink} to="/profile" onClick={handleCloseUserMenu}>
+                      {t('Edit_Profile')}
                     </MenuItem>
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Link color="inherit" underline="none" component="button" onClick={handleLogout}>{t('Logout')}</Link>
+
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseUserMenu();
+                        handleLogout();
+                        }}>
+                      {t('Logout')}
                     </MenuItem>
                   </Menu>
                 </>

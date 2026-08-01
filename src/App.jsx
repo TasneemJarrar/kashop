@@ -29,7 +29,7 @@ export default function App() {
   const queryClient = new QueryClient();
   return ( 
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={getTheme(mode)}>
+      <ThemeProvider theme={getTheme(mode, i18n.language)}>
         <CssBaseline />
         <ReactQueryDevtools initialIsOpen={false} />
         <RouterProvider router={router} />

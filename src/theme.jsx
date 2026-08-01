@@ -1,9 +1,10 @@
 import { createTheme } from '@mui/material/styles';
-import heroLight from "./assets/heroLight.webp";
-import heroDark from "./assets/heroDark.webp";
+import heroLight from "./assets/heroLight.png";
+import heroDark from "./assets/heroDark.png";
 
-const getTheme = (mode) => {
+const getTheme = (mode, language) => {
   const isLight = mode === "light";
+  const isArabic = language === "ar";
 
   return createTheme({
     palette:
@@ -22,8 +23,8 @@ const getTheme = (mode) => {
         hero: {
           image: isLight ? heroLight : heroDark,
           overlay: isLight
-            ? "rgba(255,255,255,0.55)"
-            : "rgba(0,0,0,0.45)",
+            ? "linear-gradient(90deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0) 75%)"
+            : "linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 75%)",
         },
       },
       primary: {
@@ -104,7 +105,9 @@ const getTheme = (mode) => {
       },
     },
     typography: {
-      fontFamily: "'Inter', sans-serif",
+      fontFamily: isArabic
+        ? "'Almarai', 'Nunito', sans-serif"
+        : "'Nunito', 'Almarai', sans-serif",
     },
     shape: {
       borderRadius: 12,

@@ -14,7 +14,7 @@ export default function Products() {
   }
 
   return <Container sx={{paddingTop:5}}>
-    <Box className="products" components="section">
+    <Box id="featured" components="section">
       <Typography variant="h2" sx={{mb:2}}>{t('Products')}</Typography>
       <Grid container spacing={{ xs: 2, md: 3 }} sx={{ textAlign: 'center', justifyContent: 'center' }}>
         

@@ -2,7 +2,6 @@ import { Outlet, useLocation } from "react-router";
 import MinimalNavbar from "../../components/navbar/MinimalNavbar";
 
 const TITLE_KEYS = {
-  "/cart":     { titleKey: "Shopping_Bag", closeTo: "/" },
   "/checkout": { titleKey: "Checkout",     closeTo: "/cart" },
 };
 

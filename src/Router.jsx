@@ -34,16 +34,23 @@ const router = createBrowserRouter([
           <ProtectedRouter>
             <Profile />
           </ProtectedRouter>,
-          children:[
-            {
-              index:true,
-              element: <ProfileInfo />
-            },
-            {
-              path:'orders',
-              element: <ProfileOrders />
-            },
-          ],
+        children: [
+          {
+            index: true,
+            element: <ProfileInfo />
+          },
+          {
+            path: 'orders',
+            element: <ProfileOrders />
+          },
+        ],
+      },
+      {
+        path: "cart",
+        element:
+          <ProtectedRouter>
+            <Cart />
+          </ProtectedRouter>
       },
       {
         path: "login",
@@ -65,20 +72,13 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact />
       },
-      
+
     ]
   },
   {
-      path: "/",
+    path: "/",
     element: <MinimalLayout />,
     children: [
-      {
-        path: "cart",
-        element:
-          <ProtectedRouter>
-            <Cart />
-          </ProtectedRouter>
-      },
       {
         path: "checkout",
         element:

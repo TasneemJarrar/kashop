@@ -37,6 +37,7 @@ i18n
           Grand_Total: "Grand Total",
           Including_VAT: "Including VAT",
           Secure_Encrypted_Checkout: "Secure Encrypted Checkout",
+          Shipping_and_discounts_calculated_at_checkout: "Shipping and discounts calculated at checkout"
 
 
         },
@@ -70,6 +71,7 @@ i18n
           Grand_Total: "الإجمالي الكلي",
           Including_VAT: "شامل ضريبة القيمة المضافة",
           Secure_Encrypted_Checkout: "إتمام الدفع الآمن والمشفّر",
+          Shipping_and_discounts_calculated_at_checkout: "الشحن والخصومات تتم حسابها عند إتمام الشراء"
 
 
 

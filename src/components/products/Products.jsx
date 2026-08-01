@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
-import axiosInstance from '../../api/axiosInstance';
 import useProducts from '../../hooks/useProducts';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Container, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, CircularProgress, Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -22,7 +20,7 @@ export default function Products() {
         
         {data?.response?.data?.map((product) => (
           <Grid size={{ xs: 12, sm: 6, md: 4 }} key={product.id}>
-            <Link to={`/product/${product.id}`}>
+            <Link to={`/product/${product.id}`} style={{ textDecoration: 'none' }}>
               <Card className='product'>
                 <CardMedia
                   component="img"

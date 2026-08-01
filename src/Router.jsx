@@ -13,6 +13,7 @@ import Checkout from "./pages/checkout/Checkout";
 import Home from "./pages/Home/Home";
 import ProfileInfo from "./components/profile/ProfileInfo";
 import ProfileOrders from "./components/profile/ProfileOrders";
+import MinimalLayout from "./layouts/minimalLayout/MinimalLayout";
 
 const router = createBrowserRouter([
   {
@@ -26,13 +27,6 @@ const router = createBrowserRouter([
       {
         path: "product/:id",
         element: <ProductDetails />
-      },
-      {
-        path: "cart",
-        element:
-          <ProtectedRouter>
-            <Cart />
-          </ProtectedRouter>
       },
       {
         path: "profile",
@@ -50,13 +44,6 @@ const router = createBrowserRouter([
               element: <ProfileOrders />
             },
           ],
-      },
-      {
-        path: "checkout",
-        element:
-          <ProtectedRouter>
-            <Checkout />
-          </ProtectedRouter>
       },
       {
         path: "login",
@@ -78,9 +65,29 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact />
       },
-
+      
     ]
   },
+  {
+      path: "/",
+    element: <MinimalLayout />,
+    children: [
+      {
+        path: "cart",
+        element:
+          <ProtectedRouter>
+            <Cart />
+          </ProtectedRouter>
+      },
+      {
+        path: "checkout",
+        element:
+          <ProtectedRouter>
+            <Checkout />
+          </ProtectedRouter>
+      },
+    ]
+  }
 ]);
 
 export default router;

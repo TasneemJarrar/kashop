@@ -1,8 +1,7 @@
 import useCart from "../../hooks/useCart";
-import {Box, Button, Card, CardContent, CircularProgress, Container, Grid, Stack, Typography,} from "@mui/material";
+import {Box, Card, CardContent, CircularProgress, Container, Grid, Stack, Typography,} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { useState } from "react";
 import CheckoutStepper from "../../components/checkoutStepper/CheckoutStepper";
 import PaymentForm from "../../components/checkoutStepper/checkout/PaymentForm";
@@ -44,28 +43,7 @@ export default function Checkout() {
     <>
       <Box component="section" sx={{ py: 5 }}>
         <Container maxWidth="lg">
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{ alignItems: "center", mb: 5 }}>
-            <Button
-              variant="text"
-              color="dark"
-              sx={{
-                "&:hover": {
-                  transform: "translateY(-2px)",
-                },
-                transition: "all 0.3s ease",
-              }}
-              onClick={() => navigate("/cart")}>
-              <ArrowBackIosOutlinedIcon />
-            </Button>
-
-            <Typography component="h2" variant="h4" sx={{ fontWeight: 700 }}>
-              {t("Shopping_Bag")}
-            </Typography>
-          </Stack>
-
+        
           <CheckoutStepper activeStep={activeStep} steps={steps} />
 
           <Grid container spacing={2}>

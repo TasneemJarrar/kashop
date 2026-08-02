@@ -59,10 +59,10 @@ const getTheme = (mode, language) => {
         contrastText: "#FFFFFF",
       },
       success: {
-        main: "#C9A74D",
-        light: "#E0C36E",
-        dark: "#9B7B29",
-        contrastText: "#1A1A1A",
+        main: isLight ? "#4A7C3C" : "#8BC34A",
+        light: isLight ? "#7CAE6C" : "#A5D66C",
+        dark: isLight ? "#2E5522" : "#6B9A3A",
+        contrastText: isLight ? "#FFFFFF" : "#1A1A1A",
       },
       grey: {
         50: "#FAFAFA",

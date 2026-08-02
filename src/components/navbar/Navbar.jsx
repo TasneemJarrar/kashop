@@ -26,8 +26,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const CartBadge = styled(Badge)`
   & .${badgeClasses.badge} {
-    top: -6px;
-    right: -6px;
+    top: -15px;
+    right: 0;
   }
 `;
 
@@ -219,7 +219,7 @@ export default function Navbar() {
                       onClick={() => {
                         handleCloseUserMenu();
                         handleLogout();
-                        }}>
+                      }}>
                       {t('Logout')}
                     </MenuItem>
                   </Menu>
@@ -242,8 +242,10 @@ export default function Navbar() {
                     <MenuItem selected={i18n.language === 'ar'} onClick={() => handleChangeLanguage('ar')}>العربية</MenuItem>
                   </Menu>
 
-                  <Link component={NavLink} color="inherit" underline="none" to="/login" sx={{ fontWeight: 600 }}>{t('Login')}</Link>
-                  <Button component={NavLink} to="/register" variant="contained" color="primary" size="small" sx={{ borderRadius: 4, px: 2.5 }}>
+                  <Link component={NavLink} color="inherit" underline="hover" to="/login" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
+                    {t('Login')}
+                  </Link>
+                  <Button component={NavLink} to="/register" variant="contained" color="secondary" size="small" sx={{ borderRadius: 4, px: 2.5, textTransform: 'none', fontWeight: 600 }}>
                     {t('Register')}
                   </Button>
                 </>

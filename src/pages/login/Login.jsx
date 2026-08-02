@@ -1,4 +1,4 @@
-import { Box, Button, Card, CircularProgress, Container, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Snackbar, Card, CircularProgress, Container, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,6 +18,8 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: yupResolver(loginSchema) });
   const setToken = useAuthStore((state) => state.setToken);
   const [showPassword, setShowPassword] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+
 
 
   const LoginForm = async (data) => {
@@ -25,7 +27,9 @@ export default function Login() {
       const response = await authAxiosInstance.post(`/auth/Account/login`, data);
       setToken(response.data.accessToken);
       setServerError("");
-      navigate('/');
+      setSuccessOpen(true);
+      setTimeout(() => { navigate('/'); }, 3000);
+
     } catch (error) {
       setServerError(error.response.data.message);
     }
@@ -33,7 +37,7 @@ export default function Login() {
 
   return (
     <Box component="section" sx={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'background.default', px: 2, py: 6 }}>
-      <Container maxWidth="xs">
+      <Container maxWidth="sm">
         <Card elevation={0} sx={{ p: { xs: 3, sm: 4 }, border: '1px solid', borderColor: 'divider' }}>
           <Stack spacing={0.5} sx={{ mb: 3 }}>
             <Typography component="h1" variant="h5" sx={{ fontWeight: 700 }}>
@@ -44,14 +48,8 @@ export default function Login() {
             </Typography>
           </Stack>
 
-          {serverError && (
-            <Typography variant="body2" color="error" sx={{ mb: 2, p: 1.5, bgcolor: 'error.light', border: '1px solid', borderColor: 'error.main' }}>
-              {serverError}
-            </Typography>
-          )}
-
           <Box onSubmit={handleSubmit(LoginForm)} component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-            <TextField {...register('email')} label={t('Email_Address')} variant="outlined" fullWidth error={!!errors.email} helperText={errors.email?.message} />
+            <TextField {...register('email')} type="email" label={t('Email_Address')} variant="outlined" fullWidth error={!!errors.email} helperText={errors.email?.message} />
 
             <TextField {...register('password')} label={t('Password')} type={showPassword ? 'text' : 'password'} variant="outlined" fullWidth error={!!errors.password} helperText={errors.password?.message}
               slotProps={{
@@ -85,6 +83,24 @@ export default function Login() {
               sx={{ textTransform: 'none', fontWeight: 600, py: 1.25, mt: 1 }}>
               {isSubmitting ? <CircularProgress size={20} sx={{ color: 'primary.contrastText' }} /> : t('Sign_In')}
             </Button>
+
+            <Snackbar
+              open={successOpen}
+              autoHideDuration={4000}
+              onClose={() => setSuccessOpen(false)}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            >
+              <Alert severity="success" onClose={() => setSuccessOpen(false)} sx={{ width: '100%' }}>
+                {t('Logeed_in_successfully')}
+              </Alert>
+            </Snackbar>
+
+            {serverError && (
+              <Alert variant="outlined" severity="error">
+                {serverError}
+              </Alert>
+            )}
+
           </Box>
 
           <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mt: 3 }}>

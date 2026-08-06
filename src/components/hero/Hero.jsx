@@ -9,12 +9,16 @@ export default function Hero() {
   return (
     <Box sx={{
       backgroundImage: `${theme.palette.custom.hero.overlay}, url(${theme.palette.custom.hero.image})`,
-      backgroundSize: 'cover', backgroundPosition: { xs: 'center', md: 'right center' },
-      minHeight: { xs: '100dvh', md: '100dvh' }, display: 'flex', alignItems: 'center', px: { xs: 2, sm: 0 },
-      animation: 'kenburns 20s ease-in-out infinite alternate',
-      '@keyframes kenburns': {
-        from: { backgroundSize: '100%' },
-        to: { backgroundSize: '110%' }
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      minHeight: { xs: '100dvh', md: '100dvh' },
+      display: 'flex',
+      alignItems: 'center',
+      px: { xs: 2, sm: 0 },
+      animation: 'heroFlow 18s ease-in-out infinite alternate',
+      '@keyframes heroFlow': {
+        from: { backgroundSize: '105%', backgroundPosition: 'center center' },
+        to: { backgroundSize: '100%', backgroundPosition: '70% center' },
       }
     }}>
       <Container>
@@ -23,7 +27,7 @@ export default function Hero() {
             {t('NEW COLLECTION 2026')}
           </Typography>
 
-          <Typography component="h1" sx={{ fontWeight: 900, lineHeight: 1.2, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
+          <Typography component="h1" sx={{ fontWeight: 800, lineHeight: 1.2, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
             {t('Mindful Shopping for Modern Living')}
           </Typography>
 

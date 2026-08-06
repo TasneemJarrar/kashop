@@ -154,7 +154,7 @@ export default function Navbar() {
                 </MenuItem>
               </Menu>
 
-              <Typography variant="h6" component="div" sx={{ fontWeight: 900, letterSpacing: -0.5 }}>
+              <Typography variant="h6" component="div" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>
                 KaShop
               </Typography>
             </Grid>

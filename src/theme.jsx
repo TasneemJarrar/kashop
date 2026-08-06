@@ -107,8 +107,8 @@ const getTheme = (mode, language) => {
     },
     typography: {
       fontFamily: isArabic
-        ? "'Almarai', 'Nunito', sans-serif"
-        : "'Nunito', 'Almarai', sans-serif",
+        ? "'Almarai', sans-serif"
+        : "'Plus Jakarta Sans', sans-serif",
     },
     shape: {
       borderRadius: 12,

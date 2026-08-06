@@ -27,10 +27,10 @@ export default function Categories() {
   }
 
   return (
-    <Box component="section" sx={{ pt: 2, minHeight: '100vh', backgroundColor: theme.palette.background.default }}>
+    <Box component="section" sx={{ pt:3, backgroundColor: theme.palette.background.default }}>
       <Container maxWidth="lg">
-        <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center', py: 3 }}>
-          <Typography variant='h2' sx={{ mb: 0, fontWeight: 700, fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2.25rem' } }}>
+        <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant='h2' sx={{mb:2, fontWeight: 700, fontSize: { xs: '1.5rem', sm: '1.7rem', md: '2rem' }}}>
             {t('Shop by Category')}
           </Typography>
           <Link component={RouterLink} to='/shop' color='secondary.main' sx={{ fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', gap: 1, justifyContent: 'center', alignItems: 'center', fontWeight: 600 }}>
@@ -44,7 +44,7 @@ export default function Categories() {
             delay: 0,
             disableOnInteraction: false,
           }}
-          speed={5000}
+          speed={2500}
           spaceBetween={16}
           slidesPerView={2}
           breakpoints={{
@@ -62,7 +62,7 @@ export default function Categories() {
             <SwiperSlide key={`${category.id}-${index}`}>
               <Box component={RouterLink} to={`/shop?category=${encodeURIComponent(category.name)}`}
                 sx={{
-                  textDecoration: 'none', color: theme.palette.text.primary, display: 'flex', alignItems: 'center', gap: 2, py: 2, transition: 'all 0.3s ease-in-out',
+                  textDecoration: 'none', color: theme.palette.text.secondary, display: 'flex', alignItems: 'center', gap: 2, py: 2, transition: 'all 0.3s ease-in-out',
                   '&:hover': {
                     color: theme.palette.secondary.main
                   }

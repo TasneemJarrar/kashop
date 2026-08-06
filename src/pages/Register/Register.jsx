@@ -97,7 +97,6 @@ export default function Register() {
               }) : null}
 
             </Box>
-
           </Box>
 
           <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mt: 3 }}>

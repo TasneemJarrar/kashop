@@ -124,7 +124,7 @@ export default function Navbar() {
               <IconButton
                 aria-label="open navigation menu"
                 onClick={handleOpenNavMenu}
-                sx={{ display: { xs: 'flex', md: 'none' }, ...navbarIconStyles }}>
+                sx={{ display: { xs: 'flex', md: 'none' },p:0, ...navbarIconStyles }}>
                 <MenuIcon />
               </IconButton>
 
@@ -132,8 +132,7 @@ export default function Navbar() {
                 anchorEl={anchorElNav}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
-                slotProps={{ paper: { sx: { minWidth: 220, mt: 1, borderRadius: 2 } } }}
-              >
+                slotProps={{ paper: { sx: { minWidth: 220, mt: 1, borderRadius: 2 } } }}>
                 <MenuItem component={NavLink} to="/" onClick={handleCloseNavMenu}><ListItemText>{t('Home')}</ListItemText></MenuItem>
                 <MenuItem component={NavLink} to="/shop" onClick={handleCloseNavMenu}><ListItemText>{t('Shop')}</ListItemText></MenuItem>
                 <MenuItem component={NavLink} to="/contact" onClick={handleCloseNavMenu}><ListItemText>{t('Contact_Us')}</ListItemText></MenuItem>

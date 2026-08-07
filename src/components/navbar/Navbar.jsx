@@ -124,7 +124,7 @@ export default function Navbar() {
               <IconButton
                 aria-label="open navigation menu"
                 onClick={handleOpenNavMenu}
-                sx={{ display: { xs: 'flex', md: 'none' },p:0, ...navbarIconStyles }}>
+                sx={{ display: { xs: 'flex', md: 'none' }, ...navbarIconStyles }}>
                 <MenuIcon />
               </IconButton>
 
@@ -154,7 +154,7 @@ export default function Navbar() {
                 </MenuItem>
               </Menu>
 
-              <Typography variant="h6" component="div" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>
+              <Typography variant="h6" component="div" sx={{ fontWeight: 900, letterSpacing: -0.5 }}>
                 KaShop
               </Typography>
             </Grid>
@@ -244,7 +244,7 @@ export default function Navbar() {
                   <Link component={NavLink} color="inherit" underline="hover" to="/login" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
                     {t('Login')}
                   </Link>
-                  <Button component={NavLink} to="/register" variant="contained" color="secondary" size="small" sx={{ borderRadius: 4, px: 2.5, textTransform: 'none', fontWeight: 600 }}>
+                  <Button component={NavLink} to="/register" variant="contained" color="secondary" size="small" sx={{ display:{xs:'none', sm:'flex'} ,borderRadius: 4, px: 2.5, textTransform: 'none', fontWeight: 600 }}>
                     {t('Register')}
                   </Button>
                 </>

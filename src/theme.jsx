@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
-import heroLight from "./assets/heroLight.png";
-import heroDark from "./assets/heroDark.png";
+import heroLight from "./assets/heroLight.webp";
+import heroDark from "./assets/heroDark.webp";
 
 const getTheme = (mode, language) => {
   const isLight = mode === "light";

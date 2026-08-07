@@ -4,7 +4,6 @@ import { Link as RouterLink } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -30,13 +29,14 @@ export default function Products() {
     return <div>Error: {error.message}</div>
   }
 
-  return <Box component="section" sx={{ pt: 3, backgroundColor: theme.palette.background.default }}>
+  return <>
+  <Box component="section" sx={{ py: 3, backgroundColor: 'background.default' }}>
     <Container maxWidth="lg">
       <Stack sx={{ py: 3 }}>
         <Typography sx={{ fontWeight: 700, fontSize: { xs: '1.5rem', sm: '1.7rem', md: '2rem' } }}>
           {t('Featured Products')}
         </Typography>
-        <Typography sx={{ color: theme.palette.text.secondary, fontSize: '0.9rem', }}>
+        <Typography sx={{ color: 'text.secondary', fontSize: '0.9rem', }}>
           {t("Our community's most-loved essentials this month.")}
         </Typography>
       </Stack>
@@ -47,14 +47,14 @@ export default function Products() {
           height: 36,
           p: 1,
           borderRadius: '50%',
-          color: theme.palette.text.primary,
+          color: 'text.primary',
 
           '&::after': {
             fontSize: '1rem',
             fontWeight: 800,
           },
           '&:hover': {
-            bgcolor: theme.palette.action.hover,
+            bgcolor: 'action.hover',
             transform: 'scale(1.08)',
             transition: 'all 0.3s ease-in-out'
           },
@@ -96,10 +96,10 @@ export default function Products() {
                   transform: 'scale(1.08)',
                 },
               }}>
-                <CardMedia component="img" image={product.image} alt={product.name}
+                <CardMedia component="img" image={product.image} alt={product.name} loading="lazy"
                   sx={{
                     width: '100%', aspectRatio: '1 / 1', borderRadius: 2, objectFit: 'contain',
-                    backgroundColor: theme.palette.background.paper
+                    backgroundColor: 'background.paper'
                   }} />
                 <CardContent>
                   <Typography sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
@@ -117,5 +117,6 @@ export default function Products() {
 
     </Container>
   </Box>
+</>
 }
 

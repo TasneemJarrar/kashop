@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Container, Link, Stack, Typography, useTheme } from '@mui/material';
+import { Box, CircularProgress, Container, Link, Stack, Typography } from '@mui/material';
 import useCategories from '../../hooks/useCategories';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router';
@@ -10,7 +10,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 export default function Categories() {
-  const theme = useTheme();
   const { data, isLoading, isError, error } = useCategories();
   const { t } = useTranslation();
   const categories = data?.response?.data ?? [];
@@ -27,7 +26,7 @@ export default function Categories() {
   }
 
   return (
-    <Box component="section" sx={{ pt:3, backgroundColor: theme.palette.background.default }}>
+    <Box component="section" sx={{ pt:3, backgroundColor: 'background.default' }}>
       <Container maxWidth="lg">
         <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant='h2' sx={{mb:2, fontWeight: 700, fontSize: { xs: '1.5rem', sm: '1.7rem', md: '2rem' }}}>
@@ -62,9 +61,9 @@ export default function Categories() {
             <SwiperSlide key={`${category.id}-${index}`}>
               <Box component={RouterLink} to={`/shop?category=${encodeURIComponent(category.name)}`}
                 sx={{
-                  textDecoration: 'none', color: theme.palette.text.secondary, display: 'flex', alignItems: 'center', gap: 2, py: 2, transition: 'all 0.3s ease-in-out',
+                  textDecoration: 'none', color: "text.secondary", display: 'flex', alignItems: 'center', gap: 2, py: 2, transition: 'all 0.3s ease-in-out',
                   '&:hover': {
-                    color: theme.palette.secondary.main
+                    color: "secondary.main"
                   }
                 }}>
                 <Typography sx={{ fontWeight: 600, fontSize: "1rem" }}>

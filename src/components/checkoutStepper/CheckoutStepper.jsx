@@ -4,17 +4,17 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 
-const CheckoutConnector = styled(StepConnector)(({ theme }) => ({
+const CheckoutConnector = styled(StepConnector)({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 16,
     left: 'calc(-50% + 25px)',
     right: 'calc(50% + 25px)',
   },
   [`& .${stepConnectorClasses.line}`]: {
-    borderColor: theme.palette.divider,
+    borderColor: 'divider',
     borderTopWidth: 2,
   },
-}));
+});
 
 const StepCircle = styled('div')(({ theme, ownerState }) => ({
   width: 32,
@@ -26,13 +26,13 @@ const StepCircle = styled('div')(({ theme, ownerState }) => ({
   fontSize: 14,
   fontWeight: 600,
   backgroundColor: ownerState.active
-    ? theme.palette.primary.main
+    ? 'primary.main'
     : theme.palette.mode === 'light'
       ? '#e4e3e7'
-      : theme.palette.grey[800],
+      : 'grey[800]',
   color: ownerState.active
-    ? theme.palette.primary.contrastText
-    : theme.palette.text.secondary,
+    ? 'primary.contrastText'
+    : 'text.secondary',
 }));
 
 function CustomStepIcon({ active, icon }) {

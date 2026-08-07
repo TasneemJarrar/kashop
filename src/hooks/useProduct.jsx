@@ -1,4 +1,3 @@
-import React from 'react'
 import axiosInstance from '../api/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import i18n from '../i18next';

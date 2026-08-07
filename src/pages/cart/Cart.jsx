@@ -94,7 +94,7 @@ export default function Cart() {
                     {t('Clear_Cart_Body')}
                   </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{display:'flex', gap:2}}>
                   <Button onClick={handleClose} autoFocus variant="outlined" color="grey" sx={{ textTransform: "none", fontWeight: 600}}>
                     {t("Cancel")}
                   </Button>

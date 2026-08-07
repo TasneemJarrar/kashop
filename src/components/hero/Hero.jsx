@@ -37,7 +37,7 @@ export default function Hero() {
             )}
           </Typography>
 
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 1, width: { xs: '100%', sm: 'auto' }}}>
+          <Stack direction={{ xs: 'column', sm: 'row' }}  sx={{ gap:2 ,mt: 1, width: { xs: '100%', sm: 'auto' }}}>
             <Button component={Link} to="/shop" variant="contained" color="primary" size="large" sx={{ borderRadius: 4 }} fullWidth={false}>
               {t('Shop Now')}
             </Button>

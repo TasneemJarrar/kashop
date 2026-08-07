@@ -1,4 +1,3 @@
-import React from 'react'
 import useProduct from '../../hooks/useProduct'
 import { useParams } from 'react-router';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';

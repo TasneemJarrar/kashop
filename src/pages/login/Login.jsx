@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../validation/LoginSchema';
 import useAuthStore from '../../store/useAuthStore';
-import { useNavigate, Link as routerLink } from 'react-router';
+import { useNavigate, Link as routerLink, useLocation } from 'react-router';
 import authAxiosInstance from '../../api/authAxiosInstance';
 import { useTranslation } from 'react-i18next';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -19,6 +19,8 @@ export default function Login() {
   const setToken = useAuthStore((state) => state.setToken);
   const [showPassword, setShowPassword] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
+  const location = useLocation();
+  const from = location.state?.from || '/';
 
 
 
@@ -28,7 +30,7 @@ export default function Login() {
       setToken(response.data.accessToken);
       setServerError("");
       setSuccessOpen(true);
-      setTimeout(() => { navigate('/'); }, 3000);
+      setTimeout(() => navigate(from, { replace: true })); 
 
     } catch (error) {
       setServerError(error.response.data.message);

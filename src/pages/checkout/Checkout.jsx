@@ -9,8 +9,7 @@ import ReviewOrder from "../../components/checkoutStepper/checkout/ReviewOrder";
 
 export default function Checkout() {
   const { data, isLoading, isError, error } = useCart();
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+
 
   // const calculateTotal = (items) => {
   //   if (!items || items.length === 0) return 0;

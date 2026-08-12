@@ -4,10 +4,10 @@ import heroDark from "./assets/heroDark.webp";
 
 const getTheme = (mode, language) => {
   const isLight = mode === "light";
-  const isArabic = language === "ar";
+  const isRTL = language === "ar";
 
   return createTheme({
-    direction: isArabic ? 'rtl' : 'ltr',
+    direction: isRTL ? 'rtl' : 'ltr',
     palette:
     {
       mode: mode,
@@ -106,7 +106,7 @@ const getTheme = (mode, language) => {
       },
     },
     typography: {
-      fontFamily: isArabic
+      fontFamily: isRTL
         ? "'Almarai', sans-serif"
         : "'Plus Jakarta Sans', sans-serif",
     },

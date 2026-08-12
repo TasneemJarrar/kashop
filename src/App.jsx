@@ -9,6 +9,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import getTheme from "./theme";
 import { CssBaseline } from '@mui/material'
 import useThemeStore from './hooks/useThemeStore'
+import { CacheProvider } from '@emotion/react';
+import { cacheRtl, cacheLtr } from './rtlCache';
+
 
 
 const queryClient = new QueryClient();
@@ -16,6 +19,8 @@ const queryClient = new QueryClient();
 export default function App() {
 
   const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar";
+
 
   useEffect(() => {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";
@@ -27,13 +32,17 @@ export default function App() {
   const mode = useThemeStore((state) => state.mode);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={getTheme(mode, i18n.language)}>
-        <CssBaseline />
-        <ReactQueryDevtools initialIsOpen={false} />
-        <RouterProvider router={router} />
-      </ThemeProvider >
-    </QueryClientProvider>
+    <CacheProvider value={isRTL ? cacheRtl : cacheLtr}>
+
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={getTheme(mode, i18n.language)}>
+          <CssBaseline />
+          <ReactQueryDevtools initialIsOpen={false} />
+          <RouterProvider router={router} />
+        </ThemeProvider >
+      </QueryClientProvider>
+    </CacheProvider>
+
   )
 }
 

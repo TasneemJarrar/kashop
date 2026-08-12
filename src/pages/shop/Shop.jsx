@@ -1,5 +1,5 @@
 import useProducts from '../../hooks/useProducts';
-import { Box, Button, Card, CardContent, CardMedia, Checkbox, CircularProgress, Container, FormControl, FormControlLabel, FormGroup, Grid, Radio, Rating, Slider, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Container, Drawer, FormControl, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
@@ -8,29 +8,36 @@ import 'swiper/css/navigation';
 import useAddToCart from '../../hooks/useAddToCart';
 import useAuthStore from '../../store/useAuthStore';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { useState } from 'react';
+import {  useState } from 'react';
 import { useLocation } from 'react-router';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import UseCategories from '../../hooks/useCategories';
 import { Select, MenuItem, InputLabel } from '@mui/material';
-
-function sliderValuetext(sliderValue) {
-  return `$${sliderValue}`;
-}
-
-const minDistance = 50;
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
+import useProductsByCategory from '../../hooks/useProductsByCategory';
+import FiltersPanel from '../../components/filtersPanel/FiltersPanel';
+import UseCategories from '../../hooks/useCategories';
 
 
 export default function Shop() {
 
-
   const [sortBy, setSortBy] = useState('price');
   const [ascending, setAscending] = useState('true');
+  const [appliedFilters, setAppliedFilters] = useState({
+    categoryIds: [],
+    priceRange: [10, 500],
+    ratingSelected: false,
+    ratingVal: 2,
+  });
 
-  const { data, isLoading, isError, error } = useProducts({ sortBy, ascending });
+  const { data: allProductsData, isLoading: allLoading, isError, error } = useProducts({ sortBy, ascending });
+  const ProductsCount = allProductsData?.response?.totalCount;
+
+  const { data: categories } = UseCategories();
+  const { data: categoryProductsData, isLoading: categoryLoading } = useProductsByCategory({ categoryId: appliedFilters.categoryId });
+  const isFilteringByCategory = !!appliedFilters.categoryId;
+  const data = isFilteringByCategory ? categoryProductsData : allProductsData;
+  const isLoading = isFilteringByCategory ? categoryLoading : allLoading;
   const products = data?.response?.data ?? [];
-  const ProductsCount = data?.response?.totalCount;
-  const { data: categories, isLoading: categoriesLoading, isError: categoriesIsError, error: categoriesError } = UseCategories();
 
   const { t } = useTranslation();
   const theme = useTheme();
@@ -38,7 +45,6 @@ export default function Shop() {
 
   const { token } = useAuthStore();
   const isAuthenticated = !!token;
-
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const location = useLocation();
@@ -49,22 +55,6 @@ export default function Shop() {
       }
     },
   });
-
-
-  const [sliderVal, setSliderVal] = useState([10, 2000]);
-  const handleSliderChange = (event, newsliderValue, activeThumb) => {
-    if (activeThumb === 0) {
-      setSliderVal([Math.min(newsliderValue[0], sliderVal[1] - minDistance), sliderVal[1]]);
-    } else {
-      setSliderVal([sliderVal[0], Math.max(newsliderValue[1], sliderVal[0] + minDistance)]);
-    }
-  };
-
-  const [ratingVal, setRatingVal] = useState(2);
-  const [selectedValue, setSelectedValue] = useState('a');
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
 
   const sortOptions = [
     { value: 'price_true', label: t('Price: Low to High') },
@@ -96,6 +86,23 @@ export default function Shop() {
     }).format(price);
 
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setDrawerOpen(newOpen);
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const inPriceRange =
+      product.price >= appliedFilters.priceRange[0] &&
+      product.price <= appliedFilters.priceRange[1];
+
+    const meetsRating =
+      !appliedFilters.ratingSelected || product.rate >= appliedFilters.ratingVal;
+
+    return inPriceRange && meetsRating;
+  });
+
+
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -107,83 +114,36 @@ export default function Shop() {
     <Box component="section" sx={{ py: 3, minHeight: '100vh' }}>
       <Container maxWidth="lg">
         <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Card sx={{ p: 4 }}>
-              <Stack sx={{ gap: 4 }}>
-                <Typography variant='h4' sx={{ textTransform: 'capitalize', fontWeight: 600, color: 'text.primary' }}>{t('filters')}</Typography>
-                <Stack>
-                  <Typography variant='p' sx={{ textTransform: 'uppercase', color: 'secondary.main' }}>{t('category')}</Typography>
-                  <FormControl>
-                    <FormGroup>
-                      {categories?.response?.data?.map((category) => (
-                        <FormControlLabel key={category.id} control={<Checkbox color='secondary' />} label={category.name} />
-                      ))}
-                    </FormGroup>
-                  </FormControl>
-                </Stack>
-
-                <Stack spacing={2}>
-                  <Typography variant='p' sx={{ textTransform: 'uppercase', color: 'secondary.main' }}>{t('price range')}</Typography>
-                  <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
-                    <Typography variant='span' sx={{ fontSize: '0.8rem' }}> $10</Typography>
-                    <Box sx={{ width: 300 }}>
-                      <Slider
-                        color='secondary'
-                        size="small"
-                        getAriaLabel={() => 'Minimum distance'}
-                        value={sliderVal}
-                        onChange={handleSliderChange}
-                        valueLabelDisplay="auto"
-                        getAriaValueText={sliderValuetext}
-                        disableSwap
-                        min={10}
-                        max={2000}
-                        step={10}
-                      />
-                    </Box>
-                    <Typography variant='span' sx={{ fontSize: '0.8rem' }}> $2000</Typography>
-                  </Stack>
-                </Stack>
-
-                <Stack spacing={2}>
-                  <Typography variant='p' sx={{ textTransform: 'uppercase', color: 'secondary.main' }}>{t('rating')}</Typography>
-                  <FormControlLabel
-                    value="rating"
-                    control={
-                      <Radio
-                        color='secondary'
-                        size="small"
-                        checked={selectedValue === 'rating'}
-                        onClick={handleChange}
-                        value="rating"
-                        name="radio-buttons"
-                        slotProps={{ input: { 'aria-label': 'rating' } }}
-                      />
-                    }
-                    label={
-                      <Stack direction='row' spacing={1} sx={{ alignItems: 'center' }}>
-                        <Rating
-                          name="simple-controlled"
-                          value={ratingVal}
-                          onChange={(event, newValue) => {
-                            setRatingVal(newValue);
-                          }}
-                        />
-                        <Typography variant='span'> & Up</Typography>
-                      </Stack>
-                    }
-                    sx={{ ml: 0 }}
-                  />
-                </Stack>
-              </Stack>
-            </Card>
+          <Grid size={3} sx={{ display: { xs: 'none', md: "flex" } }}>
+            <Card sx={{ p: 2 }}><FiltersPanel
+              categories={categories}
+              appliedFilters={appliedFilters}
+              onApply={setAppliedFilters}
+            /></Card>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 8 }}>
+          <Grid size={{ xs: 12, md: 9 }}>
             <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-              <Typography variant="h4" sx={{ fontWeight: 700, fontSize: { xs: "1.5rem", md: '1.7rem', lg: '2rem' } }}>
-                {ProductsCount}  {t('Results')}
-              </Typography>
+              <Stack direction='row' sx={{ alignItems: 'center', gap: 0.5 }}>
+                <Typography variant="h4" sx={{ fontWeight: 700, fontSize: { xs: "1.5rem", md: '1.7rem', lg: '2rem' } }}>
+                  {ProductsCount}  {t('Results')}
+                </Typography>
+
+                <Button sx={{ display: { xs: 'inline-flex', md: 'none' }, minWidth: 'fit-content', minHeight: 'fit-content', pt: 1 }} color='secondary' onClick={toggleDrawer(true)}>
+                  <TuneRoundedIcon color='secondary' />
+                </Button>
+
+                <Drawer open={drawerOpen} onClose={toggleDrawer(false)}
+                  paperprops={{ sx: { top: { xs: 64 }, height: 'calc(100% - 64px)', maxWidth: 320 } }}>
+                  <FiltersPanel
+                    categories={categories}
+                    appliedFilters={appliedFilters}
+                    onApply={setAppliedFilters}
+                    onClose={() => setDrawerOpen(false)}
+                  />
+                </Drawer>
+              </Stack>
+
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth color='secondary'>
                   <InputLabel>Sort By</InputLabel>
@@ -199,7 +159,7 @@ export default function Shop() {
               </Box>
             </Stack>
             <Grid container spacing={2}>
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4 }}>
                   <Card sx={{
                     height: '100%',
@@ -260,6 +220,7 @@ export default function Shop() {
               ))}
             </Grid>
           </Grid>
+
         </Grid>
       </Container>
     </Box >

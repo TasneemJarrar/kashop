@@ -121,6 +121,7 @@ export default function Navbar() {
       position="sticky"
       elevation={0}
       sx={(theme) => ({
+        zIndex:999,
         backgroundColor: alpha(theme.palette.custom.navbar.background, scrolled ? 0.8 : 1),
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         color: theme.palette.custom.navbar.text,

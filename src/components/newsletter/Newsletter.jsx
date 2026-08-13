@@ -15,7 +15,7 @@ export default function Newsletter() {
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 4, md: 6 }} sx={{ alignItems: { xs: 'stretch', md: 'center' } }}>
             <Box sx={{ flex: 1 }}>
               <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.7rem', md: '1.9rem' }, mb: 1 }}>
-                {t('Join the Collective')}
+                {t('Join the KaShop Circle')}
               </Typography>
 
               <Typography sx={{ color: 'text.secondary', lineHeight: 1.6, fontSize: '1rem', maxWidth: 340 }}>

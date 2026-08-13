@@ -65,7 +65,7 @@ export default function Products() {
     <Box component="section" sx={{ py: 3, backgroundColor: 'background.default' }}>
       <Container maxWidth="lg">
         <Stack sx={{ pt: 3 }}>
-          <Typography sx={{ fontWeight: 700, fontSize: { xs: '1.5rem', sm: '1.7rem', md: '2rem' } }}>
+          <Typography sx={{ fontWeight: 700, fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' } }}>
             {t('Featured Products')}
           </Typography>
           <Typography sx={{ color: 'text.secondary', fontSize: '0.9rem', }}>
@@ -166,11 +166,11 @@ export default function Products() {
                       </Stack>
 
                       <Button variant='contained' onClick={() => handleAddToCart(product)} sx={{
-                        bgcolor: 'secondary.main',
-                        color: 'secondary.contrastText',
+                        bgcolor: 'primary.main',
+                        color: 'primary.contrastText',
                         transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                         '&:hover': {
-                          bgcolor: 'secondary.dark',
+                          bgcolor: 'primary.dark',
                           transform: 'translateY(-2px)',
                           boxShadow: theme.shadows[2],
                         },

@@ -16,66 +16,62 @@ export default function Categories() {
   const loopedCategories = [...categories, ...categories];
 
   if (isLoading) {
-    return <CircularProgress />
+    return <CircularProgress />;
   }
 
   if (isError) {
-    return <Typography color="error">
-      {error.message}
-    </Typography>
+    return <Typography color="error">{error.message}</Typography>;
   }
 
   return (
-    <Box component="section" sx={{ pt:3, backgroundColor: 'background.default' }}>
+    <Box component="section" sx={{ pt: 3, backgroundColor: 'background.default' }}>
       <Container maxWidth="lg">
-        <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant='h2' sx={{mb:2, fontWeight: 700, fontSize: { xs: '1.5rem', sm: '1.7rem', md: '2rem' }}}>
+        <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography variant='h2' sx={{ fontWeight: 700, fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' } }}>
             {t('Shop by Category')}
           </Typography>
-          <Link component={RouterLink} to='/shop' color='secondary.main' sx={{ fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', gap: 1, justifyContent: 'center', alignItems: 'center', fontWeight: 600 }}>
+          <Link component={RouterLink} to='/shop' color='primary.main'
+            sx={{
+              fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', gap: 1, justifyContent: 'center', alignItems: 'center', fontWeight: 600, transition: 'all 0.3s ease-in-out',
+              '&:hover': {
+                transform: 'scale(1.05)',
+              }
+            }}>
             {t('View All')}<EastIcon sx={{ fontSize: 18 }} />
           </Link>
         </Stack>
+
         <Swiper
           modules={[Autoplay]}
           loop
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-          }}
-          speed={2500}
+          autoplay={{ delay: 0, disableOnInteraction: false }}
+          speed={4000}
           spaceBetween={16}
           slidesPerView={2}
           breakpoints={{
-            600: {
-              slidesPerView: 3,
-            },
-            900: {
-              slidesPerView: 4,
-            },
-            1200: {
-              slidesPerView: 5,
-            },
-          }}>
+            600: { slidesPerView: 3 },
+            900: { slidesPerView: 4 },
+            1200: { slidesPerView: 5 },
+          }}
+        >
           {loopedCategories.map((category, index) => (
             <SwiperSlide key={`${category.id}-${index}`}>
-              <Box component={RouterLink} to={`/shop?category=${encodeURIComponent(category.name)}`}
+              <Box component={RouterLink} to={`/shop`}
                 sx={{
-                  textDecoration: 'none', color: "text.secondary", display: 'flex', alignItems: 'center', gap: 2, py: 2, transition: 'all 0.3s ease-in-out',
+                  textDecoration: 'none', color: 'text.secondary', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, py: 2, whiteSpace: 'nowrap', transition: 'all 0.3s ease-in-out',
                   '&:hover': {
-                    color: "secondary.main"
+                    color: 'primary.main',
                   }
                 }}>
-                <Typography sx={{ fontWeight: 600, fontSize: "1rem" }}>
+                <Typography sx={{ fontWeight: 600, fontSize: '1rem' }}>
                   {category.name}
                 </Typography>
-
-                <EastIcon sx={{ fontSize: "1rem" }} />
+                <EastIcon sx={{ fontSize: '1rem' }} />
               </Box>
             </SwiperSlide>
           ))}
         </Swiper>
       </Container>
     </Box>
-  )
+  );
 }

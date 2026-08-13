@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
 import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOutlined';
@@ -26,26 +26,28 @@ export default function BenefitsBar() {
   ];
 
   return (
-    <Box component="section" sx={{ bgcolor: 'secondary.main', color: 'secondary.contrastText', py: 3}}>
+    <Box component="section" sx={{ bgcolor: 'primary.main', color:'primary.contrastText', py: 3 }}>
       <Container maxWidth="lg">
-        <Stack direction={{ xs: 'column', md: 'row' }} sx={{gap:3}}>
+        <Grid container spacing={2}>
           {benefits.map(({ icon: Icon, title, desc }) => (
-            <Stack key={title} direction="row" sx={{ flex: 1, alignItems:'center',justifyContent:{xs:'flex-start', md:'center'}, gap: { xs: 2, md: 3 }, px: { xs: 2, md: 0 }, py: { xs: 2, md: 0 }}}>
-              <Box sx={{width: 48, height: 48, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0}}>
-                <Icon sx={{ fontSize: 24 }} />
-              </Box>
-              <Box>
-                <Typography sx={{ fontSize: '0.9rem', fontWeight: 700 }}>
-                  {t(title)}
-                </Typography>
-                <Typography sx={{ fontSize: '0.8rem', opacity: 0.75 }}>
-                  {t(desc)}
-                </Typography>
-              </Box>
-            </Stack>
+            <Grid size={4} sx={{ gap: 3 }}>
+              <Stack key={title} direction={{ xs: 'column', md: 'row' }} sx={{ alignItems: 'center', justifyContent: 'center', gap: { xs: 2, md: 3 }, px: { xs: 2, md: 0 }, py: { xs: 2, md: 0 } }}>
+                <Box sx={{ width: 48, height: 48, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon sx={{ fontSize: 24 }} />
+                </Box>
+                <Box>
+                  <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, textAlign: { xs: 'center', md: 'start' } }}>
+                    {t(title)}
+                  </Typography>
+                  <Typography sx={{ fontSize: '0.8rem', opacity: 0.75, display: { xs: 'none', md: 'inline' } }}>
+                    {t(desc)}
+                  </Typography>
+                </Box>
+              </Stack>
+            </Grid>
           ))}
-        </Stack>
-      </Container>
-    </Box>
+      </Grid>
+    </Container>
+    </Box >
   );
 }

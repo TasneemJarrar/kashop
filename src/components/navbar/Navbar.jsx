@@ -121,7 +121,7 @@ export default function Navbar() {
       position="sticky"
       elevation={0}
       sx={(theme) => ({
-        zIndex:999,
+        zIndex:99,
         backgroundColor: alpha(theme.palette.custom.navbar.background, scrolled ? 0.8 : 1),
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         color: theme.palette.custom.navbar.text,
@@ -130,7 +130,7 @@ export default function Navbar() {
         borderBottom: scrolled ? '1px solid transparent' : `1px solid ${alpha(theme.palette.text.primary, 0.06)}`,
       })}>
       <Container maxWidth="lg">
-        <Toolbar disableGutters sx={{ px: { xs: 2, sm: 0 }, py: 1 }}>
+        <Toolbar disableGutters sx={{ py: 1 }}>
           <Grid container spacing={1} sx={{ display: 'flex', flexGrow: 1, alignItems: 'center' }}>
 
             <Grid size={{ xs: 6, md: 4 }} sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>

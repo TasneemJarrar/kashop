@@ -8,6 +8,13 @@ function sliderValuetext(sliderValue) {
 }
 const minDistance = 50;
 
+const defaultFilterValues = {
+  categoryIds: [],
+  priceRange: [10, 500],
+  ratingSelected: false,
+  ratingVal: 2,
+};
+
 export default function FiltersPanel({ categories, appliedFilters, onApply, onClose }) {
 
   const { t } = useTranslation();
@@ -26,7 +33,7 @@ export default function FiltersPanel({ categories, appliedFilters, onApply, onCl
     onClose?.();
   };
 
-  const handleReset = () => reset(appliedFilters);
+  const handleReset = () => reset(defaultFilterValues);
 
 
   return <Box sx={{ width: 250, p: 2 }}>

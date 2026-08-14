@@ -115,11 +115,11 @@ export default function Products() {
                 slidesPerView: 2,
               },
               900: {
-                slidesPerView: 3,
-              },
-              1200: {
                 slidesPerView: 4,
               },
+              1200: {
+                slidesPerView: 5,  
+              }
             }}>
             {products.map((product) => (
               <SwiperSlide key={product.id}>
@@ -141,10 +141,10 @@ export default function Products() {
 
                       }} />
                   </Box>
-                  <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: 3, flexGrow: 1, }}>
-                    <Stack sx={{ gap: 3 }}>
+                  <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1.5, md: 3 } }}>
+                    <Stack sx={{ gap: 1 }}>
                       <Typography component={RouterLink} to={`/product/${product.id}`} sx={{
-                        textDecoration: 'none', color: 'text.primary', fontWeight: 600, fontSize: '0.9rem',
+                        textDecoration: 'none', color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' },
                         display: '-webkit-box',
                         WebkitLineClamp: 1,
                         WebkitBoxOrient: 'vertical',
@@ -152,29 +152,27 @@ export default function Products() {
                       }}>
                         {product.name}
                       </Typography>
-                      <Typography sx={{ fontWeight: 800, mt: 0.5 }}>
+                      <Stack direction="row" spacing={0.75} sx={{ alignItems: "center" }}>
+                        <StarRoundedIcon sx={{ color: 'warning.light', fontSize: { xs: '0.8rem', md: '0.9rem' } }} />
+                        <Typography component="span" sx={{ fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' }, color: theme.palette.text.primary }}>
+                          {product.rate}
+                        </Typography>
+                      </Stack>
+                      <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.8rem', md: '0.9rem' }, mt: 0.5 }}>
                         {formatPrice(product.price)}
                       </Typography>
                     </Stack>
 
-                    <Stack sx={{ gap: 3, alignItems:'flex-end' }}>
-                      <Stack direction="row" spacing={0.75} sx={{ mr: 1, alignItems:"center" }}>
-                        <StarRoundedIcon sx={{ color: 'warning.light', fontSize: '0.9rem' }} />
-                        <Typography component="span" sx={{fontWeight: 600, fontSize: '0.9rem', color: theme.palette.text.primary }}>
-                          {product.rate}
-                        </Typography>
-                      </Stack>
+                    <Stack sx={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
 
-                      <Button variant='contained' onClick={() => handleAddToCart(product)} sx={{
-                        bgcolor: 'primary.main',
-                        color: 'primary.contrastText',
-                        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                      <Button variant='text' color='primary' size='small' onClick={() => handleAddToCart(product)} sx={{
+                        transition: 'all 0.2s ease',
+                        px: { xs: 1, md: 2 },
+                        minWidth: { xs: 'fit-content' },
                         '&:hover': {
-                          bgcolor: 'primary.dark',
                           transform: 'translateY(-2px)',
-                          boxShadow: theme.shadows[2],
                         },
-                      }}><AddShoppingCartRoundedIcon sx={{ fontSize: '2rem' }} /></Button>
+                      }}><AddShoppingCartRoundedIcon sx={{ fontSize: { xs: '1.1rem', md: '2rem' } }} /></Button>
 
                     </Stack>
                   </CardContent>

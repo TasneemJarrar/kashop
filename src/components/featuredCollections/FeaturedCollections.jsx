@@ -17,7 +17,7 @@ export default function FeaturedCollections() {
 
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid size={{ xs: 'none', md: 8 }}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <Box
                 sx={{
                   position: 'relative', height: 280, borderRadius: 2, overflow: 'hidden', backgroundImage: `url(${newArrivalImg})`,

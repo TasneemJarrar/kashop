@@ -13,7 +13,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   const quickLinks = ['Shop All', 'New Arrivals', 'Collections', 'About Us']
-  const customer = ['Shipping Info', 'Returns & Exchanges', 'FAQ', 'Contact Us']
+  const customer = ['Shipping Info', 'Returns & Exchanges', 'FAQ', 'Contact_Us']
   const legal = ['Privacy Policy', 'Terms of Use', 'Accessibility']
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 

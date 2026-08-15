@@ -11,7 +11,7 @@ export default function Hero() {
       backgroundImage: `${theme.palette.custom.hero.overlay}, url(${theme.palette.custom.hero.image})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center center',
-      minHeight: { xs: '100dvh', md: '100dvh' },
+      minHeight: '100dvh',
       display: 'flex',
       alignItems: 'center',
       px: { xs: 2, sm: 0 },

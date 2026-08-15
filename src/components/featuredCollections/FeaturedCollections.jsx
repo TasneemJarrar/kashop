@@ -1,9 +1,9 @@
 import { Box, Button, Container, Grid, Stack, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import newArrivalImg from "../../assets/newArrival.webp";
-import techEssentialsImg from "../../assets/techEssentials.webp";
-import performanceGearImg from "../../assets/performanceGear.webp";
-import organicBeautyImg from "../../assets/organicBeauty.webp";
+import newArrivalImg from "../../assets/featuredCollections/newArrival.webp";
+import techEssentialsImg from "../../assets/featuredCollections/techEssentials.webp";
+import performanceGearImg from "../../assets/featuredCollections/performanceGear.webp";
+import organicBeautyImg from "../../assets/featuredCollections/organicBeauty.webp";
 import { Link } from "react-router";
 
 export default function FeaturedCollections() {

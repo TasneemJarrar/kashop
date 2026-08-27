@@ -1,19 +1,13 @@
-import { Box, CircularProgress, Container, Link, Stack, Typography } from '@mui/material';
+import { alpha, Box, CircularProgress, Container, Link, Stack, Typography } from '@mui/material';
 import useCategories from '../../hooks/useCategories';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router';
 import EastIcon from '@mui/icons-material/East';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 export default function Categories() {
   const { data, isLoading, isError, error } = useCategories();
   const { t } = useTranslation();
   const categories = data?.response?.data ?? [];
-  const loopedCategories = [...categories, ...categories];
 
   if (isLoading) {
     return <CircularProgress />;
@@ -24,53 +18,117 @@ export default function Categories() {
   }
 
   return (
-    <Box component="section" sx={{ pt: 3, backgroundColor: 'background.default' }}>
+    <Box component="section" sx={{ py: { xs: 4, md: 6 }, backgroundColor: 'background.default' }}>
       <Container maxWidth="lg">
-        <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Typography variant='h2' sx={{ fontWeight: 700, fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' } }}>
-            {t('Shop by Category')}
-          </Typography>
-          <Link component={RouterLink} to='/shop' color='primary.main'
+        <Stack
+          direction="row"
+          sx={{ justifyContent: 'space-between', alignItems: 'flex-end', mb: 3 }}
+        >
+          <Box>
+            <Typography
+              sx={{
+                color: 'secondary.main',
+                fontWeight: 700,
+                fontSize: '0.8rem',
+                letterSpacing: 2,
+                mb: 0.5,
+              }}>
+              {t('BROWSE')}
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.25rem' },
+              }}
+            >
+              {t('Shop by Category')}
+            </Typography>
+          </Box>
+
+          <Link
+            component={RouterLink}
+            to="/shop"
+            color="primary.main"
             sx={{
-              fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', gap: 1, justifyContent: 'center', alignItems: 'center', fontWeight: 600, transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                transform: 'scale(1.05)',
-              }
-            }}>
-            {t('View All')}<EastIcon sx={{ fontSize: 18 }} />
+              fontSize: '0.95rem',
+              textDecoration: 'none',
+              display: 'inline-flex',
+              gap: 1,
+              alignItems: 'center',
+              fontWeight: 600,
+              whiteSpace: 'nowrap',
+              transition: 'all 0.3s ease-in-out',
+              '&:hover': { transform: 'scale(1.05)' },
+            }}
+          >
+            {t('View All')}
+            <EastIcon sx={{ fontSize: 18 }} />
           </Link>
         </Stack>
 
-        <Swiper
-          modules={[Autoplay]}
-          loop
-          autoplay={{ delay: 0, disableOnInteraction: false }}
-          speed={4000}
-          spaceBetween={16}
-          slidesPerView={2}
-          breakpoints={{
-            600: { slidesPerView: 3 },
-            900: { slidesPerView: 4 },
-            1200: { slidesPerView: 5 },
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            overflowX: 'auto',
+            pb: 1,
+            '&::-webkit-scrollbar': { display: 'none' },
           }}
         >
-          {loopedCategories.map((category, index) => (
-            <SwiperSlide key={`${category.id}-${index}`}>
-              <Box component={RouterLink} to={`/shop`}
+          {categories.map((category) => (
+            <Box
+              key={category.id}
+              component={RouterLink}
+              to="/shop"
+              className="category-card"
+              sx={{
+                position: 'relative',
+                overflow: 'hidden',
+                flex: '0 0 auto',
+                width: { xs: 180, sm: 200, md: 220 },
+                p: 3,
+                borderRadius: (theme) => `${theme.shape.borderRadius}px`,
+                border: '1px solid',
+                borderColor: 'divider',
+                bgcolor: 'background.paper',
+                textDecoration: 'none',
+                display: 'block',
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  borderColor: 'secondary.main',
+                  '& .category-card-glow': { opacity: 1 },
+                },
+              }}
+            >
+              <Box
+                className="category-card-glow"
                 sx={{
-                  textDecoration: 'none', color: 'text.secondary', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, py: 2, whiteSpace: 'nowrap', transition: 'all 0.3s ease-in-out',
-                  '&:hover': {
-                    color: 'primary.main',
-                  }
+                  position: 'absolute',
+                  top: -24,
+                  right: -24,
+                  width: 90,
+                  height: 90,
+                  borderRadius: '50%',
+                  bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.25),
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease-in-out',
+                }}
+              />
+              <Typography
+                variant="body1"
+                sx={{
+                  fontWeight:600,
+                  position: 'relative',
+                  zIndex: 1,
+                  fontSize: '1.1rem',
+                  mb: 0.5,
+                  color:'text.primary'
                 }}>
-                <Typography sx={{ fontWeight: 600, fontSize: '1rem' }}>
-                  {category.name}
-                </Typography>
-                <EastIcon sx={{ fontSize: '1rem' }} />
-              </Box>
-            </SwiperSlide>
+                {category.name}
+              </Typography>
+            </Box>
           ))}
-        </Swiper>
+        </Stack>
       </Container>
     </Box>
   );

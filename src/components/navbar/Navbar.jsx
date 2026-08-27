@@ -5,8 +5,7 @@ import useCart from '../../hooks/useCart';
 import { styled, alpha } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Badge, { badgeClasses } from '@mui/material/Badge';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import Box from '@mui/material/Box';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -175,7 +174,7 @@ export default function Navbar() {
             <Grid size={{ md: 4 }} sx={{ display: { xs: 'none', md: 'flex' }, gap: 4, alignItems: 'center', justifyContent: 'center' }}>
               <NavItem component={NavLink} color="inherit" underline="none" to="/">{t('Home')}</NavItem>
               <NavItem component={NavLink} color="inherit" underline="none" to="/shop">{t('Shop')}</NavItem>
-              <NavItem component={NavLink} color="inherit" underline="none" to="/contact">{t('Contact_Us')}</NavItem>
+              <NavItem component={NavLink} color="inherit" underline="none" to="/contact">{t('Contact')}</NavItem>
               <NavItem component={NavLink} color="inherit" underline="none" to="/about">{t('About')}</NavItem>
             </Grid>
 
@@ -201,7 +200,7 @@ export default function Navbar() {
 
                   <Link component={NavLink} to="/cart" underline="none">
                     <IconButton aria-label={`View cart with ${cartCount} items`} sx={navbarIconStyles} color="inherit">
-                      <ShoppingCartOutlinedIcon fontSize="medium" />
+                      <LocalMallOutlinedIcon fontSize="medium" />
                       <CartBadge badgeContent={cartCount} color="primary" overlap="circular" />
                     </IconButton>
                   </Link>
@@ -210,7 +209,6 @@ export default function Navbar() {
                     <IconButton
                       onClick={handleClick}
                       size="small"
-                      sx={{ ml: 2 }}
                       aria-controls={open ? 'account-menu' : undefined}
                       aria-haspopup="true"
                       aria-expanded={open}

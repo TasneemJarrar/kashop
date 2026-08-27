@@ -7,8 +7,6 @@ export default function PaymentForm({ onBack }) {
   const [paymentMethod, setPaymentMethod] = useState('');
   const { mutate: checkout, isPending } = useCheckout();
 
-
-
   return <>
     <Box sx={{ p: 4, border: "1px solid", borderColor: 'divider', borderRadius: 3 }}>
       <Typography variant="h6" fontWeight={700} sx={{ mb: 3 }}>

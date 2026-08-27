@@ -22,12 +22,12 @@ export default function Hero() {
       }
     }}>
       <Container>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-start', maxWidth: { xs: '100%', md: 520 } }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-start', maxWidth: { xs: '100%', md: 560 } }}>
           <Typography color="primary" variant="p" sx={{ fontWeight: 700, letterSpacing: 2, fontSize: { xs: 12, sm: 16, md: 18 } }}>
             {t('NEW COLLECTION 2026')}
           </Typography>
 
-          <Typography component="h1" sx={{ fontWeight: 800, lineHeight: 1.2, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
+          <Typography variant="h1" sx={{ fontWeight: 800, lineHeight: 1.2, fontSize: { xs: '3rem', sm: '3.5rem', md: '4rem' } }}>
             {t('Mindful Shopping for Modern Living')}
           </Typography>
 

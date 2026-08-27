@@ -1,8 +1,8 @@
 import useProducts from '../../hooks/useProducts';
-import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Container, Drawer, FormControl, Grid, IconButton, Menu, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { alpha, Box, Button, Card, CardContent, CardMedia, CircularProgress, Container, Drawer, FormControl, Grid, IconButton, Menu, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
+import AddIcon from '@mui/icons-material/Add';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import useAddToCart from '../../hooks/useAddToCart';
@@ -139,8 +139,8 @@ export default function Shop() {
           <Grid size={{ xs: 12, md: 9 }}>
             <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
               <Stack direction='row' sx={{ alignItems: 'center', gap: 0.5 }}>
-                <Typography variant="h4" sx={{ fontWeight: 700, fontSize: { xs: "1.25rem", md: '1.5rem', lg: '1.75rem' } }}>
-                  {ProductsCount}{t('Results')}
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {ProductsCount} {t('Results')}
                 </Typography>
 
                 <Button sx={{ display: { xs: 'inline-flex', md: 'none' }, minWidth: 'fit-content', minHeight: 'fit-content', pt: 1 }} color='secondary' onClick={toggleDrawer(true)}>
@@ -160,7 +160,7 @@ export default function Shop() {
 
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth color='secondary' size="small" sx={{ display: { xs: 'none', md: "block" } }}>
-                  <InputLabel>Sort By</InputLabel>
+                  <InputLabel>{t('sortBy')}</InputLabel>
                   <Select
                     value={`${sortBy}_${ascending}`}
                     label={t('sortBy')}
@@ -205,7 +205,7 @@ export default function Shop() {
 
             <Grid container spacing={2}>
               {filteredProducts.map((product) => (
-                <Grid key={product.id} size={{ xs: 6, sm:4}}>
+                <Grid key={product.id} size={{ xs: 6, sm: 4 }}>
                   <Card sx={{
                     height: '100%',
                     display: 'flex',
@@ -218,7 +218,7 @@ export default function Shop() {
                           width: '100%', aspectRatio: '1 / 1', objectFit: 'contain',
                         }} />
                     </Box>
-                    <CardContent sx={{ display: 'flex',justifyContent:'space-between', px: { xs: 1.5, md: 3 } }}>
+                    <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1.5, md: 3 } }}>
                       <Stack sx={{ gap: 1 }}>
                         <Typography component={RouterLink} to={`/product/${product.id}`} sx={{
                           textDecoration: 'none', color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' },
@@ -229,8 +229,8 @@ export default function Shop() {
                         }}>
                           {product.name}
                         </Typography>
-                        <Stack direction="row" spacing={0.75} sx={{alignItems: "center" }}>
-                          <StarRoundedIcon sx={{ color: 'warning.light', fontSize: { xs: '0.8rem', md: '0.9rem' }}} />
+                        <Stack direction="row" spacing={0.75} sx={{ alignItems: "center" }}>
+                          <StarRoundedIcon sx={{ color: 'warning.light', fontSize: { xs: '0.8rem', md: '0.9rem' } }} />
                           <Typography component="span" sx={{ fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' }, color: theme.palette.text.primary }}>
                             {product.rate}
                           </Typography>
@@ -240,16 +240,31 @@ export default function Shop() {
                         </Typography>
                       </Stack>
 
-                      <Stack sx={{alignItems: 'flex-end', justifyContent:'flex-end' }}>
+                      <Stack sx={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
 
-                        <Button variant='text' color='secondary' size='small' onClick={() => handleAddToCart(product)} sx={{
-                          transition: 'all 0.2s ease',
-                          px: { xs: 1, md: 2 },
-                          minWidth: { xs: 'fit-content' },
-                          '&:hover': {
-                            transform: 'translateY(-2px)',
-                          },
-                        }}><AddShoppingCartRoundedIcon sx={{ fontSize: { xs: '1.1rem', md: '2rem' } }} /></Button>
+                        <IconButton
+                          color='secondary'
+                          size='small'
+                          onClick={() => handleAddToCart(product)}
+                          sx={{
+                            width: { xs: 36, md: 44 },
+                            height: { xs: 36, md: 44 },
+                            background: (theme) =>
+                              `linear-gradient(135deg, ${theme.palette.secondary.light}, ${theme.palette.secondary.main})`,
+                            color: (theme) => theme.palette.secondary.contrastText,
+                            boxShadow: (theme) =>
+                              `0 6px 14px ${alpha(theme.palette.secondary.main, 0.45)}`,
+                            transition: 'all 0.2s ease',
+                            '&:hover': {
+                              background: (theme) =>
+                                `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
+                              transform: 'translateY(-2px)',
+                              boxShadow: (theme) =>
+                                `0 8px 18px ${alpha(theme.palette.secondary.main, 0.55)}`,
+                            }
+                          }}>
+                          <AddIcon sx={{ fontSize: { xs: '1.2rem', md: '1.6rem' } }} />
+                        </IconButton>
 
                       </Stack>
                     </CardContent>

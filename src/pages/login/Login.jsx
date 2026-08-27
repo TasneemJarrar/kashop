@@ -9,6 +9,7 @@ import authAxiosInstance from '../../api/authAxiosInstance';
 import { useTranslation } from 'react-i18next';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import toast from 'react-hot-toast';
 
 
 export default function Login() {
@@ -21,7 +22,7 @@ export default function Login() {
   const [successOpen, setSuccessOpen] = useState(false);
   const location = useLocation();
   const from = location.state?.from || '/';
-  
+
 
 
 
@@ -31,10 +32,13 @@ export default function Login() {
       setToken(response.data.accessToken);
       setServerError("");
       setSuccessOpen(true);
-      setTimeout(() => navigate(from, { replace: true })); 
+      toast.success(t('Logged_in_successfully'));
+      setTimeout(() => navigate(from, { replace: true }));
 
     } catch (error) {
-      setServerError(error.response.data.message);
+      const message = error.response?.data?.message || "Login failed. Please try again.";
+      setServerError(message);
+      toast.error(message);
     }
   }
 
@@ -91,8 +95,7 @@ export default function Login() {
               open={successOpen}
               autoHideDuration={4000}
               onClose={() => setSuccessOpen(false)}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            >
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
               <Alert severity="success" onClose={() => setSuccessOpen(false)} sx={{ width: '100%' }}>
                 {t('Logeed_in_successfully')}
               </Alert>

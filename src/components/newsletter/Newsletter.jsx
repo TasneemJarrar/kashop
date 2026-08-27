@@ -9,11 +9,11 @@ export default function Newsletter() {
     <Box
       component="section"
       sx={{ py: { xs: 6, md: 8 }, backgroundColor: 'background.default' }}>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Box
           sx={{ border: `1px solid ${theme.palette.divider}`, borderRadius: 3, backgroundColor: 'background.paper', px: { xs: 4, md: 6 }, py: { xs: 4, md: 6 } }}>
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 4, md: 6 }} sx={{ alignItems: { xs: 'stretch', md: 'center' } }}>
-            <Box sx={{ flex: 1 }}>
+            <Box >
               <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.7rem', md: '1.9rem' }, mb: 1 }}>
                 {t('Join the KaShop Circle')}
               </Typography>

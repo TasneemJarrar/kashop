@@ -5,17 +5,20 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 
 const testimonials = [
-  { id: 1,
+  {
+    id: 1,
     textKey: 'TESTIMONIAL_T1',
     nameKey: 'TESTIMONIAL_N1',
     rating: 5,
   },
-  { id: 2,
+  {
+    id: 2,
     textKey: 'TESTIMONIAL_T2',
     nameKey: 'TESTIMONIAL_N2',
     rating: 5,
   },
-  { id: 3,
+  {
+    id: 3,
     textKey: 'TESTIMONIAL_T3',
     nameKey: 'TESTIMONIAL_N3',
     rating: 5,
@@ -29,14 +32,17 @@ export default function Testimonials() {
   return (
     <Box component="section" sx={{ py: 8, bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
-        <Stack sx={{ alignItems: 'center', textAlign: 'center', mb: 6, gap: 1 }}>
-          <Typography sx={{ color: 'primary.main', fontWeight: 700, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: 1 }}>
-            {t('Testimonials')}
-          </Typography>
-          <Typography variant="h4" sx={{ fontWeight: 700 }}>
+        <Box sx={{ mb: 3 }}>
+          <Typography
+            sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.8rem', letterSpacing: 2, mb: 0.5, textTransform: 'uppercase' }}>
+            {t('Testimonials')}          
+            </Typography>
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.25rem' } }}>
             {t('What Our Community Says')}
           </Typography>
-        </Stack>
+
+        </Box>
+
 
         <Grid container spacing={3}>
           {testimonials.map((testimonial) => (

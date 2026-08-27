@@ -1,174 +1,118 @@
-import { Box, Button, Container, Grid, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import newArrivalImg from "../../assets/featuredCollections/newArrival.webp";
 import techEssentialsImg from "../../assets/featuredCollections/techEssentials.webp";
 import performanceGearImg from "../../assets/featuredCollections/performanceGear.webp";
 import organicBeautyImg from "../../assets/featuredCollections/organicBeauty.webp";
 import { Link } from "react-router";
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+
 
 export default function FeaturedCollections() {
   const { t } = useTranslation();
-  const theme = useTheme();
+
+  const collections = [
+    {
+      image: newArrivalImg,
+      title: t('New Arrivals'),
+      subtitle: t('Fresh drops, curated weekly'),
+      cta: t('Discover'),
+      size: { xs: 12, sm: 6, md: 8 },
+    },
+    {
+      image: organicBeautyImg,
+      title: t('Organic Beauty'),
+      subtitle: t('Clean formulas, real results'),
+      cta: t('Discover'),
+      size: { xs: 12, sm: 6, md: 4 },
+    },
+    {
+      image: performanceGearImg,
+      title: t('Performance Gear'),
+      subtitle: t('Built for daily movement'),
+      cta: t('Discover'),
+      size: { xs: 12, sm: 6, md: 4 },
+    },
+    {
+      image: techEssentialsImg,
+      title: t('Tech Essentials'),
+      subtitle: t('Quiet tools that keep up'),
+      cta: t('Discover'),
+      size: { xs: 12, sm: 6, md: 8 },
+    },
+  ];
 
   return <>
-    <Box component="section" sx={{ pb: 8, backgroundColor: 'background.default' }}>
+    <Box component="section" sx={{ py: 5, backgroundColor: 'background.default' }}>
       <Container maxWidth="lg">
-        <Typography variant="h5" sx={{ fontWeight: 700, mb: 3, fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' } }} >{t('Featured Collections')}</Typography>
+        <Box sx={{ mb: 3 }}>
+          <Typography
+            sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.8rem', letterSpacing: 2, mb: 0.5, textTransform: 'uppercase' }}>
+            {t('Collections')}
+          </Typography>
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.25rem' } }}>
+            {t('Curated for the way you live')}
+          </Typography>
+
+        </Box>
 
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid size={{ xs: 12, md: 8 }}>
-              <Box
-                sx={{
-                  position: 'relative', height: 280, borderRadius: 2, overflow: 'hidden', backgroundImage: `url(${newArrivalImg})`,
-                  backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'flex-end', p: 3, transition: 'all 0.3s ease-in-out',
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    inset: 0,
-                    bgcolor: 'rgba(0,0,0,0.45)'
-                  },
-                  '&:hover': {
-                    boxShadow: theme.shadows[3],
-                    transform: 'translateY(-4px)',
-                  }
-                }}>
-                <Stack sx={{ position: 'relative', zIndex: 1, color: '#fff' }}>
-                  <Typography sx={{ color: 'primary.main', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase' }}>
-                    {t('New Arrival')}
-                  </Typography>
-                  <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                    {t('The Sanctuary Home Collection')}
-                  </Typography>
-                  <Typography sx={{ opacity: 0.85, fontSize: '0.9rem' }}>
-                    {t('COLLECTION_1_DESC')}
-                  </Typography>
-                  <Button component={Link} to={'/shop'} variant="contained" sx={{
-                    textTransform: 'none', bgcolor: '#fff', color: '#000', mt: 2, alignSelf: 'flex-start',
+            {collections.map((collection) => (
+              <Grid key={collection.title} size={collection.size}>
+                <Box
+                  component={Link}
+                  to="/shop"
+                  sx={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    height: 280,
+                    p: 3,
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    textDecoration: 'none',
+                    backgroundImage: `url(${collection.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    transition: 'all 0.3s ease-in-out',
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 100%)',
+                    },
                     '&:hover': {
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                      scale: '1.05',
-                      transition: 'all 0.3s ease-in-out',
-                    }
-                  }}>
-                    {t('Explore Collection')}
-                  </Button>
-                </Stack>
-              </Box>
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Box
-                sx={{
-                  position: 'relative', height: 280, borderRadius: 2, overflow: 'hidden', backgroundImage: `url(${techEssentialsImg})`,
-                  backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'flex-end', p: 3, transition: 'all 0.3s ease-in-out',
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    inset: 0,
-                    bgcolor: 'rgba(0,0,0,0.45)'
-                  },
-                  '&:hover': {
-                    boxShadow: theme.shadows[3],
-                    transform: 'translateY(-4px)',
-                  }
-                }}>
-                <Stack sx={{ position: 'relative', zIndex: 1, color: '#fff' }}>
-                  <Typography variant="p" sx={{ fontWeight: 600 }}>
-                    {t('Tech Essentials')}
-                  </Typography>
-                  <Button component={Link} to={'/shop'} variant="text" sx={{
-                    textTransform: 'none', color: '#fff', alignSelf: 'flex-start', textDecoration: 'underline',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                      bgcolor: 'transparent',
-                      color: 'text.secondary',
-                      translate: '-1px',
-                      transition: 'all 0.3s ease-in-out',
-                    }
-                  }}>
-                    {t('Shop Tech')}
-                  </Button>
-                </Stack>
-              </Box>
-
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 4 }} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Box
-                sx={{
-                  position: 'relative', height: 280, borderRadius: 2, overflow: 'hidden', backgroundImage: `url(${performanceGearImg})`,
-                  backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'flex-end', p: 3, transition: 'all 0.3s ease-in-out',
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    inset: 0,
-                    bgcolor: 'rgba(0,0,0,0.45)'
-                  },
-                  '&:hover': {
-                    boxShadow: theme.shadows[3],
-                    transform: 'translateY(-4px)',
-                  }
-                }}>
-                <Stack sx={{ position: 'relative', zIndex: 1, color: '#fff' }}>
-                  <Typography variant="p" sx={{ fontWeight: 600 }}>
-                    {t('Performance Gear')}
-                  </Typography>
-                  <Button component={Link} to={'/shop'} variant="text" sx={{
-                    textTransform: 'none', color: '#fff', alignSelf: 'flex-start', textDecoration: 'underline',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                      bgcolor: 'transparent',
-                      color: 'text.secondary',
-                      translate: '-1px',
-                      transition: 'all 0.3s ease-in-out',
-                    }
-                  }}>
-                    {t('Upgrade Now')}
-                  </Button>
-                </Stack>
-              </Box>
-
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 8 }} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Box
-                sx={{
-                  position: 'relative', height: 280, borderRadius: 2, overflow: 'hidden', backgroundImage: `url(${organicBeautyImg})`,
-                  backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'flex-end', p: 3, transition: 'all 0.3s ease-in-out',
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    inset: 0,
-                    bgcolor: 'rgba(0,0,0,0.45)'
-                  },
-                  '&:hover': {
-                    boxShadow: theme.shadows[3],
-                    transform: 'translateY(-4px)',
-                  }
-                }}>
-                <Stack sx={{ position: 'relative', zIndex: 1, color: '#fff' }}>
-                  <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                    {t('Organic Beauty')}
-                  </Typography>
-                  <Typography sx={{ opacity: 0.85, fontSize: '0.9rem' }}>
-                    {t('COLLECTION_4_DESC')}
-                  </Typography>
-                  <Button component={Link} to={'/shop'} variant="contained" sx={{
-                    textTransform: 'none', bgcolor: '#fff', color: '#000', mt: 2, alignSelf: 'flex-start',
-                    '&:hover': {
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                      scale: '1.05',
-                      transition: 'all 0.3s ease-in-out',
-                    }
-                  }}>
-                    {t('Discover Beauty')}
-                  </Button>
-                </Stack>
-              </Box>
-            </Grid>
+                      boxShadow: (theme) => theme.shadows[4],
+                      transform: 'translateY(-4px)',
+                    },
+                  }}
+                >
+                  <Stack sx={{ position: 'relative', zIndex: 1, color: '#fff' }}>
+                    <Typography variant="h5" sx={{ fontWeight: 700 }}>
+                      {collection.title}
+                    </Typography>
+                    <Typography sx={{ opacity: 0.85, fontSize: '0.9rem', mb: 1 }}>
+                      {collection.subtitle}
+                    </Typography>
+                    <Stack
+                      direction="row"
+                      spacing={0.5}
+                      sx={{
+                        alignItems: 'center',
+                        fontWeight: 600,
+                        fontSize: '0.9rem',
+                        transition: 'gap 0.2s ease-in-out',
+                        '&:hover': { gap: '10px' },
+                      }}
+                    >
+                      <span>{collection.cta}</span>
+                      <ArrowForwardRoundedIcon sx={{ fontSize: '1rem' }} />
+                    </Stack>
+                  </Stack>
+                </Box>
+              </Grid>
+            ))}
           </Grid>
         </Box>
       </Container>

@@ -33,7 +33,11 @@ export default function FiltersPanel({ categories, appliedFilters, onApply, onCl
     onClose?.();
   };
 
-  const handleReset = () => reset(defaultFilterValues);
+  const handleReset = () => {
+    reset(defaultFilterValues);
+    onApply(defaultFilterValues);
+    onClose?.();
+  };
 
 
   return <Box sx={{ width: 250, p: 2 }}>

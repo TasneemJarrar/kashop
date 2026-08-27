@@ -8,6 +8,7 @@ import { Link as routerLink, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -21,13 +22,14 @@ export default function Register() {
   const RegisterForm = async (data) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/register`, data);
-      console.log(response.data);
+      console.log(response);
       setServerErrors({});
-      setSuccessOpen(true);
+      toast.success(t('Account_Created'));
       setTimeout(() => { navigate('/'); }, 3000);
     } catch (error) {
-      console.error('Error', error.response.data.errors);
-      setServerErrors(error.response.data.errors);
+      const errorsList = error.response?.data?.errors || [];
+      setServerErrors(errorsList);
+      toast.error(errorsList[0] || "Registration failed. Please check your details.");
     }
   }
 

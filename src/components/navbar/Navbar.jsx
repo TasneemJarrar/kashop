@@ -147,7 +147,7 @@ export default function Navbar() {
                 slotProps={{ paper: { sx: { minWidth: 220, mt: 1, borderRadius: 2 } } }}>
                 <MenuItem component={NavLink} to="/" onClick={handleCloseNavMenu}><ListItemText>{t('Home')}</ListItemText></MenuItem>
                 <MenuItem component={NavLink} to="/shop" onClick={handleCloseNavMenu}><ListItemText>{t('Shop')}</ListItemText></MenuItem>
-                <MenuItem component={NavLink} to="/contact" onClick={handleCloseNavMenu}><ListItemText>{t('Contact_Us')}</ListItemText></MenuItem>
+                <MenuItem component={NavLink} to="/contact" onClick={handleCloseNavMenu}><ListItemText>{t('Contact')}</ListItemText></MenuItem>
                 <MenuItem component={NavLink} to="/about" onClick={handleCloseNavMenu}><ListItemText>{t('About')}</ListItemText></MenuItem>
 
                 <Divider sx={{ my: 1, display: { xs: 'block', md: 'none' } }} />

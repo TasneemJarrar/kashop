@@ -13,6 +13,7 @@ import Checkout from "./pages/checkout/Checkout";
 import Home from "./pages/Home/Home";
 import ProfileInfo from "./components/profile/ProfileInfo";
 import ProfileOrders from "./components/profile/ProfileOrders";
+import UpdatePassword from "./components/profile/UpdatePassword";
 import MinimalLayout from "./layouts/minimalLayout/MinimalLayout";
 
 const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: 'orders',
             element: <ProfileOrders />
+          },
+          {
+            path: 'update-password',
+            element: <UpdatePassword />
           },
         ],
       },

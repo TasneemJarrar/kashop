@@ -39,7 +39,7 @@ export default function App() {
         <ThemeProvider theme={getTheme(mode, i18n.language)}>
           <CssBaseline />
           <Toaster
-            position="top-center"
+            position="bottom-right"
             toastOptions={{
               duration: 3000,
               style: {

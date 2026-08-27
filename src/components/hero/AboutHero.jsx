@@ -42,7 +42,7 @@ export default function AboutHero() {
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ width: '100%', height: { xs: 350, sm: 450, md: 500, lg: 575 }, borderRadius: { xs: 4, md: 5 }, overflow: 'hidden', boxShadow: (theme) => `0 25px 60px ${alpha(theme.palette.common.black, 0.12)}` }}>
               <Box component="img" src="./src/assets/about/about hero.webp" alt={t('About hero image')} sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </Box>

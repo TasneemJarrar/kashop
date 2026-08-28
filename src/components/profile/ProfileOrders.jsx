@@ -35,12 +35,23 @@ function PaymentStatusChip({ paymentStatus }) {
 function OrderRow({ order }) {
   return (
     <Card elevation={0} sx={{ border: "1px solid", borderColor: "divider", p: 2, borderRadius: 2, transition: "border-color 0.2s", "&:hover": { borderColor: "primary.main" } }}>
-      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1.2fr 1fr 1fr 1fr 1fr" }, gap: 2, alignItems: "center" }}>
-        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>#KS-{order?.id}</Typography>
-        <Typography variant="body2" color="text.secondary">{order?.orderDate ? new Date(order.orderDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : ""}</Typography>
-        <Box><StatusChip status={order?.status} /></Box>
-        <Box><PaymentStatusChip paymentStatus={order?.paymentStatus} /></Box>
-        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>${Number(order?.amountPaid || 0).toFixed(2)}</Typography>
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "auto 1fr", sm: "1.2fr 1fr 1fr 1fr 1fr" }, gap: { xs: 1.5, sm: 2 }, alignItems: "center" }}>
+        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+          #KS-{order?.id}
+        </Typography>
+
+        <Typography variant="body2" color="text.secondary" sx={{ justifySelf: { xs: "end", sm: "start" } }}>
+          {order?.orderDate ? new Date(order.orderDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : ""}
+        </Typography>
+        <Box sx={{ gridColumn: { xs: "span 1", sm: "auto" } }}>
+          <StatusChip status={order?.status} />
+        </Box>
+        <Box sx={{ gridColumn: { xs: "span 1", sm: "auto" } }}>
+          <PaymentStatusChip paymentStatus={order?.paymentStatus} />
+        </Box>
+        <Typography variant="subtitle2" sx={{ fontWeight: 700, gridColumn: { xs: "1 / -1", sm: "auto" }, textAlign: { xs: "right", sm: "left" } }}>
+          ${Number(order?.amountPaid || 0).toFixed(2)}
+        </Typography>
       </Box>
     </Card>
   );
@@ -62,7 +73,7 @@ export default function ProfileOrders() {
   }
 
   if (isError) {
-    return <Alert severity="error">{error?.response?.data?.message || t("Could_not_load_orders") || "Could not load orders"}</Alert>;
+    return <Alert severity="error">{error?.response?.data?.message || t("Could_not_load_orders")}</Alert>;
   }
 
   const allOrders = profile?.orders || [];
@@ -72,8 +83,8 @@ export default function ProfileOrders() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
       <Box>
-        <Typography variant="h5" sx={{ fontWeight: 800 }}>{t("Order_History") || "Order History"}</Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>{t("Order_History_Subtitle") || "Manage and track your recent and past purchases."}</Typography>
+        <Typography variant="h5" sx={{ fontWeight: 800 }}>{t("Order_History")}</Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>{t("Order_History_Subtitle")}</Typography>
       </Box>
 
       {activeOrders.length > 0 && (
@@ -83,13 +94,13 @@ export default function ProfileOrders() {
             <Box sx={{ bgcolor: "primary.main", color: "primary.contrastText", px: 1, py: 0.2, borderRadius: 10, fontSize: 12, fontWeight: 700 }}>{activeOrders.length}</Box>
           </Box>
           <Divider />
-          
+
           <Box sx={{ display: { xs: "none", sm: "grid" }, gridTemplateColumns: "1.2fr 1fr 1fr 1fr 1fr", gap: 2, px: 2 }}>
-            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Order_Num") || "Order #"}</Typography>
-            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Date") || "Date"}</Typography>
-            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Status") || "Status"}</Typography>
-            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Payment_Status") || "Payment Status"}</Typography>
-            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Total_Price") || "Total Price"}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Order_Num")}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Date")}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Status")}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Payment_Status")}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Total_Price")}</Typography>
           </Box>
 
           <Stack spacing={1.5}>
@@ -100,13 +111,13 @@ export default function ProfileOrders() {
 
       <Stack spacing={2}>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>{t("Past_Orders") || "Past Orders"}</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>{t("Past_Orders")}</Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2" color="text.secondary">{t("Filter") || "Filter:"}</Typography>
+            <Typography variant="body2" color="text.secondary">{t("Filter")}</Typography>
             <Select size="small" value={filter} onChange={(e) => setFilter(e.target.value)} sx={{ borderRadius: 2, fontSize: 14 }}>
               <MenuItem value="all">{t("All_Time") || "All time"}</MenuItem>
-              <MenuItem value="6months">{t("Last_6_Months") || "Last 6 months"}</MenuItem>
-              <MenuItem value="30days">{t("Last_30_Days") || "Last 30 days"}</MenuItem>
+              <MenuItem value="6months">{t("Last_6_Months")}</MenuItem>
+              <MenuItem value="30days">{t("Last_30_Days")}</MenuItem>
             </Select>
           </Box>
         </Box>
@@ -115,11 +126,11 @@ export default function ProfileOrders() {
         {pastOrders.length > 0 ? (
           <>
             <Box sx={{ display: { xs: "none", sm: "grid" }, gridTemplateColumns: "1.2fr 1fr 1fr 1fr 1fr", gap: 2, px: 2 }}>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Order_Num") || "Order #"}</Typography>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Date") || "Date"}</Typography>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Status") || "Status"}</Typography>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Payment_Status") || "Payment Status"}</Typography>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Total_Price") || "Total Price"}</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Order_Num")}</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Date")}</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Status")}</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Payment_Status")}</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>{t("Total_Price")}</Typography>
             </Box>
 
             <Stack spacing={1.5}>
@@ -129,7 +140,7 @@ export default function ProfileOrders() {
             </Stack>
           </>
         ) : (
-          <Typography variant="body2" color="text.secondary" sx={{ py: 2 }}>{t("No_Past_Orders") || "No past orders found."}</Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ py: 2 }}>{t("No_Past_Orders")}</Typography>
         )}
       </Stack>
     </Box>

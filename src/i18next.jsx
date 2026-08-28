@@ -308,6 +308,60 @@ i18n
           "Submit_Review": "Submit Review",
           "Failed to submit review. Please try again.": "Failed to submit review. Please try again.",
 
+          "seo": {
+            "home": {
+              "title": "Kashop | Shop Quality Products Online",
+              "description": "Discover curated products at great prices. Fast checkout, secure payments, and a shopping experience built for you."
+            },
+            "product": {
+              "title": "Product Details | Kashop",
+              "description": "See full product details, pricing, and availability before you add it to your cart."
+            },
+            "shop": {
+              "title": "Shop All Products | Kashop",
+              "description": "Browse our full collection of products. Filter, search, and find exactly what you're looking for."
+            },
+            "about": {
+              "title": "About Us | Kashop",
+              "description": "Learn the story behind Kashop, our mission, and what makes our shopping experience different."
+            },
+            "contact": {
+              "title": "Contact Us | Kashop",
+              "description": "Have a question or need support? Get in touch with the Kashop team and we'll help you out."
+            },
+            "cart": {
+              "title": "Your Cart | Kashop",
+              "description": "Review the items in your cart, adjust quantities, and get ready for checkout."
+            },
+            "login": {
+              "title": "Log In | Kashop",
+              "description": "Log in to your Kashop account to track orders, manage your profile, and check out faster."
+            },
+            "register": {
+              "title": "Create an Account | Kashop",
+              "description": "Sign up for a free Kashop account to save your details, track orders, and shop faster next time."
+            },
+            "profile": {
+              "title": "My Account | Kashop",
+              "description": "Manage your personal information, orders, and account settings in one place."
+            },
+            "profileInfo": {
+              "title": "Account Details | Kashop",
+              "description": "View and update your personal information and account preferences."
+            },
+            "profileOrders": {
+              "title": "My Orders | Kashop",
+              "description": "Track current orders and review your past purchases on Kashop."
+            },
+            "updatePassword": {
+              "title": "Update Password | Kashop",
+              "description": "Change your Kashop account password to keep your account secure."
+            },
+            "checkout": {
+              "title": "Checkout | Kashop",
+              "description": "Complete your purchase securely — review your order and confirm shipping and payment details."
+            }
+          }
         },
       },
       ar: {
@@ -620,11 +674,65 @@ i18n
           "Submitting...": "جاري الإرسال...",
           "Submit_Review": "إرسال التقييم",
           "Failed to submit review. Please try again.": "فشل إرسال التقييم. يرجى المحاولة مرة أخرى.",
+
+          "seo": {
+            "home": {
+              "title": "كاشوب | تسوق منتجات مميزة أونلاين",
+              "description": "اكتشف تشكيلة مختارة من المنتجات بأسعار مناسبة. دفع آمن وسريع، وتجربة تسوق مصممة لك."
+            },
+            "product": {
+              "title": "تفاصيل المنتج | كاشوب",
+              "description": "اطّلع على تفاصيل المنتج والسعر والتوفر قبل إضافته إلى سلة التسوق."
+            },
+            "shop": {
+              "title": "تسوق جميع المنتجات | كاشوب",
+              "description": "تصفح مجموعتنا الكاملة من المنتجات، وابحث وصفّي النتائج لتجد ما تريد بسهولة."
+            },
+            "about": {
+              "title": "من نحن | كاشوب",
+              "description": "تعرّف على قصة كاشوب ورسالتنا وما يميز تجربة التسوق لدينا."
+            },
+            "contact": {
+              "title": "تواصل معنا | كاشوب",
+              "description": "لديك سؤال أو تحتاج مساعدة؟ تواصل مع فريق كاشوب وسنكون سعداء بمساعدتك."
+            },
+            "cart": {
+              "title": "سلة التسوق | كاشوب",
+              "description": "راجع المنتجات في سلتك وعدّل الكميات واستعد لإتمام الشراء."
+            },
+            "login": {
+              "title": "تسجيل الدخول | كاشوب",
+              "description": "سجّل الدخول إلى حسابك في كاشوب لمتابعة طلباتك وإدارة ملفك الشخصي وإتمام الشراء بسرعة أكبر."
+            },
+            "register": {
+              "title": "إنشاء حساب | كاشوب",
+              "description": "أنشئ حسابًا مجانيًا في كاشوب لحفظ بياناتك ومتابعة طلباتك والتسوق بسرعة أكبر في المرة القادمة."
+            },
+            "profile": {
+              "title": "حسابي | كاشوب",
+              "description": "إدارة معلوماتك الشخصية وطلباتك وإعدادات حسابك في مكان واحد."
+            },
+            "profileInfo": {
+              "title": "بيانات الحساب | كاشوب",
+              "description": "اطّلع على معلوماتك الشخصية وحدّثها حسب رغبتك."
+            },
+            "profileOrders": {
+              "title": "طلباتي | كاشوب",
+              "description": "تابع طلباتك الحالية وراجع مشترياتك السابقة في كاشوب."
+            },
+            "updatePassword": {
+              "title": "تحديث كلمة المرور | كاشوب",
+              "description": "غيّر كلمة مرور حسابك في كاشوب للحفاظ على أمان حسابك."
+            },
+            "checkout": {
+              "title": "إتمام الشراء | كاشوب",
+              "description": "أكمل عملية الشراء بأمان — راجع طلبك وأكّد بيانات الشحن والدفع."
+            }
+          }
         },
       },
-    },
-
-    fallbackLng: "en",
+      fallbackLng: "en",
+    }
   });
 
 export default i18n;

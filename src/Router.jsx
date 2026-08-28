@@ -21,64 +21,37 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
-      {
-        index: true,
-        element: <Home />
-      },
-      {
-        path: "product/:id",
-        element: <ProductDetails />
-      },
-      {
-        path: "profile",
-        element:
-          <ProtectedRouter>
-            <Profile />
-          </ProtectedRouter>,
-        children: [
-          {
-            index: true,
-            element: <ProfileInfo />
-          },
-          {
-            path: 'orders',
-            element: <ProfileOrders />
-          },
-          {
-            path: 'update-password',
-            element: <UpdatePassword />
-          },
-        ],
-      },
+      { index: true, element: <Home />, handle: { seoKey: "home" } },
+      { path: "product/:id", element: <ProductDetails />, handle: { seoKey: "product" } },
+      { path: "shop", element: <Shop />, handle: { seoKey: "shop" } },
+      { path: "about", element: <About />, handle: { seoKey: "about" } },
+      { path: "contact", element: <Contact />, handle: { seoKey: "contact" } },
       {
         path: "cart",
-        element:
+        element: (
           <ProtectedRouter>
             <Cart />
           </ProtectedRouter>
+        ),
+        handle: { seoKey: "cart" },
       },
+      { path: "login", element: <Login />, handle: { seoKey: "login" } },
+      { path: "register", element: <Register />, handle: { seoKey: "register" } },
       {
-        path: "login",
-        element: <Login />
+        path: "profile",
+        element: (
+          <ProtectedRouter>
+            <Profile />
+          </ProtectedRouter>
+        ),
+        handle: { seoKey: "profile" },
+        children: [
+          { index: true, element: <ProfileInfo />, handle: { seoKey: "profileInfo" } },
+          { path: "orders", element: <ProfileOrders />, handle: { seoKey: "profileOrders" } },
+          { path: "update-password", element: <UpdatePassword />, handle: { seoKey: "updatePassword" } },
+        ],
       },
-      {
-        path: "register",
-        element: <Register />
-      },
-      {
-        path: "shop",
-        element: <Shop />
-      },
-      {
-        path: "about",
-        element: <About />
-      },
-      {
-        path: "contact",
-        element: <Contact />
-      },
-
-    ]
+    ],
   },
   {
     path: "/",
@@ -86,13 +59,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "checkout",
-        element:
+        element: (
           <ProtectedRouter>
             <Checkout />
           </ProtectedRouter>
+        ),
+        handle: { seoKey: "checkout" },
       },
-    ]
-  }
+    ],
+  },
 ]);
 
 export default router;

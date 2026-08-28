@@ -6,30 +6,10 @@ import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined'
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined'
 
 const values = [
-  {
-    id: 1,
-    icon: SpaOutlinedIcon,
-    title: 'Made to last',
-    description: 'We choose renewable materials and repairable designs over trends.',
-  },
-  {
-    id: 2,
-    icon: ExploreOutlinedIcon,
-    title: 'Honest curation',
-    description: "If it doesn't survive our own homes, it doesn't get listed.",
-  },
-  {
-    id: 3,
-    icon: HandshakeOutlinedIcon,
-    title: 'Fair sourcing',
-    description: 'Every supplier is audited for labour and material practices.',
-  },
-  {
-    id: 4,
-    icon: AutoAwesomeOutlinedIcon,
-    title: 'Quiet design',
-    description: 'Objects that recede into daily life instead of shouting.',
-  },
+  { id: 1, icon: SpaOutlinedIcon, title: 'Made to last', description: 'We choose renewable materials and repairable designs over trends.' },
+  { id: 2, icon: ExploreOutlinedIcon, title: 'Honest curation', description: "If it doesn't survive our own homes, it doesn't get listed." },
+  { id: 3, icon: HandshakeOutlinedIcon, title: 'Fair sourcing', description: 'Every supplier is audited for labour and material practices.' },
+  { id: 4, icon: AutoAwesomeOutlinedIcon, title: 'Quiet design', description: 'Objects that recede into daily life instead of shouting.' },
 ]
 
 export default function CoreValues() {

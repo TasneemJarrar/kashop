@@ -7,6 +7,7 @@ export default function ProductDetails() {
   const {mutate: addToCart} = useAddToCart();
   const {id} = useParams();
   const { data, isLoading, isError, error } = useProduct(id);
+  console.log(data)
 
   if (isLoading) { return <CircularProgress /> }
   if (isError) { return <div>Error: {error.message}</div> }

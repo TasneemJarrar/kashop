@@ -23,14 +23,7 @@ export default function StatsGrid() {
             const Icon = stat.icon;
             return (
               <Grid key={stat.id} size={{ xs: 6, md: 3 }}>
-                <Card
-                  sx={{
-                    p: 3, textAlign: 'center', boxShadow: 'none', border: '1px solid', borderColor: 'divider', transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      boxShadow: (theme) => theme.shadows[1],
-                      transform: 'translateY(-2px)',
-                    }
-                  }}>
+                <Card sx={{ p: 3, textAlign: 'center', boxShadow: 'none', border: '1px solid', borderColor: 'divider', transition: 'all 0.2s ease-in-out', '&:hover': { boxShadow: (theme) => theme.shadows[1], transform: 'translateY(-2px)' } }}>
                   <Stack sx={{ alignItems: 'center', gap: 1 }}>
                     <Icon sx={{ fontSize: '2.25rem', color: 'primary.main' }} />
                     <Typography sx={{ fontWeight: 800, fontSize: { xs: '1.25rem', md: '1.5rem' }, color: 'primary.main' }}>

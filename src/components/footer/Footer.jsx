@@ -14,7 +14,7 @@ export default function Footer() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const quickLinks = ['Shop All', 'New Arrivals', 'Collections', 'About Us'];
-  const customer = ['Shipping Info', 'Returns & Exchanges', 'FAQ', 'Contact_Us'];
+  const customer = ['Shipping Info', 'Returns & Exchanges', 'FAQ', 'Contact'];
   const legal = ['Privacy Policy', 'Terms of Use', 'Accessibility'];
 
   const SocialHoverEffect = {

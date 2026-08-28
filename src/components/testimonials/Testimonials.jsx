@@ -40,9 +40,7 @@ export default function Testimonials() {
           <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.25rem' } }}>
             {t('What Our Community Says')}
           </Typography>
-
         </Box>
-
 
         <Grid container spacing={3}>
           {testimonials.map((testimonial) => (

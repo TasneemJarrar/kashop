@@ -2,7 +2,6 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import detector from "i18next-browser-languagedetector";
 
-
 i18n
   .use(detector)
   .use(initReactI18next)
@@ -83,6 +82,7 @@ i18n
           'TESTIMONIAL_N3': "Elena R.",
 
           'QUESTIONS': 'QUESTIONS',
+          'FAQ': 'FAQ',
           'Good to know': 'Good to know',
           'FAQ_INTRO': "Still unsure about something? Our team replies within an hour on weekdays.",
           'Talk to us': 'Talk to us',
@@ -132,9 +132,9 @@ i18n
           'Results': "Results",
           'sortBy': "Sort By",
 
-
           "Let's talk": "Let's talk",
-          "contactDescription": "Orders, sizing, returns or a product you wish we stocked — write to us and a real person replies, usually within an hour on weekdays.", 'Send a message': 'Send a message',
+          "contactDescription": "Orders, sizing, returns or a product you wish we stocked — write to us and a real person replies, usually within an hour on weekdays.",
+          'Send a message': 'Send a message',
           'Name': 'Name',
           'Email': 'Email',
           'Your name': 'Your name',
@@ -198,7 +198,6 @@ i18n
           'Email_Address': "Email Address",
           'Password': "Password",
 
-
           'Do_you_have_an_account': "Do you have an account?",
           'Join our community of mindful shoppers today.': "Join our community of mindful shoppers today.",
           'Create Account': "Create Account",
@@ -215,6 +214,14 @@ i18n
           'Grand_Total': "Grand Total",
           'Including_VAT': "Including VAT",
           'Secure_Encrypted_Checkout': "Secure Encrypted Checkout",
+          "Review": "Review",
+          "Payment": "Payment",
+          "Qty": "Qty",
+          "Shipping": "Shipping",
+          "Security_Message": "Your payment information is encrypted and securely processed.",
+          "Your_Cart_Is_Empty": "Your cart is empty",
+          "Continue_Shopping": "Continue Shopping",
+          "Error": "Error",
 
           'User_Name': 'User Name',
           'Full_Name': 'Full Name',
@@ -275,10 +282,14 @@ i18n
           "Cancelled": "Cancelled",
           "Paid": "Paid",
           "Unpaid": "Unpaid",
-
-
-
-
+          "Select_Payment_Method": "Select Payment Method",
+          "Choose_Payment_Subtitle": "Choose how you would like to complete your purchase.",
+          "Visa_Card": "Credit / Debit Card",
+          "Visa_Desc": "Pay securely with Visa or Mastercard",
+          "Cash_On_Delivery": "Cash on Delivery",
+          "Cash_Desc": "Pay with cash when your order arrives",
+          "Back_To_Cart": "Back to Cart",
+          "Pay": "Pay",
         },
       },
       ar: {
@@ -316,13 +327,14 @@ i18n
           'Mindful Shopping for Modern Living': "تسوق بوعي من أجل حياة عصرية",
           'Shop Now': "تسوق الآن",
           'Explore Products': "استكشف المنتجات",
-          'Curated essentials that balance functionality with aesthetic pleasure. Designed for those who value quality over quantity.': "أساسيات مختارة بعناية توازن بين الوظائف والمتعة الجمالية. مصممة لأولئك الذين يقدرون الجودة على الكمية.",
+          'Curated essentials that balance functionality with aesthetic pleasure. Designed for those who value quality over quantity.': "أساسيات مختارة بعناية توازن بين الوظائف ومتعة المظهر. مصممة لأولئك الذين يقدرون الجودة على الكمية.",
 
           'Shop by Category': "تسوق حسب الفئة",
           'View All': "عرض الكل",
 
           "Handpicked": "مختارة بعناية",
           "This season's favourites": "مفضلات هذا الموسم",
+          "Our community's most-loved essentials this month.": "الأساسيات الأكثر تداولاً وحباً من قِبل مجتمعنا هذا الشهر.",
           'Login required': "تسجيل الدخول مطلوب",
           'You need to be logged in to add items to your cart.': "تحتاج إلى تسجيل الدخول لإضافة عناصر إلى سلتك.",
           'Go to Login': "الذهاب إلى تسجيل الدخول",
@@ -356,6 +368,7 @@ i18n
           'TESTIMONIAL_N3': "إيلينا R.",
 
           "QUESTIONS": "الأسئلة",
+          "FAQ": "أسئلة شائعة",
           "Good to know": "من المفيد معرفته",
           "FAQ_INTRO": "لسه مش متأكد من شغلة؟ فريقنا بيرد عليك خلال ساعة في أيام الأسبوع.",
           "Talk to us": "تواصل معنا",
@@ -498,6 +511,14 @@ i18n
           'Grand_Total': "الإجمالي الكلي",
           'Including_VAT': "شامل ضريبة القيمة المضافة",
           'Secure_Encrypted_Checkout': "إتمام الدفع الآمن والمشفّر",
+          "Review": "مراجعة",
+          "Payment": "الدفع",
+          "Qty": "الكمية",
+          "Shipping": "الشحن",
+          "Security_Message": "معلومات الدفع الخاصة بك مشفرة ومعالجة بأمان.",
+          "Your_Cart_Is_Empty": "سلة التسوق فارغة",
+          "Continue_Shopping": "متابعة التسوق",
+          "Error": "خطأ",
 
           'User_Name': 'اسم المستخدم',
           'Full_Name': 'الاسم الكامل',
@@ -512,7 +533,6 @@ i18n
           'Member': 'عضو',
 
           "Edit_Profile": "تعديل الملف الشخصي",
-
           "Update_Password": "تحديث كلمة المرور",
           "Current_Password": "كلمة المرور الحالية",
           "New_Password": "كلمة المرور الجديدة",
@@ -530,7 +550,9 @@ i18n
           "Confirm_Password_Required": "تأكيد كلمة المرور مطلوب",
           "Password_Min_Length": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
           "New_Password_Must_Be_Different": "يجب أن تكون كلمة المرور الجديدة مختلفة عن الحالية",
+          "Passwords_Do_Not_Match": "كلمات المرور غير متطابقة",
           "Profile_Updated": "تم تحديث الملف الشخصي بنجاح",
+          "Failed_To_Update": "فشل تحديث الملف الشخصي",
           "Language": "اللغة",
           "Theme": "المظهر",
           "Light": "فاتح",
@@ -556,6 +578,14 @@ i18n
           "Cancelled": "ملغى",
           "Paid": "مدفوع",
           "Unpaid": "غير مدفوع",
+          "Select_Payment_Method": "اختر طريقة الدفع",
+          "Choose_Payment_Subtitle": "اختر كيف ترغب في إتمام عملية الشراء.",
+          "Visa_Card": "بطاقة ائتمان / خصم",
+          "Visa_Desc": "ادفع بأمان باستخدام فيزا أو ماستركارد",
+          "Cash_On_Delivery": "الدفع عند الاستلام",
+          "Cash_Desc": "ادفع نقدًا عند وصول طلبك",
+          "Back_To_Cart": "العودة إلى السلة",
+          "Pay": "ادفع",
         },
       },
     },

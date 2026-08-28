@@ -1,4 +1,4 @@
-import { Box, Card, Container, Grid, Typography } from '@mui/material'
+import { alpha, Box, Card, Container, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import elenaImg from '../../assets/team/elena.webp'
 import marcusImg from '../../assets/team/marcus.webp'
@@ -13,14 +13,14 @@ const team = [
 ]
 
 export default function Team() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Box component="section" sx={{ py: { xs: 7, md: 10 }, bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
 
         <Box sx={{ mb: { xs: 4, md: 6 } }}>
-          <Typography variant="overline" sx={{ color: 'secondary.main', fontSize: { xs: '0.75rem', md: '0.9rem' }, mb: 1.5 }}>
+          <Typography variant="overline" sx={{ color: 'secondary.main', fontSize: { xs: '0.75rem', md: '0.9rem' }, mb: 1.5, display: 'block' }}>
             {t('The Team')}
           </Typography>
 
@@ -32,9 +32,16 @@ export default function Team() {
         <Grid container spacing={{ xs: 2, md: 3 }}>
           {team.map((member) => (
             <Grid key={member.id} size={{ xs: 12, sm: 6, md: 3 }}>
-              <Card sx={{ overflow: 'hidden', height: '100%', boxShadow: 'none', border: '1px solid', borderColor: 'divider', bgcolor: 'background.paper', transition: 'all 0.25s ease', '&:hover': { transform: 'translateY(-4px)', boxShadow: (theme) => `0 16px 35px ${theme.palette.mode === 'light' ? 'rgba(35,31,22,0.08)' : 'rgba(0,0,0,0.25)'}` } }}>
+              <Card sx={{ overflow: 'hidden', height: '100%', boxShadow: 'none', border: '1px solid', borderColor: 'divider', bgcolor: 'background.paper', transition: 'all 0.25s ease', '&:hover': { transform: 'translateY(-4px)', boxShadow: (theme) => `0 16px 35px ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.08 : 0.25)}` } }}>
 
-                <Box component="img" src={member.image} alt={t(member.name)} sx={{ width: '100%', height: { xs: 360, sm: 380, md: 410, lg: 425 }, objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
+                <Box sx={{ position: 'relative', height: { xs: 360, sm: 380, md: 410, lg: 425 }, width: '100%' }}>
+                  <Box
+                    component="img"
+                    src={member.image}
+                    alt={t(member.name)}
+                    loading="lazy"
+                    sx={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center'}} />
+                </Box>
 
                 <Box sx={{ px: { xs: 2.5, md: 3 }, py: { xs: 2.5, md: 2.75 } }}>
                   <Typography variant="h5" sx={{ color: 'text.primary', fontSize: { xs: '1.15rem', md: '1.3rem' }, fontWeight: 600, lineHeight: 1.2, mb: 1 }}>

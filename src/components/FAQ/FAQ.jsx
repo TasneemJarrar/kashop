@@ -24,7 +24,7 @@ export default function FAQ() {
       <Container maxWidth="lg">
         <Grid container spacing={{ xs: 4, md: 8 }}>
           <Grid size={{ xs: 12, md: 4 }}>
-            <Typography sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.8rem', letterSpacing: 2, mb: 1 }}>
+            <Typography sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.8rem', letterSpacing: 2, mb: 1, textTransform: 'uppercase' }}>
               {t('QUESTIONS')}
             </Typography>
             <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -33,7 +33,9 @@ export default function FAQ() {
             <Typography sx={{ color: 'text.secondary', fontSize: '0.95rem', lineHeight: 1.7, mb: 3 }}>
               {t('FAQ_INTRO')}
             </Typography>
-            <Button component={routerLink} to = "/contact"
+            <Button
+              component={routerLink}
+              to="/contact"
               variant="outlined"
               sx={{
                 borderRadius: 999,
@@ -42,8 +44,7 @@ export default function FAQ() {
                 textTransform: 'none',
                 px: 3,
                 '&:hover': { borderColor: 'text.primary', bgcolor: 'transparent' },
-              }}
-            >
+              }}>
               {t('Talk to us')}
             </Button>
           </Grid>
@@ -63,12 +64,10 @@ export default function FAQ() {
                     borderBottom: '1px solid',
                     borderColor: 'divider',
                     '&:before': { display: 'none' },
-                  }}
-                >
+                  }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreRoundedIcon sx={{ color: 'text.secondary' }} />}
-                    sx={{ px: 0, py: 1, '& .MuiAccordionSummary-content': { my: 2 } }}
-                  >
+                    sx={{ px: 0, py: 1, '& .MuiAccordionSummary-content': { my: 2 } }}>
                     <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.05rem' }}>
                       {t(faq.questionKey)}
                     </Typography>

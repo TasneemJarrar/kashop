@@ -1,21 +1,32 @@
-import { alpha, Box, Button, Container, Grid, Typography } from '@mui/material'
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
+import { alpha, Box, Button, Container, Grid, Skeleton, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
+import { useState } from 'react';
 import aboutHero from '../../assets/about/about hero.webp';
 
 export default function AboutHero() {
-  const { t } = useTranslation()
+  const { t, ready } = useTranslation();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  if (!ready) {
+    return (
+      <Box component="section" sx={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', p: 3 }}>
+        <Container maxWidth="lg">
+          <Skeleton variant="text" width="40%" height={60} />
+          <Skeleton variant="rectangular" width="100%" height={400} sx={{ mt: 2, borderRadius: 4 }} />
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <Box component="section" sx={{ minHeight: '100dvh', bgcolor: (theme) => alpha(theme.palette.background.paper, 0.45), display: 'flex', alignItems: 'center', px: { xs: 2, sm: 3 }, py: { xs: 2, sm: 3 } }}>
       <Container maxWidth="lg">
         <Grid container spacing={{ xs: 6, md: 8, lg: 10 }} alignItems="center">
-
           <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ maxWidth: 720, display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' } }}>
 
-              <Typography variant="overline" 
-            sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.9rem', letterSpacing: 2, mb: 0.5, textTransform:'uppercase' }}>
+              <Typography variant="overline" sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.9rem', letterSpacing: 2, mb: 0.5, textTransform: 'uppercase' }}>
                 {t('Our Story')}
               </Typography>
 
@@ -43,14 +54,18 @@ export default function AboutHero() {
             </Box>
           </Grid>
 
-        <Grid size={{ xs: 12, md: 6 }}>
-            <Box sx={{ width: '100%', height: { xs: 350, sm: 450, md: 500, lg: 575 }, borderRadius: { xs: 4, md: 5 }, overflow: 'hidden', boxShadow: (theme) => `0 25px 60px ${alpha(theme.palette.common.black, 0.12)}` }}>
-              <Box component="img" src={aboutHero} alt={t('About hero image')} sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Box sx={{ position: 'relative', width: '100%', height: { xs: 350, sm: 450, md: 500, lg: 575 }, borderRadius: { xs: 4, md: 5 }, overflow: 'hidden', boxShadow: (theme) => `0 25px 60px ${alpha(theme.palette.common.black, 0.12)}` }}>
+              {!imageLoaded && (
+                <Skeleton variant="rectangular" width="100%" height="100%" animation="wave" />
+              )}
+
+              <Box component="img" src={aboutHero} alt={t('About hero image')} loading="eager" onLoad={() => setImageLoaded(true)}
+                sx={{ width: '100%', height: '100%', objectFit: 'cover', display: imageLoaded ? 'block' : 'none' }} />
             </Box>
           </Grid>
-
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }

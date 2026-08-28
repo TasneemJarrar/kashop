@@ -307,6 +307,9 @@ i18n
           "Submitting...": "Submitting...",
           "Submit_Review": "Submit Review",
           "Failed to submit review. Please try again.": "Failed to submit review. Please try again.",
+          'Failed_To_Load_Categories': 'Failed to load categories',
+          'Failed_To_Load_Products': 'Failed to load products',
+          "Sort By": "Sort By",
 
           "seo": {
             "home": {
@@ -674,6 +677,9 @@ i18n
           "Submitting...": "جاري الإرسال...",
           "Submit_Review": "إرسال التقييم",
           "Failed to submit review. Please try again.": "فشل إرسال التقييم. يرجى المحاولة مرة أخرى.",
+          'Failed_To_Load_Categories': 'فشل تحميل الفئات',
+          'Failed_To_Load_Products': 'فشل تحميل المنتجات',
+          "Sort By": "ترتيب حسب",
 
           "seo": {
             "home": {

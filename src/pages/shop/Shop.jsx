@@ -127,7 +127,7 @@ export default function Shop() {
                 <FiltersPanel
                   categories={categories}
                   appliedFilters={appliedFilters}
-                  onApply={setAppliedFilters}/>
+                  onApply={setAppliedFilters} />
               </Card>
             </Grid>
 
@@ -137,7 +137,7 @@ export default function Shop() {
                   <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {isLoading ? <Skeleton width={60} /> : `${ProductsCount ?? 0} ${t('Results')}`}
                   </Typography>
-                  <Button sx={{ display: { xs: 'inline-flex', md: 'none' }, minWidth: 'fit-content', minHeight: 'fit-content', pt: 1 }} color='secondary' onClick={toggleDrawer(true)}>
+                  <Button sx={{ display: { xs: 'inline-flex', md: 'none' }, minWidth: 'fit-content', minHeight: 'fit-content', p:0 }} color='secondary' onClick={toggleDrawer(true)}>
                     <TuneRoundedIcon color='secondary' />
                   </Button>
                   <Drawer
@@ -198,89 +198,89 @@ export default function Shop() {
               <Grid container spacing={2}>
                 {isLoading
                   ? Array.from({ length: 6 }).map((_, index) => (
-                      <Grid key={index} size={{ xs: 6, sm: 4 }}>
-                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                          <Skeleton variant="rectangular" sx={{ width: '100%', aspectRatio: '1 / 1' }} />
-                          <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1.5, md: 3 } }}>
-                            <Stack sx={{ gap: 1, width: '100%' }}>
-                              <Skeleton variant="text" width="80%" height={20} />
-                              <Skeleton variant="text" width="40%" height={18} />
-                              <Skeleton variant="text" width="50%" height={22} />
-                            </Stack>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-                    ))
+                    <Grid key={index} size={{ xs: 6, sm: 4 }}>
+                      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                        <Skeleton variant="rectangular" sx={{ width: '100%', aspectRatio: '1 / 1' }} />
+                        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1.5, md: 3 } }}>
+                          <Stack sx={{ gap: 1, width: '100%' }}>
+                            <Skeleton variant="text" width="80%" height={20} />
+                            <Skeleton variant="text" width="40%" height={18} />
+                            <Skeleton variant="text" width="50%" height={22} />
+                          </Stack>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))
                   : filteredProducts.map((product) => (
-                      <Grid key={product.id} size={{ xs: 6, sm: 4 }}>
-                        <Card sx={{
-                          height: '100%',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          textDecoration: 'none',
-                        }}>
-                          <Box component={RouterLink} to={`/product/${product.id}`} sx={{ textDecoration: 'none' }}>
-                            <CardMedia
-                              component="img"
-                              image={product.image}
-                              alt={product.name}
-                              loading="lazy"
-                              sx={{
-                                width: '100%', aspectRatio: '1 / 1', objectFit: 'contain',
-                              }}
-                            />
-                          </Box>
-                          <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1.5, md: 3 } }}>
-                            <Stack sx={{ gap: 1 }}>
-                              <Typography component={RouterLink} to={`/product/${product.id}`} sx={{
-                                textDecoration: 'none', color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' },
-                                display: '-webkit-box',
-                                WebkitLineClamp: 1,
-                                WebkitBoxOrient: 'vertical',
-                                overflow: 'hidden',
-                              }}>
-                                {product.name}
-                              </Typography>
-                              <Stack direction="row" spacing={0.75} sx={{ alignItems: "center" }}>
-                                <StarRoundedIcon sx={{ color: 'warning.light', fontSize: { xs: '0.8rem', md: '0.9rem' } }} />
-                                <Typography component="span" sx={{ fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' }, color: theme.palette.text.primary }}>
-                                  {product.rate}
-                                </Typography>
-                              </Stack>
-                              <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.8rem', md: '0.9rem' }, mt: 0.5 }}>
-                                {formatPrice(product.price)}
+                    <Grid key={product.id} size={{ xs: 6, sm: 4 }}>
+                      <Card sx={{
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        textDecoration: 'none',
+                      }}>
+                        <Box component={RouterLink} to={`/product/${product.id}`} sx={{ textDecoration: 'none' }}>
+                          <CardMedia
+                            component="img"
+                            image={product.image}
+                            alt={product.name}
+                            loading="lazy"
+                            sx={{
+                              width: '100%', aspectRatio: '1 / 1', objectFit: 'contain',
+                            }}
+                          />
+                        </Box>
+                        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1.5, md: 3 } }}>
+                          <Stack sx={{ gap: 1 }}>
+                            <Typography component={RouterLink} to={`/product/${product.id}`} sx={{
+                              textDecoration: 'none', color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' },
+                              display: '-webkit-box',
+                              WebkitLineClamp: 1,
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden',
+                            }}>
+                              {product.name}
+                            </Typography>
+                            <Stack direction="row" spacing={0.75} sx={{ alignItems: "center" }}>
+                              <StarRoundedIcon sx={{ color: 'warning.light', fontSize: { xs: '0.8rem', md: '0.9rem' } }} />
+                              <Typography component="span" sx={{ fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' }, color: theme.palette.text.primary }}>
+                                {product.rate}
                               </Typography>
                             </Stack>
+                            <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.8rem', md: '0.9rem' }, mt: 0.5 }}>
+                              {formatPrice(product.price)}
+                            </Typography>
+                          </Stack>
 
-                            <Stack sx={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                              <IconButton
-                                color='secondary'
-                                size='small'
-                                onClick={() => handleAddToCart(product)}
-                                sx={{
-                                  width: { xs: 36, md: 44 },
-                                  height: { xs: 36, md: 44 },
+                          <Stack sx={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                            <IconButton
+                              color='secondary'
+                              size='small'
+                              onClick={() => handleAddToCart(product)}
+                              sx={{
+                                width: { xs: 36, md: 44 },
+                                height: { xs: 36, md: 44 },
+                                background: (theme) =>
+                                  `linear-gradient(135deg, ${theme.palette.secondary.light}, ${theme.palette.secondary.main})`,
+                                color: (theme) => theme.palette.secondary.contrastText,
+                                boxShadow: (theme) =>
+                                  `0 6px 14px ${alpha(theme.palette.secondary.main, 0.45)}`,
+                                transition: 'all 0.2s ease',
+                                '&:hover': {
                                   background: (theme) =>
-                                    `linear-gradient(135deg, ${theme.palette.secondary.light}, ${theme.palette.secondary.main})`,
-                                  color: (theme) => theme.palette.secondary.contrastText,
+                                    `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
+                                  transform: 'translateY(-2px)',
                                   boxShadow: (theme) =>
-                                    `0 6px 14px ${alpha(theme.palette.secondary.main, 0.45)}`,
-                                  transition: 'all 0.2s ease',
-                                  '&:hover': {
-                                    background: (theme) =>
-                                      `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
-                                    transform: 'translateY(-2px)',
-                                    boxShadow: (theme) =>
-                                      `0 8px 18px ${alpha(theme.palette.secondary.main, 0.55)}`,
-                                  }
-                                }}>
-                                <AddIcon sx={{ fontSize: { xs: '1.2rem', md: '1.6rem' } }} />
-                              </IconButton>
-                            </Stack>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-                    ))}
+                                    `0 8px 18px ${alpha(theme.palette.secondary.main, 0.55)}`,
+                                }
+                              }}>
+                              <AddIcon sx={{ fontSize: { xs: '1.2rem', md: '1.6rem' } }} />
+                            </IconButton>
+                          </Stack>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
               </Grid>
             </Grid>
           </Grid>

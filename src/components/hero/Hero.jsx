@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Container, Typography, Stack, useTheme, Button, Skeleton, Alert } from "@mui/material";
+import { Box, Container, Typography, Stack, useTheme, Button, Skeleton } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
@@ -11,13 +11,10 @@ export default function Hero() {
   const overlay = theme.palette?.custom?.hero?.overlay || "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))";
 
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  const [imageError, setImageError] = useState(!heroImage);
 
   useEffect(() => {
-    if (!heroImage) {
-      setImageError(true);
-      return;
-    }
+    if (!heroImage) return;
 
     const img = new Image();
     img.src = heroImage;
@@ -25,7 +22,6 @@ export default function Hero() {
     img.onerror = () => setImageError(true);
   }, [heroImage]);
 
-  // 1. Loading State (Skeleton Hero Layout)
   if (!imageLoaded && !imageError) {
     return (
       <Box sx={{ minHeight: "100dvh", display: "flex", alignItems: "center", px: { xs: 2, sm: 0 }, bgcolor: "action.hover" }}>
@@ -47,15 +43,15 @@ export default function Hero() {
   const backgroundStyle = imageError || !heroImage
     ? { bgcolor: "grey.900" }
     : {
-      backgroundImage: `${overlay}, url(${heroImage})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center center",
-      animation: "heroFlow 18s ease-in-out infinite alternate",
-      "@keyframes heroFlow": {
-        from: { backgroundSize: "105%", backgroundPosition: "center center" },
-        to: { backgroundSize: "100%", backgroundPosition: "70% center" },
-      },
-    };
+        backgroundImage: `${overlay}, url(${heroImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        animation: "heroFlow 18s ease-in-out infinite alternate",
+        "@keyframes heroFlow": {
+          from: { backgroundSize: "105%", backgroundPosition: "center center" },
+          to: { backgroundSize: "100%", backgroundPosition: "70% center" },
+        },
+      };
 
   return (
     <Box sx={{ minHeight: "100dvh", display: "flex", alignItems: "center", px: { xs: 2, sm: 0 }, position: "relative", ...backgroundStyle }}>
@@ -77,7 +73,7 @@ export default function Hero() {
             <Button component={Link} to="/shop" variant="contained" color="primary" size="large" sx={{ borderRadius: 4 }} fullWidth={false}>
               {t("Shop Now")}
             </Button>
-            <Button href="#featured" variant="outlined" color="inherit" size="large" sx={{ borderRadius: 4 }}>
+            <Button component={Link} to="/shop" variant="outlined" color="inherit" size="large" sx={{ borderRadius: 4 }}>
               {t("Explore Products")}
             </Button>
           </Stack>

@@ -6,19 +6,42 @@ import Newsletter from '../../components/newsletter/Newsletter';
 import FeaturedCollections from '../../components/featuredCollections/FeaturedCollections';
 import Testimonials from '../../components/testimonials/Testimonials';
 import FAQ from '../../components/FAQ/FAQ';
+import AnimatedSection from '../../components/shared/AnimatedSection';
 
 export default function Home() {
-  
   return (
     <div>
-      <Hero />
-      <Categories />
-      <Products />
-      <FeaturedCollections />
-      <BenefitsBar />
-      <Testimonials />
-      <FAQ />
-      <Newsletter />
+      <AnimatedSection direction="up">
+        <Hero />
+      </AnimatedSection>
+
+      <AnimatedSection direction="up" delay={0.05}>
+        <Categories />
+      </AnimatedSection>
+
+      <AnimatedSection direction="up" delay={0.05}>
+        <Products />
+      </AnimatedSection>
+
+      <AnimatedSection direction="up" delay={0.05}>
+        <FeaturedCollections />
+      </AnimatedSection>
+
+      <AnimatedSection direction="up" delay={0.05}>
+        <BenefitsBar />
+      </AnimatedSection>
+
+      <AnimatedSection direction="up" delay={0.05}>
+        <Testimonials />
+      </AnimatedSection>
+
+      <AnimatedSection direction="up" delay={0.05}>
+        <FAQ />
+      </AnimatedSection>
+
+      <AnimatedSection direction="up" delay={0.05}>
+        <Newsletter />
+      </AnimatedSection>
     </div>
-  )
+  );
 }

@@ -1,4 +1,5 @@
 import { alpha, Alert, Box, Button, Card, CardContent, CardMedia, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Skeleton, Stack, Typography, useTheme } from '@mui/material';
+import { motion } from 'motion/react';
 import useProducts from '../../hooks/useProducts';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router';
@@ -8,10 +9,13 @@ import useAddToCart from '../../hooks/useAddToCart';
 import useAuthStore from '../../store/useAuthStore';
 import { useState } from 'react';
 
+const MotionCard = motion.create(Card);
+
 export default function Products() {
   const { data, isLoading, isError, error } = useProducts();
   const { t } = useTranslation();
   const theme = useTheme();
+
   const products = data?.response?.data ?? [];
 
   const navigate = useNavigate();
@@ -21,6 +25,7 @@ export default function Products() {
   const isAuthenticated = !!token;
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+
   const { mutate: addToCart } = useAddToCart({
     onError: (err) => {
       if (err?.response?.status === 401) {
@@ -34,24 +39,39 @@ export default function Products() {
       setLoginModalOpen(true);
       return;
     }
-    addToCart({ productId: product.id, count: 1 });
+
+    addToCart({
+      productId: product.id,
+      count: 1,
+    });
   };
 
   const formatPrice = (price) =>
-    new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(price);
 
   return (
     <>
       <Box component="section" sx={{ py: 3, backgroundColor: 'background.default' }}>
         <Container maxWidth="lg">
-          <Box sx={{ mb: 3 }}>
-            <Typography sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.8rem', letterSpacing: 2, mb: 0.5, textTransform: 'uppercase' }}>
-              {t('Handpicked')}
-            </Typography>
-            <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.25rem' } }}>
-              {t("This season's favourites")}
-            </Typography>
-          </Box>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Box sx={{ mb: 3 }}>
+              <Typography sx={{ color: 'secondary.main', fontWeight: 700, fontSize: '0.8rem', letterSpacing: 2, mb: 0.5, textTransform: 'uppercase' }}>
+                {t('Handpicked')}
+              </Typography>
+
+              <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.25rem' } }}>
+                {t("This season's favourites")}
+              </Typography>
+            </Box>
+          </motion.div>
 
           {isError && (
             <Alert severity="error" sx={{ borderRadius: 2 }}>
@@ -80,40 +100,76 @@ export default function Products() {
 
           {!isLoading && !isError && (
             <Grid container spacing={{ xs: 2, md: 3 }}>
-              {products.map((product) => (
+              {products.map((product, index) => (
                 <Grid key={product.id} size={{ xs: 6, sm: 4, md: 3 }}>
-                  <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textDecoration: 'none', transition: 'all 0.3s ease-in-out', '&:hover': { boxShadow: theme.shadows[1], transform: 'scale(1.02)' } }}>
-                    <Box component={RouterLink} to={`/product/${product.id}`} sx={{ textDecoration: 'none' }}>
-                      <CardMedia component="img" image={product.image} alt={product.name} loading="lazy" sx={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'contain' }} />
+                  <MotionCard
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    whileHover={{ y: -6, scale: 1.015 }}
+                    whileTap={{ scale: 0.985 }}
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', textDecoration: 'none', transformOrigin: 'center' }}
+                  >
+                    <Box component={RouterLink} to={`/product/${product.id}`} sx={{ textDecoration: 'none', overflow: 'hidden' }}>
+                      <CardMedia
+                        component="img"
+                        image={product.image}
+                        alt={product.name}
+                        loading="lazy"
+                        sx={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'contain', transition: 'transform 0.5s ease' }}
+                      />
                     </Box>
+
                     <CardContent sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1.5, md: 3 } }}>
                       <Stack sx={{ gap: 1 }}>
-                        <Typography component={RouterLink} to={`/product/${product.id}`} sx={{ textDecoration: 'none', color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' }, display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        <Typography
+                          component={RouterLink}
+                          to={`/product/${product.id}`}
+                          sx={{ textDecoration: 'none', color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' }, display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                        >
                           {product.name}
                         </Typography>
+
                         <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
                           <StarRoundedIcon sx={{ color: 'warning.light', fontSize: { xs: '0.8rem', md: '0.9rem' } }} />
                           <Typography component="span" sx={{ fontWeight: 600, fontSize: { xs: '0.8rem', md: '0.9rem' }, color: theme.palette.text.primary }}>
                             {product.rate}
                           </Typography>
                         </Stack>
+
                         <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.8rem', md: '0.9rem' }, mt: 0.5 }}>
                           {formatPrice(product.price)}
                         </Typography>
                       </Stack>
 
                       <Stack sx={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                        <IconButton
-                          color="secondary"
-                          size="small"
-                          onClick={() => handleAddToCart(product)}
-                          sx={{ width: { xs: 36, md: 44 }, height: { xs: 36, md: 44 }, background: (theme) => `linear-gradient(135deg, ${theme.palette.secondary.light}, ${theme.palette.secondary.main})`, color: (theme) => theme.palette.secondary.contrastText, boxShadow: (theme) => `0 6px 14px ${alpha(theme.palette.secondary.main, 0.45)}`, transition: 'all 0.2s ease', '&:hover': { background: (theme) => `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`, transform: 'translateY(-2px)', boxShadow: (theme) => `0 8px 18px ${alpha(theme.palette.secondary.main, 0.55)}` } }}
+                        <motion.div
+                          whileHover={{ scale: 1.08, rotate: 2 }}
+                          whileTap={{ scale: 0.9 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                         >
-                          <AddIcon sx={{ fontSize: { xs: '1.2rem', md: '1.6rem' } }} />
-                        </IconButton>
+                          <IconButton
+                            color="secondary"
+                            size="small"
+                            onClick={() => handleAddToCart(product)}
+                            sx={{
+                              width: { xs: 36, md: 44 },
+                              height: { xs: 36, md: 44 },
+                              background: (theme) => `linear-gradient(135deg, ${theme.palette.secondary.light}, ${theme.palette.secondary.main})`,
+                              color: (theme) => theme.palette.secondary.contrastText,
+                              boxShadow: (theme) => `0 6px 14px ${alpha(theme.palette.secondary.main, 0.45)}`,
+                              '&:hover': {
+                                background: (theme) => `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
+                              },
+                            }}
+                          >
+                            <AddIcon sx={{ fontSize: { xs: '1.2rem', md: '1.6rem' } }} />
+                          </IconButton>
+                        </motion.div>
                       </Stack>
                     </CardContent>
-                  </Card>
+                  </MotionCard>
                 </Grid>
               ))}
             </Grid>
@@ -126,7 +182,14 @@ export default function Products() {
         <DialogContent>{t('You need to be logged in to add items to your cart.')}</DialogContent>
         <DialogActions>
           <Button onClick={() => setLoginModalOpen(false)}>{t('Cancel')}</Button>
-          <Button variant="contained" onClick={() => navigate('/login', { state: { from: location.pathname } })}>
+          <Button
+            variant="contained"
+            onClick={() =>
+              navigate('/login', {
+                state: { from: location.pathname },
+              })
+            }
+          >
             {t('Go to Login')}
           </Button>
         </DialogActions>

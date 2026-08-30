@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  cursor: none;
 }
 
 html,
@@ -17,4 +18,20 @@ body,
   *::after {
     scroll-behavior: auto !important;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
+
+
+body.kashop-custom-cursor input,
+body.kashop-custom-cursor textarea,
+body.kashop-custom-cursor select,
+body.kashop-custom-cursor [contenteditable="true"] {
+  cursor: text !important;
 }

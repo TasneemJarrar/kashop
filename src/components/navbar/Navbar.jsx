@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import useAuthStore from '../../store/useAuthStore';
 import { useNavigate, NavLink } from 'react-router';
 import useCart from '../../hooks/useCart';
+import { motion } from 'motion/react';
 import { styled, alpha } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Badge, { badgeClasses } from '@mui/material/Badge';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';import Box from '@mui/material/Box';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined'; import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -120,7 +121,7 @@ export default function Navbar() {
       position="sticky"
       elevation={0}
       sx={(theme) => ({
-        zIndex:99,
+        zIndex: 99,
         backgroundColor: alpha(theme.palette.custom.navbar.background, scrolled ? 0.8 : 1),
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         color: theme.palette.custom.navbar.text,
@@ -199,10 +200,18 @@ export default function Navbar() {
                   </Menu>
 
                   <Link component={NavLink} to="/cart" underline="none">
-                    <IconButton aria-label={`View cart with ${cartCount} items`} sx={navbarIconStyles} color="inherit">
-                      <LocalMallOutlinedIcon fontSize="medium" />
-                      <CartBadge badgeContent={cartCount} color="primary" overlap="circular" />
-                    </IconButton>
+                    <motion.div
+                      key={cartCount}
+                      initial={{ scale: 1 }}
+                      animate={{ scale: [1, 1.25, 1] }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ display: 'inline-flex' }}
+                    >
+                      <IconButton aria-label={`View cart with ${cartCount} items`} sx={navbarIconStyles} color="inherit">
+                        <LocalMallOutlinedIcon fontSize="medium" />
+                        <CartBadge badgeContent={cartCount} color="primary" overlap="circular" />
+                      </IconButton>
+                    </motion.div>
                   </Link>
 
                   <Tooltip title="Account settings">
@@ -213,7 +222,7 @@ export default function Navbar() {
                       aria-haspopup="true"
                       aria-expanded={open}
                     >
-                      <Avatar sx={{ width: 32, height: 32 }}/>
+                      <Avatar sx={{ width: 32, height: 32 }} />
                     </IconButton>
                   </Tooltip>
 
@@ -255,7 +264,7 @@ export default function Navbar() {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                   >
                     <MenuItem component={NavLink} to="/profile" onClick={handleClose} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    {t('My Account')} <Avatar />
+                      {t('My Account')} <Avatar />
                     </MenuItem>
                     <Divider />
                     <MenuItem component={NavLink} to="/profile" onClick={handleClose}>
@@ -299,7 +308,7 @@ export default function Navbar() {
                     <MenuItem selected={i18n.language === 'ar'} onClick={() => handleChangeLanguage('ar')}>العربية</MenuItem>
                   </Menu>
 
-                  <Button color="inherit" underline="hover" onClick={() =>navigate('/login', { state: { from: location.pathname } })} sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
+                  <Button color="inherit" underline="hover" onClick={() => navigate('/login', { state: { from: location.pathname } })} sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
                     {t('Login')}
                   </Button>
                   <Button component={NavLink} to="/register" variant="contained" color="secondary" size="small" sx={{ display: { xs: 'none', sm: 'flex' }, borderRadius: 4, px: 2.5, textTransform: 'none', fontWeight: 600 }}>

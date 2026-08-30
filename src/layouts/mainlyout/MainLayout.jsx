@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
 import { Outlet, useLocation } from 'react-router';
@@ -7,6 +8,14 @@ import RouteSeo from '../../components/shared/RouteSeo';
 export default function MainLayout() {
   const location = useLocation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  const transitionKey = location.pathname.startsWith('/profile')
+    ? '/profile'
+    : location.pathname;
+
   return (
     <>
       <RouteSeo />
@@ -15,7 +24,7 @@ export default function MainLayout() {
 
       <AnimatePresence mode="wait">
         <motion.main
-          key={location.pathname}
+          key={transitionKey}
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}

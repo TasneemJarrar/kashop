@@ -1,5 +1,6 @@
 import useCart from '../../hooks/useCart';
 import { Box, Button, Card, CardContent, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Link, Stack, Typography, } from '@mui/material';
+import { AnimatePresence, motion } from 'motion/react';
 import useDeleteFromCart from '../../hooks/useRemoveFromCart';
 import useUpdateCartItem from '../../hooks/useUpdateCartItem';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'; import RemoveIcon from '@mui/icons-material/Remove';
@@ -10,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
 import { useState } from 'react';
-
 
 
 export default function Cart() {
@@ -75,7 +75,7 @@ export default function Cart() {
           {!data?.items || data.items.length === 0 ? null :
             <>
               <Button variant="text" color="error"
-                 onClick={handleClickOpen} sx={{ textTransform: "none", pb: 0, textDecoration: "underline", fontWeight: 500, color: "text.secondary", "&:hover": { color: "error.main" }, width: "fit-content" }}>
+                onClick={handleClickOpen} sx={{ textTransform: "none", pb: 0, textDecoration: "underline", fontWeight: 500, color: "text.secondary", "&:hover": { color: "error.main" }, width: "fit-content" }}>
                 {t("Clear_Cart")}
               </Button>
 
@@ -94,17 +94,16 @@ export default function Cart() {
                     {t('Clear_Cart_Body')}
                   </DialogContentText>
                 </DialogContent>
-                <DialogActions sx={{display:'flex', gap:2}}>
-                  <Button onClick={handleClose} autoFocus variant="outlined" color="grey" sx={{ textTransform: "none", fontWeight: 600}}>
+                <DialogActions sx={{ display: 'flex', gap: 2 }}>
+                  <Button onClick={handleClose} autoFocus variant="outlined" color="grey" sx={{ textTransform: "none", fontWeight: 600 }}>
                     {t("Cancel")}
                   </Button>
-                  <Button onClick={() => { clearCart();  handleClose();}} variant="outlined" color="error" sx={{ textTransform: "none", fontWeight: 600, color: "error.main", "&:hover": { bgcolor: "error.main", color: "white" } }}>
+                  <Button onClick={() => { clearCart(); handleClose(); }} variant="outlined" color="error" sx={{ textTransform: "none", fontWeight: 600, color: "error.main", "&:hover": { bgcolor: "error.main", color: "white" } }}>
                     {t("Clear_Cart")}
                   </Button>
                 </DialogActions>
               </Dialog>
             </>
-
           }
         </Stack>
 
@@ -132,67 +131,94 @@ export default function Cart() {
               </CardContent>
             </Card>
 
-              : <Box>{data?.items?.map((item) => (
-                <Card
-                  key={item.productId}
-                  elevation={0}
-                  sx={{ p: 2, mb: 2, border: "1px solid", borderColor: 'divider' }}>
-                  <CardContent sx={{ p: "0 !important" }}>
-                    <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+              : <Box>
+                <AnimatePresence initial={false}>
+                  {data?.items?.map((item) => (
+                    <motion.div
+                      key={item.productId}
+                      layout
+                      initial={{ opacity: 0, y: -12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, x: -24, height: 0, marginBottom: 0 }}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <Card
+                        elevation={0}
+                        sx={{ p: 2, mb: 2, border: "1px solid", borderColor: 'divider', overflow: 'hidden' }}>
+                        <CardContent sx={{ p: "0 !important" }}>
+                          <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
 
-                      <Stack spacing={2}>
-                        <Link component={routerLink} to={`/product/${item.productId}`} sx={{ fontWeight: 600, textDecoration: 'none', color: 'text.primary' }}>
-                          {item.productName}
-                        </Link>
+                            <Stack spacing={2}>
+                              <Link component={routerLink} to={`/product/${item.productId}`} sx={{ fontWeight: 600, textDecoration: 'none', color: 'text.primary' }}>
+                                {item.productName}
+                              </Link>
 
-                        <Typography variant="body2" color="error" sx={{ fontWeight: 500 }}>
-                          {formatPrice(item.price)}
-                        </Typography>
-                      </Stack>
+                              <Typography variant="body2" color="error" sx={{ fontWeight: 500 }}>
+                                {formatPrice(item.price)}
+                              </Typography>
+                            </Stack>
 
-                      <Stack
-                        sx={{ height: 100, justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Stack
-                          direction="row"
-                          spacing={1}
-                          sx={{ alignItems: "center", width: "fit-content",justifyContent: "between", border: "1px solid #CBC4D2", borderRadius: 10, px: 1, py: 0.5 }}>
+                            <Stack
+                              sx={{ height: 100, justifyContent: 'space-between', alignItems: 'center' }}>
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                sx={{ alignItems: "center", width: "fit-content", justifyContent: "between", border: "1px solid #CBC4D2", borderRadius: 10, px: 1, py: 0.5 }}>
 
-                          <IconButton
-                            size="small"
-                            onClick={() => handleUpdate(item.productId, "-")}>
-                            <RemoveIcon sx={{ fontSize: 16 }} />
-                          </IconButton>
+                                <motion.div whileTap={{ scale: 0.85 }}>
+                                  <IconButton
+                                    size="small"
+                                    onClick={() => handleUpdate(item.productId, "-")}>
+                                    <RemoveIcon sx={{ fontSize: 16 }} />
+                                  </IconButton>
+                                </motion.div>
 
-                          <Typography fontWeight={500}>
-                            {item.count}
-                          </Typography>
+                                <Box sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', width: 20 }}>
+                                  <AnimatePresence mode="wait" initial={false}>
+                                    <motion.div
+                                      key={item.count}
+                                      initial={{ y: 10, opacity: 0 }}
+                                      animate={{ y: 0, opacity: 1 }}
+                                      exit={{ y: -10, opacity: 0 }}
+                                      transition={{ duration: 0.15 }}
+                                    >
+                                      <Typography fontWeight={500}>
+                                        {item.count}
+                                      </Typography>
+                                    </motion.div>
+                                  </AnimatePresence>
+                                </Box>
 
-                          <IconButton
-                            size="small"
-                            onClick={() => handleUpdate(item.productId, "+")}>
-                            <AddIcon sx={{ fontSize: 16 }} />
-                          </IconButton>
-                        </Stack>
+                                <motion.div whileTap={{ scale: 0.85 }}>
+                                  <IconButton
+                                    size="small"
+                                    onClick={() => handleUpdate(item.productId, "+")}>
+                                    <AddIcon sx={{ fontSize: 16 }} />
+                                  </IconButton>
+                                </motion.div>
+                              </Stack>
 
-                        <Button
-                          color="error"
-                          disabled={isPending}
-                          onClick={() => RemoveItem(item.productId)}
-                          sx={{ textTransform: "none", display: "flex", alignItems: "center", gap: 0.5 }}>
-                          <DeleteOutlineOutlinedIcon fontSize="small" />
-                          {t('Remove')}
-                        </Button>
+                              <Button
+                                color="error"
+                                disabled={isPending}
+                                onClick={() => RemoveItem(item.productId)}
+                                sx={{ textTransform: "none", display: "flex", alignItems: "center", gap: 0.5 }}>
+                                <DeleteOutlineOutlinedIcon fontSize="small" />
+                                {t('Remove')}
+                              </Button>
 
-                      </Stack>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              ))}
+                            </Stack>
+                          </Stack>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </Box>
             }
           </Grid>
 
-          <Grid size={{ xs: 12, md: 4 }}  sx={{display:{xs:!data?.items || data.items.length === 0? 'none' : 'block', md:'block'}}}>
+          <Grid size={{ xs: 12, md: 4 }} sx={{ display: { xs: !data?.items || data.items.length === 0 ? 'none' : 'block', md: 'block' } }}>
             <Card elevation={0} sx={{ p: 2, mb: 2, border: "1px solid", borderColor: 'divider' }}>
               <CardContent sx={{ p: "0 !important" }}>
                 <Stack spacing={2}>

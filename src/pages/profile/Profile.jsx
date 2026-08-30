@@ -1,5 +1,6 @@
 import { Avatar, Box, Card, Container, Divider, Grid, Skeleton, Stack, Typography } from "@mui/material";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router";
+import { AnimatePresence, motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import useProfile from "../../hooks/useProfile";
 import useAuthStore from "../../store/useAuthStore";
@@ -39,7 +40,9 @@ function NavItem({ to, end, icon: Icon, label, color = 'text.secondary', onClick
     cursor: 'pointer',
     transition: 'all 0.15s ease',
     '&:hover': {
-      bgcolor: 'action.hover'}};
+      bgcolor: 'action.hover'
+    }
+  };
 
   if (onClick) {
     return (
@@ -54,7 +57,8 @@ function NavItem({ to, end, icon: Icon, label, color = 'text.secondary', onClick
     <Box component={NavLink}
       to={to}
       end={end}
-      sx={{ ...sharedSx,
+      sx={{
+        ...sharedSx,
         '&.active': {
           bgcolor: 'action.selected',
           color: 'primary.main',
@@ -70,6 +74,7 @@ function NavItem({ to, end, icon: Icon, label, color = 'text.secondary', onClick
 export default function Profile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const { data: profile, isLoading } = useProfile();
   const logout = useAuthStore((state) => state.logout);
 
@@ -96,7 +101,7 @@ export default function Profile() {
                   </>
                 ) : (
                   <>
-                    <Avatar sx={{ width: 72, height: 72, bgcolor: 'secondary.main', color: 'secondary.contrastText', fontFamily: (theme) => theme.typography.h5.fontFamily, fontSize: 26, fontWeight: 700}}>
+                    <Avatar sx={{ width: 72, height: 72, bgcolor: 'secondary.main', color: 'secondary.contrastText', fontFamily: (theme) => theme.typography.h5.fontFamily, fontSize: 26, fontWeight: 700 }}>
                       {initials}
                     </Avatar>
                     <Typography variant="subtitle1" sx={{ fontWeight: 700, mt: 1.5 }}>
@@ -131,7 +136,16 @@ export default function Profile() {
           </Grid>
 
           <Grid size={{ xs: 12, md: 9 }}>
-            <Outlet />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
+                <Outlet />
+              </motion.div>
+            </AnimatePresence>
           </Grid>
         </Grid>
       </Container>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { AnimatePresence, motion } from 'motion/react';
 import MinimalNavbar from '../../components/navbar/MinimalNavbar';
@@ -13,6 +14,10 @@ export default function MinimalLayout() {
   const { pathname } = useLocation();
   const { titleKey, closeTo } =
     TITLE_KEYS[pathname] ?? TITLE_KEYS['/checkout'];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>

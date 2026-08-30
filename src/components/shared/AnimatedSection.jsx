@@ -1,24 +1,26 @@
 import { motion } from 'motion/react';
 
+const directions = {
+  up: { y: 30, x: 0 },
+  down: { y: -30, x: 0 },
+  left: { x: 30, y: 0 },
+  right: { x: -30, y: 0 },
+};
+
 export default function AnimatedSection({
   children,
-  delay = 0,
   direction = 'up',
-  className,
+  delay = 0,
+  duration = 0.55,
+  amount = 0.15,
 }) {
-  const directions = {
-    up: { y: 30, x: 0 },
-    down: { y: -30, x: 0 },
-    left: { y: 0, x: 30 },
-    right: { y: 0, x: -30 },
-  };
+  const initialPosition = directions[direction] || directions.up;
 
   return (
     <motion.div
-      className={className}
       initial={{
         opacity: 0,
-        ...directions[direction],
+        ...initialPosition,
       }}
       whileInView={{
         opacity: 1,
@@ -27,13 +29,14 @@ export default function AnimatedSection({
       }}
       viewport={{
         once: true,
-        amount: 0.15,
+        amount,
       }}
       transition={{
-        duration: 0.55,
+        duration,
         delay,
         ease: [0.22, 1, 0.36, 1],
-      }}>
+      }}
+    >
       {children}
     </motion.div>
   );

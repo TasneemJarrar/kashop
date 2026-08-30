@@ -1,19 +1,8 @@
 import { useState } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CircularProgress,
-  Container,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Card, CardActionArea, CircularProgress, Container, Divider, Grid, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { motion, AnimatePresence } from "motion/react";
 import useCart from "../../hooks/useCart";
 import useCheckout from "../../hooks/useCheckout";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
@@ -105,29 +94,42 @@ export default function Checkout() {
                 {paymentOptions.map((option) => {
                   const isSelected = paymentMethod === option.id;
                   return (
-                    <Card key={option.id} elevation={0}
-                      sx={{ borderRadius: 2, border: "2px solid", borderColor: isSelected ? "primary.main" : "divider", bgcolor: isSelected ? "action.hover" : "transparent", transition: "all 0.2s ease" }}>
-                      <CardActionArea onClick={() => setPaymentMethod(option.id)} sx={{ p: 2 }}>
-                        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                            <Box
-                              sx={{ color: isSelected ? "primary.main" : "text.secondary", display: "flex", alignItems: "center" }}>
-                              {option.icon}
+                    <motion.div key={option.id} whileTap={{ scale: 0.98 }}>
+                      <Card elevation={0}
+                        sx={{ borderRadius: 2, border: "2px solid", borderColor: isSelected ? "primary.main" : "divider", bgcolor: isSelected ? "action.hover" : "transparent", transition: "all 0.2s ease" }}>
+                        <CardActionArea onClick={() => setPaymentMethod(option.id)} sx={{ p: 2 }}>
+                          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                              <Box
+                                sx={{ color: isSelected ? "primary.main" : "text.secondary", display: "flex", alignItems: "center" }}>
+                                {option.icon}
+                              </Box>
+                              <Box>
+                                <Typography variant="subtitle1" fontWeight={700}>
+                                  {option.label}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                  {option.description}
+                                </Typography>
+                              </Box>
                             </Box>
-                            <Box>
-                              <Typography variant="subtitle1" fontWeight={700}>
-                                {option.label}
-                              </Typography>
-                              <Typography variant="body2" color="text.secondary">
-                                {option.description}
-                              </Typography>
-                            </Box>
-                          </Box>
 
-                          {isSelected && <CheckCircleIcon color="primary" sx={{ fontSize: 24 }} />}
-                        </Box>
-                      </CardActionArea>
-                    </Card>
+                            <AnimatePresence>
+                              {isSelected && (
+                                <motion.div
+                                  initial={{ scale: 0, opacity: 0 }}
+                                  animate={{ scale: 1, opacity: 1 }}
+                                  exit={{ scale: 0, opacity: 0 }}
+                                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                                >
+                                  <CheckCircleIcon color="primary" sx={{ fontSize: 24 }} />
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </Box>
+                        </CardActionArea>
+                      </Card>
+                    </motion.div>
                   );
                 })}
               </Stack>
@@ -138,10 +140,12 @@ export default function Checkout() {
                   {t("Back_To_Cart")}
                 </Button>
 
-                <Button variant="contained" disabled={isPending || !paymentMethod} onClick={handlePay}
-                  size="large" sx={{ borderRadius: 2, px: 5, py: 1.2, fontWeight: 800, boxShadow: "none" }}>
-                  {isPending ? <CircularProgress size={24} color="inherit" /> : `${t("Pay") || "Pay"} ${formatPrice(subtotal)}`}
-                </Button>
+                <motion.div whileTap={{ scale: 0.97 }}>
+                  <Button variant="contained" disabled={isPending || !paymentMethod} onClick={handlePay}
+                    size="large" sx={{ borderRadius: 2, px: 5, py: 1.2, fontWeight: 800, boxShadow: "none" }}>
+                    {isPending ? <CircularProgress size={24} color="inherit" /> : `${t("Pay") || "Pay"} ${formatPrice(subtotal)}`}
+                  </Button>
+                </motion.div>
               </Stack>
             </Card>
           </Grid>

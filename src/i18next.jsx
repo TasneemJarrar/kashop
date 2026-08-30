@@ -310,6 +310,9 @@ i18n
           'Failed_To_Load_Categories': 'Failed to load categories',
           'Failed_To_Load_Products': 'Failed to load products',
           "Sort By": "Sort By",
+          "Item_Removed_From_Cart": "Item removed from cart",
+          "Could_Not_Remove_Item": "Could not remove item",
+
 
           "seo": {
             "home": {
@@ -680,6 +683,8 @@ i18n
           'Failed_To_Load_Categories': 'فشل تحميل الفئات',
           'Failed_To_Load_Products': 'فشل تحميل المنتجات',
           "Sort By": "ترتيب حسب",
+          "Item_Removed_From_Cart": "تم حذف المنتج من السلة",
+          "Could_Not_Remove_Item": "تعذر حذف المنتج",
 
           "seo": {
             "home": {

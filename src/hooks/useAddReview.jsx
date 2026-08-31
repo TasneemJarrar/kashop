@@ -12,7 +12,10 @@ export default function useAddReview(productId) {
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["product", productId]);
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          query.queryKey[0] === "product" && query.queryKey.includes(productId),
+      });
     },
   });
 }

@@ -71,7 +71,7 @@ export default function Products() {
 
           {isLoading && (
             <Grid container spacing={{ xs: 2, md: 3 }}>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((key) => (
+              {[1, 2, 3].map((key) => (
                 <Grid key={key} size={{ xs: 6, sm: 4, md: 3 }}>
                   <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <Skeleton variant="rectangular" sx={{ width: '100%', aspectRatio: '1 / 1' }} />

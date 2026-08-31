@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  cursor: none;
 }
 
 html,
@@ -20,14 +19,9 @@ body,
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-  }
+body.kashop-custom-cursor * {
+  cursor: none;
 }
-
 
 body.kashop-custom-cursor input,
 body.kashop-custom-cursor textarea,

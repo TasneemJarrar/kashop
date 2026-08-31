@@ -122,7 +122,6 @@ export default function ProfileInfo() {
   const [langAnchorEl, setLangAnchorEl] = useState(null);
   const [themeAnchorEl, setThemeAnchorEl] = useState(null);
   const { mode, toggleMode, setMode } = useThemeStore();
-  console.log(profile)
 
   const handleLanguageChange = (lang) => {
     i18n.changeLanguage(lang);

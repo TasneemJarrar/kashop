@@ -30,9 +30,7 @@ export default function Register() {
 
   const RegisterForm = async (data) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/register`, data);
-
-      console.log(response);
+      await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/register`, data);
 
       setServerErrors([]);
       setSuccessOpen(true);

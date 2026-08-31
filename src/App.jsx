@@ -15,13 +15,8 @@ import { Toaster } from 'react-hot-toast'
 
 const queryClient = new QueryClient();
 
-// Opt-in target for the "View" treatment - added to product images.
-// (Buttons/links intentionally don't change the cursor anymore.)
 const VIEW_SELECTOR = '[data-cursor="view"]';
 
-// pointer/reduced-motion don't change during the component's life, so this
-// is computed once with a lazy initializer instead of via setState inside
-// an effect - avoids an unnecessary extra render pass right after mount.
 const getCursorEnabled = () =>
   typeof window !== 'undefined' &&
   !window.matchMedia('(pointer: coarse)').matches &&
@@ -32,9 +27,6 @@ export default function App() {
   const isRTL = i18n.language === "ar";
   const mode = useThemeStore((state) => state.mode);
 
-  // Computed once per mode/language change and reused directly - avoids the
-  // classic mistake of calling useTheme() above <ThemeProvider>, which would
-  // just return MUI's default theme instead of this custom palette.
   const theme = getTheme(mode, i18n.language);
 
   const dotRef = useRef(null);
@@ -110,9 +102,6 @@ export default function App() {
 
           {cursorEnabled && (
             <>
-              {/* Ring: stays the same size/style everywhere except over
-                  product images (data-cursor="view"), which is a deliberate
-                  affordance rather than generic hover feedback. */}
               <Box ref={outlineRef}
                 sx={{
                   position: 'fixed', top: 0, left: 0,

@@ -47,7 +47,7 @@ export default function Checkout() {
   }
 
   const items = data?.items || [];
-  const subtotal = data?.cartTotal;
+  const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
 
   if (items.length === 0) {
     return (
@@ -55,7 +55,7 @@ export default function Checkout() {
         <Typography variant="h5" sx={{ mb: 2 }}>
           {t("Your_Cart_Is_Empty")}
         </Typography>
-        <Button variant="contained" onClick={() => navigate("/products")}>
+        <Button variant="contained" onClick={() => navigate("/shop")}>
           {t("Continue_Shopping")}
         </Button>
       </Container>

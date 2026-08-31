@@ -156,7 +156,7 @@ export default function Login() {
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             >
               <Alert severity="success" onClose={() => setSuccessOpen(false)} sx={{ width: '100%' }}>
-                {t('Logeed_in_successfully')}
+                {t('Logged_in_successfully')}
               </Alert>
             </Snackbar>
 

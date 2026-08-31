@@ -15,6 +15,7 @@ import ProfileInfo from "./components/profile/ProfileInfo";
 import ProfileOrders from "./components/profile/ProfileOrders";
 import UpdatePassword from "./components/profile/UpdatePassword";
 import MinimalLayout from "./layouts/minimalLayout/MinimalLayout";
+import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
         handle: { seoKey: "cart" },
       },
       { path: "login", element: <Login />, handle: { seoKey: "login" } },
+      { path: "forgot-password", element: <ForgotPassword />, handle: { seoKey: "forgotPassword" } },
       { path: "register", element: <Register />, handle: { seoKey: "register" } },
       {
         path: "profile",

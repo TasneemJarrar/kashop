@@ -31,8 +31,9 @@ export default function Shop() {
   const ProductsCount = allProductsData?.response?.totalCount;
 
   const { data: categories } = UseCategories();
-  const { data: categoryProductsData, isLoading: categoryLoading } = useProductsByCategory({ categoryId: appliedFilters.categoryId });
-  const isFilteringByCategory = !!appliedFilters.categoryId;
+  const selectedCategoryId = appliedFilters.categoryIds?.[0];
+  const { data: categoryProductsData, isLoading: categoryLoading } = useProductsByCategory({ categoryId: selectedCategoryId });
+  const isFilteringByCategory = !!selectedCategoryId;
   const data = isFilteringByCategory ? categoryProductsData : allProductsData;
   const isLoading = isFilteringByCategory ? categoryLoading : allLoading;
   const products = data?.response?.data ?? [];

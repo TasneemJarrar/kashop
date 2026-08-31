@@ -16,7 +16,7 @@ export default function ProductDetails() {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useProduct(id);
   const { mutate: addToCart } = useAddToCart();
-  const { mutate: addReview, isLoading: isSubmittingReview } = useAddReview(id);
+  const { mutate: addReview, isPending: isSubmittingReview } = useAddReview(id);
 
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
@@ -62,10 +62,10 @@ export default function ProductDetails() {
       <Box component="section" sx={{ py: 3, backgroundColor: 'background.default' }}>
         <Container maxWidth="lg">
           <Grid container spacing={4}>
-            <Grid size={{xs:12, md:6}}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Skeleton variant="rounded" width="100%" height={450} />
             </Grid>
-            <Grid size={{xs:12, md:6}} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Skeleton variant="text" width="80%" height={50} />
               <Skeleton variant="text" width="40%" height={30} />
               <Skeleton variant="text" width="30%" height={40} />
@@ -96,17 +96,28 @@ export default function ProductDetails() {
 
   const product = data?.response || {};
 
+  const reviews = product.reviews || [];
+  const ratingCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  reviews.forEach((rev) => {
+    const star = Math.min(5, Math.max(1, Math.round(rev.rating)));
+    ratingCounts[star] += 1;
+  });
+  const ratingBreakdown = [5, 4, 3, 2, 1].map((stars) => ({
+    stars,
+    percent: reviews.length ? (ratingCounts[stars] / reviews.length) * 100 : 0,
+  }));
+
   return (
     <Box component="section" sx={{ py: 3, backgroundColor: 'background.default' }}>
       <Container maxWidth="lg">
         <Grid container spacing={4}>
-          <Grid size={{xs:12, md:6}}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ width: '100%', maxHeight: { xs: 300, sm: 500 }, display: 'flex', justifyContent: 'center', alignItems: 'center', bgcolor: '#fff', borderRadius: 1, overflow: 'hidden', p: 2 }}>
-              <Box component="img" src={product.image} alt={product.name} sx={{ maxWidth: '100%', maxHeight: 450, objectFit:'cover' }} />
+              <Box component="img" src={product.image} alt={product.name} sx={{ maxWidth: '100%', maxHeight: 450, objectFit: 'cover' }} />
             </Box>
           </Grid>
 
-          <Grid size={{xs:12, md:6}} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', sm: '2.5rem' } }} gutterBottom>{product.name}</Typography>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
@@ -156,17 +167,17 @@ export default function ProductDetails() {
 
         {activeTab === 1 && (
           <Grid container spacing={4} sx={{ mt: 1 }}>
-            <Grid size={{xs:12, md:4}}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper variant="outlined" sx={{ p: 3 }}>
                 <Typography variant="h6" gutterBottom>{t('Customer_Ratings')}</Typography>
                 <Typography variant="h2" fontWeight="bold">{product.rate || 0}</Typography>
                 <Rating value={product.rate || 0} readOnly precision={0.1} />
 
                 <Box sx={{ mt: 3, mb: 3 }}>
-                  {[5, 4, 3, 2, 1].map((stars) => (
+                  {ratingBreakdown.map(({ stars, percent }) => (
                     <Box key={stars} sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                       <Typography variant="body2">{stars}</Typography>
-                      <LinearProgress variant="determinate" value={stars === 5 ? 85 : stars === 4 ? 10 : 3} sx={{ flexGrow: 1, height: 8, borderRadius: 4 }} />
+                      <LinearProgress variant="determinate" value={percent} sx={{ flexGrow: 1, height: 8, borderRadius: 4 }} />
                     </Box>
                   ))}
                 </Box>
@@ -177,7 +188,7 @@ export default function ProductDetails() {
               </Paper>
             </Grid>
 
-            <Grid size={{xs:12, md:8}} sx={{ minWidth: 0 }}>
+            <Grid size={{ xs: 12, md: 8 }} sx={{ minWidth: 0 }}>
               {product.reviews?.map((rev, idx) => (
                 <Paper key={idx} variant="outlined" sx={{ p: 2, mb: 2, wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1, gap: 1 }}>
@@ -206,7 +217,7 @@ export default function ProductDetails() {
                 <Typography variant="subtitle2" color="text.secondary">{t('Your_Overall_Rating')}</Typography>
                 <Rating value={newRating} onChange={(e, val) => setNewRating(val || 1)} size="large" />
               </Box>
-              <TextField label={t('Your_Review')} multiline rows={3} value={newComment} onChange={(e) => setNewComment(e.target.value)} required placeholder={t('Share_Review_Placeholder')} fullWidth/>
+              <TextField label={t('Your_Review')} multiline rows={3} value={newComment} onChange={(e) => setNewComment(e.target.value)} required placeholder={t('Share_Review_Placeholder')} fullWidth />
             </Box>
           </DialogContent>
           <DialogActions sx={{ p: 2 }}>

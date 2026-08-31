@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import authAxiosInstance from '../api/authAxiosInstance';
 import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
 
 export default function useUpdateCartItem() {
   const queryClient = useQueryClient();
-  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: async ({ productId, count }) =>

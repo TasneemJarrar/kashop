@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import authAxiosInstance from "../api/authAxiosInstance";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function useCheckout() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ paymentMethod }) => {
@@ -15,6 +16,9 @@ export default function useCheckout() {
 
     onSuccess: (response) => {
       toast.success(t("Checkout_Completed_Successfully"));
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
 
       if (response?.data?.url) {
         setTimeout(() => {

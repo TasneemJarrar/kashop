@@ -6,7 +6,7 @@ export default function useCart() {
   const token = useAuthStore((state) => state.token);
 
   const getItems = async () => {
-    const response = await authAxiosInstance.get(`/Carts`);
+    const response = await authAxiosInstance.get(`/Cart`);
     return response.data;
   }
 

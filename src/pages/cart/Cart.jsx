@@ -1,20 +1,19 @@
-import useCart from '../../hooks/useCart';
-import { Box, Button, Card, CardContent, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Link, Stack, Typography, } from '@mui/material';
+import { useState } from 'react';import { Alert, Box, Button, Card, CardContent, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Link, Skeleton, Stack, Typography } from '@mui/material';
 import { AnimatePresence, motion } from 'motion/react';
-import useDeleteFromCart from '../../hooks/useRemoveFromCart';
-import useUpdateCartItem from '../../hooks/useUpdateCartItem';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'; import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import useClearCart from '../../hooks/useClearCart';
-import { Link as routerLink, useNavigate } from 'react-router';
-import { useTranslation } from 'react-i18next';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
-import { useState } from 'react';
+import { Link as routerLink, useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import useCart from '../../hooks/useCart';
+import useDeleteFromCart from '../../hooks/useRemoveFromCart';
+import useUpdateCartItem from '../../hooks/useUpdateCartItem';
+import useClearCart from '../../hooks/useClearCart';
 
 
 export default function Cart() {
-
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -23,29 +22,23 @@ export default function Cart() {
   const { mutate: clearCart } = useClearCart();
   const [open, setOpen] = useState(false);
 
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const { data, isLoading, isError, error } = useCart();
 
   const handleUpdate = (productId, action) => {
-    const item = data.items.find(i => i.productId == productId);
+    const item = data.items.find((i) => i.productId == productId);
     if (action == '+') {
-      UpdateItem({ productId, count: item.count + 1 })
+      UpdateItem({ productId, count: item.count + 1 });
     } else {
       if (item.count === 1) {
         RemoveItem(productId);
         return;
       }
-      UpdateItem({ productId, count: item.count - 1 })
+      UpdateItem({ productId, count: item.count - 1 });
     }
-  }
+  };
 
   const calculateTotal = (items) => {
     if (!items || items.length === 0) return 0;
@@ -54,84 +47,130 @@ export default function Cart() {
 
   const total = calculateTotal(data?.items);
 
-
   const formatPrice = (price) =>
-    new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(price);
+    new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
 
-  if (isLoading) { return <CircularProgress /> }
-  if (isError) { return <Box color='red'>Error: {error.message}</Box> }
+  if (isLoading) {
+    return (
+      <Box component="section" sx={{ pt: 2, minHeight: '100vh' }}>
+        <Container maxWidth="lg">
+          <Stack direction="row" sx={{ alignItems: 'center', gap: 2, py: 2 }}>
+            <Skeleton variant="text" width={200} height={40} />
+            <Skeleton variant="text" width={80} height={30} />
+          </Stack>
 
-  return <>
+          <Grid container spacing={2}>
+            <Grid size={{ xs: 12, md: 8 }}>
+              {[1, 2, 3].map((index) => (
+                <Card key={index} elevation={0} sx={{ p: 2, mb: 2, border: '1px solid', borderColor: 'divider' }}>
+                  <CardContent sx={{ p: '0 !important' }}>
+                    <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Stack spacing={1.5} sx={{ width: '60%' }}>
+                        <Skeleton variant="text" width="80%" height={24} />
+                        <Skeleton variant="text" width="30%" height={20} />
+                      </Stack>
+                      <Stack sx={{ height: 100, justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                        <Skeleton variant="rounded" width={100} height={32} sx={{ borderRadius: 10 }} />
+                        <Skeleton variant="text" width={70} height={24} />
+                      </Stack>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              ))}
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Card elevation={0} sx={{ p: 2, mb: 2, border: '1px solid', borderColor: 'divider' }}>
+                <CardContent sx={{ p: '0 !important' }}>
+                  <Stack spacing={2}>
+                    <Skeleton variant="text" width={140} height={32} />
+                    <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                      <Skeleton variant="text" width={60} height={24} />
+                      <Skeleton variant="text" width={80} height={24} />
+                    </Stack>
+                    <Skeleton variant="text" width="100%" height={16} />
+                    <Stack spacing={2} sx={{ pt: 1 }}>
+                      <Skeleton variant="rounded" width="100%" height={36.5} />
+                      <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+                        <Skeleton variant="circular" width={18} height={18} />
+                        <Skeleton variant="text" width={150} height={20} />
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 5 }}>
+        <Alert severity="error" variant="filled">
+          {error?.message || t('Failed_To_Load_Products')}
+        </Alert>
+      </Container>
+    );
+  }
+
+  return (
     <Box component="section" sx={{ pt: 2, minHeight: '100vh' }}>
       <Container maxWidth="lg">
-        <Stack direction='row' sx={{ alignItems: 'bottom', gap: 2, py: 2 }}>
+        <Stack direction="row" sx={{ alignItems: 'bottom', gap: 2, py: 2 }}>
           <Typography component="h2" variant="h4" sx={{ fontWeight: 700 }}>
             {t('Shopping_Bag')}
           </Typography>
 
-          {!data?.items || data.items.length === 0 ? null :
+          {data?.items && data.items.length > 0 && (
             <>
-              <Button variant="text" color="error"
-                onClick={handleClickOpen} sx={{ textTransform: "none", pb: 0, textDecoration: "underline", fontWeight: 500, color: "text.secondary", "&:hover": { color: "error.main" }, width: "fit-content" }}>
-                {t("Clear_Cart")}
+              <Button variant="text" color="error" onClick={handleClickOpen} sx={{ textTransform: 'none', pb: 0, textDecoration: 'underline', fontWeight: 500, color: 'text.secondary', '&:hover': { color: 'error.main' }, width: 'fit-content' }}>
+                {t('Clear_Cart')}
               </Button>
 
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                role="alertdialog"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {t('Clear_Cart_Title')}
-                </DialogTitle>
+              <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" role="alertdialog">
+                <DialogTitle id="alert-dialog-title">{t('Clear_Cart_Title')}</DialogTitle>
                 <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    {t('Clear_Cart_Body')}
-                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-description">{t('Clear_Cart_Body')}</DialogContentText>
                 </DialogContent>
                 <DialogActions sx={{ display: 'flex', gap: 2 }}>
-                  <Button onClick={handleClose} autoFocus variant="outlined" color="grey" sx={{ textTransform: "none", fontWeight: 600 }}>
-                    {t("Cancel")}
+                  <Button onClick={handleClose} autoFocus variant="outlined" color="grey" sx={{ textTransform: 'none', fontWeight: 600 }}>
+                    {t('Cancel')}
                   </Button>
-                  <Button onClick={() => { clearCart(); handleClose(); }} variant="outlined" color="error" sx={{ textTransform: "none", fontWeight: 600, color: "error.main", "&:hover": { bgcolor: "error.main", color: "white" } }}>
-                    {t("Clear_Cart")}
+                  <Button onClick={() => { clearCart(); handleClose(); }} variant="outlined" color="error" sx={{ textTransform: 'none', fontWeight: 600, color: 'error.main', '&:hover': { bgcolor: 'error.main', color: 'white' } }}>
+                    {t('Clear_Cart')}
                   </Button>
                 </DialogActions>
               </Dialog>
             </>
-          }
+          )}
         </Stack>
 
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 8 }}>
-
-            {!data?.items || data.items.length === 0 ? <Card
-              elevation={0}
-              sx={{ p: 2, mb: 2, border: "1px solid", borderColor: 'divider' }}>
-              <CardContent sx={{ p: "0 !important" }}>
-                <Stack sx={{ justifyContent: 'center', alignItems: 'center', gap: 2, py: 5 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 150, height: 150, borderRadius: 50, backgroundColor: 'action.hover' }}>
-                    <ShoppingBasketOutlinedIcon sx={{ fontSize: 81, color: 'action.disabled' }} />
-                  </Box>
-                  <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                    {t('Your_cart_is_empty')}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 400, textAlign: 'center' }}>
-                    {t('Looks_like_you_havent_added_anything_to_your_cart_yet.Start_browsing_our_products_and_add_items_that_you_like_to_your_cart_to_get_started.')}
-                  </Typography>
-                  <Button component={routerLink} to="/shop" variant="contained" color='primary' sx={{ textTransform: "none", fontWeight: 500 }}>
-                    {t('Browse_Products')}
-                  </Button>
-                </Stack>
-              </CardContent>
-            </Card>
-
-              : <Box>
+            {!data?.items || data.items.length === 0 ? (
+              <Card elevation={0} sx={{ p: 2, mb: 2, border: '1px solid', borderColor: 'divider' }}>
+                <CardContent sx={{ p: '0 !important' }}>
+                  <Stack sx={{ justifyContent: 'center', alignItems: 'center', gap: 2, py: 5 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 150, height: 150, borderRadius: 50, backgroundColor: 'action.hover' }}>
+                      <ShoppingBasketOutlinedIcon sx={{ fontSize: 81, color: 'action.disabled' }} />
+                    </Box>
+                    <Typography variant="h5" sx={{ fontWeight: 700 }}>
+                      {t('Your_cart_is_empty')}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 400, textAlign: 'center' }}>
+                      {t('Looks_like_you_havent_added_anything_to_your_cart_yet.Start_browsing_our_products_and_add_items_that_you_like_to_your_cart_to_get_started.')}
+                    </Typography>
+                    <Button component={routerLink} to="/shop" variant="contained" color="primary" sx={{ textTransform: 'none', fontWeight: 500 }}>
+                      {t('Browse_Products')}
+                    </Button>
+                  </Stack>
+                </CardContent>
+              </Card>
+            ) : (
+              <Box>
                 <AnimatePresence initial={false}>
                   {data?.items?.map((item) => (
                     <motion.div
@@ -142,71 +181,45 @@ export default function Cart() {
                       exit={{ opacity: 0, x: -24, height: 0, marginBottom: 0 }}
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <Card
-                        elevation={0}
-                        sx={{ p: 2, mb: 2, border: "1px solid", borderColor: 'divider', overflow: 'hidden' }}>
-                        <CardContent sx={{ p: "0 !important" }}>
+                      <Card elevation={0} sx={{ p: 2, mb: 2, border: '1px solid', borderColor: 'divider', overflow: 'hidden' }}>
+                        <CardContent sx={{ p: '0 !important' }}>
                           <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-
                             <Stack spacing={2}>
                               <Link component={routerLink} to={`/product/${item.productId}`} sx={{ fontWeight: 600, textDecoration: 'none', color: 'text.primary' }}>
                                 {item.productName}
                               </Link>
-
                               <Typography variant="body2" color="error" sx={{ fontWeight: 500 }}>
                                 {formatPrice(item.price)}
                               </Typography>
                             </Stack>
 
-                            <Stack
-                              sx={{ height: 100, justifyContent: 'space-between', alignItems: 'center' }}>
-                              <Stack
-                                direction="row"
-                                spacing={1}
-                                sx={{ alignItems: "center", width: "fit-content", justifyContent: "between", border: "1px solid #CBC4D2", borderRadius: 10, px: 1, py: 0.5 }}>
-
+                            <Stack sx={{ height: 100, justifyContent: 'space-between', alignItems: 'center' }}>
+                              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', width: 'fit-content', justifyContent: 'between', border: '1px solid #CBC4D2', borderRadius: 10, px: 1, py: 0.5 }}>
                                 <motion.div whileTap={{ scale: 0.85 }}>
-                                  <IconButton
-                                    size="small"
-                                    onClick={() => handleUpdate(item.productId, "-")}>
+                                  <IconButton size="small" onClick={() => handleUpdate(item.productId, '-')}>
                                     <RemoveIcon sx={{ fontSize: 16 }} />
                                   </IconButton>
                                 </motion.div>
 
                                 <Box sx={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', width: 20 }}>
                                   <AnimatePresence mode="wait" initial={false}>
-                                    <motion.div
-                                      key={item.count}
-                                      initial={{ y: 10, opacity: 0 }}
-                                      animate={{ y: 0, opacity: 1 }}
-                                      exit={{ y: -10, opacity: 0 }}
-                                      transition={{ duration: 0.15 }}
-                                    >
-                                      <Typography fontWeight={500}>
-                                        {item.count}
-                                      </Typography>
+                                    <motion.div key={item.count} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} transition={{ duration: 0.15 }}>
+                                      <Typography fontWeight={500}>{item.count}</Typography>
                                     </motion.div>
                                   </AnimatePresence>
                                 </Box>
 
                                 <motion.div whileTap={{ scale: 0.85 }}>
-                                  <IconButton
-                                    size="small"
-                                    onClick={() => handleUpdate(item.productId, "+")}>
+                                  <IconButton size="small" onClick={() => handleUpdate(item.productId, '+')}>
                                     <AddIcon sx={{ fontSize: 16 }} />
                                   </IconButton>
                                 </motion.div>
                               </Stack>
 
-                              <Button
-                                color="error"
-                                disabled={isPending}
-                                onClick={() => RemoveItem(item.productId)}
-                                sx={{ textTransform: "none", display: "flex", alignItems: "center", gap: 0.5 }}>
+                              <Button color="error" disabled={isPending} onClick={() => RemoveItem(item.productId)} sx={{ textTransform: 'none', display: 'flex', alignItems: 'center', gap: 0.5 }}>
                                 <DeleteOutlineOutlinedIcon fontSize="small" />
                                 {t('Remove')}
                               </Button>
-
                             </Stack>
                           </Stack>
                         </CardContent>
@@ -215,24 +228,21 @@ export default function Cart() {
                   ))}
                 </AnimatePresence>
               </Box>
-            }
+            )}
           </Grid>
 
           <Grid size={{ xs: 12, md: 4 }} sx={{ display: { xs: !data?.items || data.items.length === 0 ? 'none' : 'block', md: 'block' } }}>
-            <Card elevation={0} sx={{ p: 2, mb: 2, border: "1px solid", borderColor: 'divider' }}>
-              <CardContent sx={{ p: "0 !important" }}>
+            <Card elevation={0} sx={{ p: 2, mb: 2, border: '1px solid', borderColor: 'divider' }}>
+              <CardContent sx={{ p: '0 !important' }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>
                     {t('Order_Summary')}
                   </Typography>
 
-                  <Stack direction='row' spacing={1} sx={{ justifyContent: "space-between" }}>
-                    <Stack spacing={1}>
-                      <Typography variant='body1' sx={{ fontWeight: 600 }}>
-                        {t('Total')}
-                      </Typography>
-
-                    </Stack>
+                  <Stack direction="row" spacing={1} sx={{ justifyContent: 'space-between' }}>
+                    <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                      {t('Total')}
+                    </Typography>
                     <Typography variant="body1" sx={{ fontWeight: 600 }}>
                       {formatPrice(total)}
                     </Typography>
@@ -242,28 +252,20 @@ export default function Cart() {
                   </Typography>
 
                   <Stack spacing={2}>
-                    <Button onClick={() => navigate('/checkout')} variant="contained" color="primary"
-                      disabled={!data?.items || data.items.length === 0}
-                      sx={{ textTransform: 'none', fontWeight: 500 }}>
+                    <Button onClick={() => navigate('/checkout')} variant="contained" color="primary" disabled={!data?.items || data.items.length === 0} sx={{ textTransform: 'none', fontWeight: 500 }}>
                       {t('Proceed_to_checkout')}
                     </Button>
                     <Stack direction="row" spacing={1} sx={{ alignItems: 'center', gap: 1, justifyContent: 'center' }}>
                       <LockOutlinedIcon fontSize="small" />
-                      <Typography variant="body2">
-                        {t("Secure_Encrypted_Checkout")}
-                      </Typography>
+                      <Typography variant="body2">{t('Secure_Encrypted_Checkout')}</Typography>
                     </Stack>
                   </Stack>
-
-
                 </Stack>
               </CardContent>
             </Card>
           </Grid>
-
         </Grid>
       </Container>
-    </Box >
-  </>
+    </Box>
+  );
 }
-

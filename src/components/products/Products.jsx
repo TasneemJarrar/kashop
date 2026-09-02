@@ -35,7 +35,6 @@ export default function Products() {
       setLoginModalOpen(true);
       return;
     }
-
     addToCart({
       productId: product.id,
       count: 1,
@@ -64,7 +63,7 @@ export default function Products() {
           </motion.div>
 
           {isError && (
-            <Alert severity="error" sx={{ borderRadius: 2 }}>
+            <Alert severity="error" variant="filled">
               {error?.message || t('Failed_To_Load_Products')}
             </Alert>
           )}
